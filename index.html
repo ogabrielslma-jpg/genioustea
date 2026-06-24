@@ -294,6 +294,25 @@ footer.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-fain
   .day-row{flex-wrap:wrap}.day-row .pdf{margin-left:auto}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+/* ===== tela de login / cadastro ===== */
+#auth{min-height:100vh;display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;position:relative;z-index:1}
+#auth.active{display:flex;animation:fade .45s ease both}
+.auth-card{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:34px 32px;box-shadow:var(--shadow),var(--glow)}
+.auth-card .brand{justify-content:center;margin-bottom:22px}
+.auth-toggle{display:flex;gap:6px;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:5px;margin-bottom:24px}
+.auth-toggle button{flex:1;padding:10px;border-radius:999px;font-weight:700;font-size:14px;color:var(--ink-soft);transition:.15s}
+.auth-toggle button.on{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;box-shadow:0 6px 16px rgba(59,158,255,.3)}
+.auth-field{margin-bottom:15px}
+.auth-field label{display:block;font-size:13px;font-weight:700;color:var(--ink-soft);margin-bottom:6px}
+.auth-card h2{font-size:24px;text-align:center;margin-bottom:6px}
+.auth-card .auth-sub{text-align:center;color:var(--ink-soft);font-size:14px;margin-bottom:24px}
+.auth-card .btn{width:100%;margin-top:8px}
+.auth-msg{font-size:13.5px;font-weight:600;text-align:center;margin-top:14px;min-height:18px;line-height:1.4}
+.auth-msg.err{color:#FFAEC2}.auth-msg.ok{color:#7CEFD9}
+.auth-hide{display:none}
+</style>
 </head>
 <body>
 
@@ -382,6 +401,26 @@ footer.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-fain
   </div></div>
 </section>
 
+<!-- ===================== LOGIN / CADASTRO ===================== -->
+<section id="auth">
+  <div class="auth-card">
+    <div class="brand"><span class="brain"></span><b>Genious</b><span class="tea">Tea</span></div>
+    <div class="auth-toggle">
+      <button id="tabSignup" class="on" onclick="authTab('signup')">Criar conta</button>
+      <button id="tabLogin" onclick="authTab('login')">Entrar</button>
+    </div>
+    <h2 id="authTitle">Crie sua conta</h2>
+    <p class="auth-sub" id="authSub">Pra guardar suas turmas e acompanhar cada aluno.</p>
+
+    <div class="auth-field"><label for="auEmail">E-mail</label><input class="inp" id="auEmail" type="email" placeholder="voce@email.com" autocomplete="email"></div>
+    <div class="auth-field" id="fieldPhone"><label for="auPhone">Telefone</label><input class="inp" id="auPhone" type="tel" placeholder="(00) 00000-0000" autocomplete="tel"></div>
+    <div class="auth-field"><label for="auPass">Senha</label><input class="inp" id="auPass" type="password" placeholder="mínimo 6 caracteres" autocomplete="current-password"></div>
+
+    <button class="btn" id="authBtn" onclick="doAuth()">Criar conta e entrar →</button>
+    <div class="auth-msg" id="authMsg"></div>
+  </div>
+</section>
+
 <!-- ===================== APP ===================== -->
 <div id="app">
   <header class="topbar"><div class="wrap">
@@ -394,6 +433,7 @@ footer.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-fain
     <div class="me">
       <div class="who"><b id="meName">Prof. Marina</b><span id="meCtx">Rede pública · 9 alunos</span></div>
       <div class="avatar" id="meAva">M</div>
+      <button class="btn sm ghost" onclick="doLogout()" style="margin-left:4px">Sair</button>
     </div>
   </div></header>
 
@@ -596,14 +636,96 @@ qNext.addEventListener('click',()=>{qStep<QTOTAL?(qStep++,renderQuiz()):finishQu
 qBack.addEventListener('click',()=>{if(qStep>1){qStep--;renderQuiz();}});
 function finishQuiz(){
   const name=document.getElementById('qName').value.trim()||'Prof.';
+  quizName=name;
+  document.getElementById('quiz').classList.remove('active');
+  document.getElementById('auth').classList.add('active');
+  window.scrollTo(0,0);
+}
+function enterApp(displayName){
+  const name=displayName||'Prof.';
   const first=name.replace(/^Prof\.?\s*/i,'').split(' ')[0]||'Prof.';
   document.getElementById('meName').textContent=name;
   document.getElementById('meAva').textContent=first.charAt(0).toUpperCase();
   document.getElementById('daySaud').textContent='Bom dia, '+first;
   document.getElementById('quiz').classList.remove('active');
+  document.getElementById('auth').classList.remove('active');
   document.getElementById('app').classList.add('active');
   renderDay();renderDash();go('day');window.scrollTo(0,0);
 }
+
+/* ===== Supabase: criar conta, entrar, sair ===== */
+const SUPABASE_URL='https://pbscdjupygolxeogjcco.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBic2NkanVweWdvbHhlb2dqY2NvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzMDE3NzMsImV4cCI6MjA5Nzg3Nzc3M30.YQaeSTgprhrgZ7fmV-Wr5Clef6_p1Sf59bRA-F2ubRg';
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let quizName='Prof.', authMode='signup';
+
+function authTab(mode){
+  authMode=mode;
+  document.getElementById('tabSignup').classList.toggle('on',mode==='signup');
+  document.getElementById('tabLogin').classList.toggle('on',mode==='login');
+  document.getElementById('authTitle').textContent=mode==='signup'?'Crie sua conta':'Bem-vindo de volta';
+  document.getElementById('authSub').textContent=mode==='signup'?'Pra guardar suas turmas e acompanhar cada aluno.':'Entre pra ver seu painel.';
+  document.getElementById('authBtn').textContent=mode==='signup'?'Criar conta e entrar →':'Entrar →';
+  document.getElementById('fieldPhone').classList.toggle('auth-hide',mode!=='signup');
+  document.getElementById('auPass').setAttribute('autocomplete',mode==='signup'?'new-password':'current-password');
+  setAuthMsg('');
+}
+function setAuthMsg(txt,type){const m=document.getElementById('authMsg');m.textContent=txt;m.className='auth-msg'+(type?' '+type:'');}
+
+async function doAuth(){
+  const email=document.getElementById('auEmail').value.trim();
+  const phone=document.getElementById('auPhone').value.trim();
+  const pass=document.getElementById('auPass').value;
+  const btn=document.getElementById('authBtn');
+  if(!email||!email.includes('@'))return setAuthMsg('Digite um e-mail válido.','err');
+  if(authMode==='signup'&&!phone)return setAuthMsg('O telefone é obrigatório.','err');
+  if(pass.length<6)return setAuthMsg('A senha precisa de pelo menos 6 caracteres.','err');
+  btn.disabled=true;setAuthMsg('Um instante...');
+  try{
+    if(authMode==='signup'){
+      const{data,error}=await sb.auth.signUp({email,password:pass,options:{data:{nome:quizName,telefone:phone}}});
+      if(error)throw error;
+      if(!data.session){
+        const{error:e2}=await sb.auth.signInWithPassword({email,password:pass});
+        if(e2)throw e2;
+      }
+      setAuthMsg('Conta criada!','ok');
+      enterApp(quizName);
+    }else{
+      const{data,error}=await sb.auth.signInWithPassword({email,password:pass});
+      if(error)throw error;
+      const nome=(data.user&&data.user.user_metadata&&data.user.user_metadata.nome)||quizName;
+      setAuthMsg('Entrando...','ok');
+      enterApp(nome);
+    }
+  }catch(err){
+    let msg=err.message||'Algo deu errado. Tente de novo.';
+    if(/already registered|already exists/i.test(msg))msg='Esse e-mail já tem conta. Use "Entrar".';
+    if(/invalid login credentials/i.test(msg))msg='E-mail ou senha incorretos.';
+    setAuthMsg(msg,'err');
+  }finally{btn.disabled=false;}
+}
+
+async function doLogout(){
+  await sb.auth.signOut();
+  document.getElementById('app').classList.remove('active');
+  document.getElementById('auth').classList.remove('active');
+  document.getElementById('quiz').classList.add('active');
+  qStep=1;quiz={};document.querySelectorAll('.opt.sel').forEach(o=>o.classList.remove('sel'));
+  renderQuiz();window.scrollTo(0,0);
+}
+
+/* se já estiver logado, pula direto pro painel */
+(async function restoreSession(){
+  try{
+    const{data}=await sb.auth.getSession();
+    if(data&&data.session){
+      const u=data.session.user;
+      const nome=(u.user_metadata&&u.user_metadata.nome)||'Prof.';
+      enterApp(nome);
+    }
+  }catch(e){}
+})();
 renderQuiz();
 
 function go(view){
