@@ -466,46 +466,30 @@ footer.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-fain
     <div class="crumb"><button onclick="go('dash')">Minha turma</button><span>›</span><span style="color:var(--ink)" id="crumbForm">Novo aluno</span></div>
     <div class="form-wrap">
       <style>
-        #cadastro .area-row{margin-bottom:10px}
-        #cadastro .area-row .area-sit{display:none;margin-top:8px}
+        #cadastro #formTitle{font-size:26px;margin-bottom:14px}
+        #cadastro .wz-prog{height:6px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+        #cadastro .wz-bar{height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--cyan));border-radius:999px;transition:width .3s}
+        #cadastro .wz-step-label{margin-top:8px;margin-bottom:24px;font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);letter-spacing:.03em}
+        #cadastro .wz-q{font-size:24px;margin:4px 0 6px}
+        #cadastro .wz-area{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:13px;color:var(--c);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+        #cadastro .wz-area .cdot{width:10px;height:10px;border-radius:50%;background:var(--c)}
+        #cadastro .sit-list{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+        #cadastro .sit-card{text-align:left;padding:15px 18px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface-2);color:var(--ink);font-size:15.5px;font-weight:600;cursor:pointer;transition:.15s}
+        #cadastro .sit-card:hover{border-color:var(--brand)}
+        #cadastro .sit-card.on{border-color:var(--brand);background:var(--brand-soft);color:var(--brand-ink)}
+        #cadastro .wz-resumo{margin-top:16px;padding:14px 16px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);font-size:13.5px;color:var(--ink-soft)}
+        #cadastro .wz-resumo b{color:var(--ink)}
+        #cadastro #fTurmaNewWrap{margin-top:10px;display:none}
         #cadastro select.inp{appearance:none;-webkit-appearance:none;cursor:pointer}
-        #fTurmaNewWrap{margin-top:10px;display:none}
+        #cadastro .wz-foot{display:flex;justify-content:space-between;gap:12px;margin-top:26px}
       </style>
-      <h1 id="formTitle" style="font-size:28px;margin-bottom:6px">Cadastrar uma criança</h1>
-      <p style="color:var(--ink-soft);font-size:15px;margin-bottom:30px">O que você preencher aqui define a trilha e o material dela. Dá pra ajustar quando quiser.</p>
-      <div class="two-col">
-        <div class="field"><label for="fNome">Nome</label><input class="inp" id="fNome" placeholder="Ex.: Lucas"></div>
-        <div class="field"><label for="fIdade">Idade</label><input class="inp" id="fIdade" type="number" min="2" max="18" placeholder="Ex.: 7"></div>
-      </div>
-      <div class="field"><label for="fTurma">Turma</label>
-        <p class="desc">Coloque numa turma ou deixe o aluno solto. Dá pra criar uma turma nova aqui.</p>
-        <select class="inp" id="fTurma" onchange="toggleTurmaNew()"></select>
-        <div id="fTurmaNewWrap"><input class="inp" id="fTurmaNew" placeholder="Nome da nova turma (ex.: Turma do Sol)"></div>
-      </div>
-      <div class="field"><label>Gênero</label>
-        <div class="seg" id="fGenero">
-          <button data-g="Menino">Menino</button><button data-g="Menina">Menina</button><button data-g="Prefiro não informar">Não informar</button>
-        </div>
-      </div>
-      <div class="field"><label>Nível de suporte</label>
-        <p class="desc">Quanto apoio a criança precisa no dia a dia (referência do laudo, se houver).</p>
-        <div class="seg" id="fNivel">
-          <button data-n="1">Nível 1<small>Apoio leve</small></button>
-          <button data-n="2">Nível 2<small>Apoio substancial</small></button>
-          <button data-n="3">Nível 3<small>Apoio intenso</small></button>
-        </div>
-      </div>
-      <div class="field"><label>Dificuldades — marque e descreva cada uma</label>
-        <p class="desc">Marque as áreas que pesam e, pra cada uma, escolha a situação real da criança hoje. É isso que define o nível inicial da trilha.</p>
-        <div id="fAreas"></div>
-      </div>
-      <div class="field"><label for="fObs">O que mais importa saber sobre ela</label>
-        <p class="desc">Gostos, gatilhos, o que funciona. Isso personaliza ainda mais a trilha.</p>
-        <textarea class="inp" id="fObs" placeholder="Ex.: ama dinossauros, se acalma com música, não gosta de barulho alto..."></textarea>
-      </div>
-      <div class="form-foot">
-        <button class="btn ghost" onclick="go('dash')">Cancelar</button>
-        <button class="btn" onclick="saveStudent()">Salvar e ver a trilha →</button>
+      <h1 id="formTitle">Cadastrar uma criança</h1>
+      <div class="wz-prog"><div class="wz-bar" id="wzBar"></div></div>
+      <div class="wz-step-label" id="wzLabel"></div>
+      <div id="wzBody"></div>
+      <div class="wz-foot">
+        <button class="btn ghost" id="wzBack" onclick="wzPrev()">← Voltar</button>
+        <button class="btn" id="wzNext" onclick="wzNext()">Continuar →</button>
       </div>
     </div>
   </div></main>
@@ -598,17 +582,11 @@ function toggleTurmaNew(){
 }
 function editStudent(id){
   const s=students.find(x=>x.id===id);if(!s)return;currentEditId=id;
-  document.getElementById('fNome').value=s.nome;
-  document.getElementById('fIdade').value=s.idade;
-  document.getElementById('fObs').value=s.obs||'';
-  formGenero=s.genero;formNivel=s.nivel;formAreas=s.sit.map(x=>({area:x.area,rung:x.rung}));
-  document.querySelectorAll('#fGenero button').forEach(b=>b.classList.toggle('on',b.dataset.g===s.genero));
-  document.querySelectorAll('#fNivel button').forEach(b=>b.classList.toggle('on',+b.dataset.n===s.nivel));
-  fillTurmaSelect(s.turma_id);buildAreas();
-  formAreas.forEach(fa=>{const row=document.querySelector('#fAreas .area-row[data-area="'+fa.area+'"]');if(row){row.querySelector('.chip').classList.add('on');const se=row.querySelector('.area-sit');se.style.display='block';se.value=fa.rung;}});
+  cad={nome:s.nome,idade:s.idade,turma:s.turma_id||'',turmaNew:'',genero:s.genero,nivel:s.nivel,areas:s.sit.map(x=>({area:x.area,rung:x.rung})),obs:s.obs||''};
+  cStep=0;
   document.getElementById('formTitle').textContent='Editar '+s.nome.split(' ')[0];
   document.getElementById('crumbForm').textContent='Editar '+s.nome.split(' ')[0];
-  go('cadastro');window.scrollTo(0,0);
+  go('cadastro');wzRender();window.scrollTo(0,0);
 }
 async function deleteStudent(id){
   if(!confirm('Excluir esse aluno? Isso não dá pra desfazer.'))return;
@@ -773,50 +751,106 @@ function renderDash(){
   add.innerHTML=`<span class="plus">＋</span>Cadastrar nova criança`;grid.appendChild(add);
 }
 
+let cad={}, cStep=0;
+function resetCad(){cad={nome:'',idade:'',turma:'',turmaNew:'',genero:null,nivel:null,areas:[],obs:''};cStep=0;}
 function newStudent(){
-  currentEditId=null;
-  ['fNome','fIdade','fObs'].forEach(i=>document.getElementById(i).value='');
-  formGenero=null;formNivel=null;formAreas=[];
-  document.querySelectorAll('#fGenero button,#fNivel button').forEach(b=>b.classList.remove('on'));
-  fillTurmaSelect(null);buildAreas();
+  currentEditId=null;resetCad();
   document.getElementById('formTitle').textContent='Cadastrar uma criança';
   document.getElementById('crumbForm').textContent='Novo aluno';
-  go('cadastro');
+  go('cadastro');wzRender();
 }
-document.querySelectorAll('#fGenero button').forEach(b=>b.onclick=()=>{formGenero=b.dataset.g;document.querySelectorAll('#fGenero button').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
-document.querySelectorAll('#fNivel button').forEach(b=>b.onclick=()=>{formNivel=+b.dataset.n;document.querySelectorAll('#fNivel button').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
-function buildAreas(){
-  const box=document.getElementById('fAreas');box.innerHTML='';
-  Object.entries(DOM).forEach(([k,d])=>{
-    const row=document.createElement('div');row.className='area-row';row.dataset.area=k;
-    const chip=document.createElement('button');chip.type='button';chip.className='chip';chip.style.setProperty('--c',d.c);chip.style.setProperty('--c-bg',d.bg);
-    chip.innerHTML='<span class="cdot"></span>'+d.label;
-    const sel=document.createElement('select');sel.className='inp area-sit';
-    sel.innerHTML=SIT[k].map((t,i)=>'<option value="'+i+'">'+t+'</option>').join('');
-    chip.onclick=()=>{const cur=formAreas.find(x=>x.area===k);
-      if(cur){formAreas=formAreas.filter(x=>x.area!==k);chip.classList.remove('on');sel.style.display='none';}
-      else{formAreas.push({area:k,rung:+sel.value});chip.classList.add('on');sel.style.display='block';}};
-    sel.onchange=()=>{const cur=formAreas.find(x=>x.area===k);if(cur)cur.rung=+sel.value;};
-    row.appendChild(chip);row.appendChild(sel);box.appendChild(row);
-  });
+function cadSteps(){return ['basico','perfil','quais'].concat(cad.areas.map(a=>'dif:'+a.area),['extra']);}
+function wzRender(){
+  const steps=cadSteps();
+  if(cStep<0)cStep=0;if(cStep>steps.length-1)cStep=steps.length-1;
+  const id=steps[cStep],body=document.getElementById('wzBody');
+  document.getElementById('wzBar').style.width=((cStep+1)/steps.length*100)+'%';
+  document.getElementById('wzLabel').textContent='Passo '+(cStep+1)+' de '+steps.length;
+  document.getElementById('wzBack').style.visibility=cStep===0?'hidden':'visible';
+  const last=cStep===steps.length-1;
+  document.getElementById('wzNext').textContent=last?(currentEditId?'Salvar alterações →':'Salvar e ver a trilha →'):'Continuar →';
+  if(id==='basico')body.innerHTML=stepBasico();
+  else if(id==='perfil')body.innerHTML=stepPerfil();
+  else if(id==='quais')body.innerHTML=stepQuais();
+  else if(id.indexOf('dif:')===0)body.innerHTML=stepDif(id.slice(4));
+  else body.innerHTML=stepExtra();
+  if(id==='basico'){document.getElementById('fNome').value=cad.nome;document.getElementById('fIdade').value=cad.idade;fillTurmaSelect(cad.turma);document.getElementById('fTurmaNew').value=cad.turmaNew||'';toggleTurmaNew();}
+  if(id==='perfil'){markSeg('wzGenero',cad.genero);markSeg('wzNivel',cad.nivel);}
+  if(id==='extra')document.getElementById('fObs').value=cad.obs;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function stepBasico(){return '<h2 class="wz-q">Quem é a criança?</h2>'+
+  '<div class="two-col"><div class="field"><label for="fNome">Nome</label><input class="inp" id="fNome" placeholder="Ex.: Lucas"></div>'+
+  '<div class="field"><label for="fIdade">Idade</label><input class="inp" id="fIdade" type="number" min="2" max="18" placeholder="Ex.: 7"></div></div>'+
+  '<div class="field"><label for="fTurma">Turma</label><p class="desc">Numa turma ou solta. Dá pra criar uma turma nova aqui.</p>'+
+  '<select class="inp" id="fTurma" onchange="toggleTurmaNew()"></select>'+
+  '<div id="fTurmaNewWrap"><input class="inp" id="fTurmaNew" placeholder="Nome da nova turma (ex.: Turma do Sol)"></div></div>';}
+function stepPerfil(){return '<h2 class="wz-q">Qual o perfil de apoio?</h2>'+
+  '<div class="field"><label>Gênero</label><div class="seg" id="wzGenero">'+
+  '<button type="button" data-g="Menino" onclick="pickGenero(\'Menino\')">Menino</button>'+
+  '<button type="button" data-g="Menina" onclick="pickGenero(\'Menina\')">Menina</button>'+
+  '<button type="button" data-g="Prefiro não informar" onclick="pickGenero(\'Prefiro não informar\')">Não informar</button></div></div>'+
+  '<div class="field"><label>Nível de suporte</label><p class="desc">Quanto apoio a criança precisa no dia a dia (referência do laudo, se houver).</p>'+
+  '<div class="seg" id="wzNivel">'+
+  '<button type="button" data-n="1" onclick="pickNivel(1)">Nível 1<small>Apoio leve</small></button>'+
+  '<button type="button" data-n="2" onclick="pickNivel(2)">Nível 2<small>Apoio substancial</small></button>'+
+  '<button type="button" data-n="3" onclick="pickNivel(3)">Nível 3<small>Apoio intenso</small></button></div></div>';}
+function stepQuais(){
+  const chips=Object.entries(DOM).map(([k,d])=>{const on=cad.areas.find(a=>a.area===k)?'on':'';
+    return '<button type="button" class="chip '+on+'" style="--c:'+d.c+';--c-bg:'+d.bg+'" onclick="toggleArea(\''+k+'\')"><span class="cdot"></span>'+d.label+'</button>';}).join('');
+  return '<h2 class="wz-q">Quais dificuldades pesam hoje?</h2><p class="desc">Marque as áreas que importam. Em seguida você descreve cada uma.</p><div class="chips" id="wzChips">'+chips+'</div>';
+}
+function stepDif(area){
+  const d=DOM[area],cur=cad.areas.find(a=>a.area===area);
+  const cards=SIT[area].map((t,i)=>'<button type="button" class="sit-card '+(cur&&cur.rung===i?'on':'')+'" onclick="pickSit(\''+area+'\','+i+')">'+t+'</button>').join('');
+  return '<div class="wz-area" style="--c:'+d.c+'"><span class="cdot"></span>'+d.label+'</div>'+
+    '<h2 class="wz-q">Como '+(cad.nome||'a criança')+' está em '+d.label.toLowerCase()+' hoje?</h2>'+
+    '<p class="desc">Escolha a frase que mais combina. Isso define o ponto de partida da trilha.</p><div class="sit-list">'+cards+'</div>';
+}
+function stepExtra(){
+  const resumo=cad.areas.map(a=>DOM[a.area].label+': '+SIT[a.area][a.rung]).join(' · ');
+  return '<h2 class="wz-q">Mais alguma coisa?</h2>'+
+    '<div class="field"><label for="fObs">O que mais importa saber sobre '+(cad.nome||'ela')+'</label>'+
+    '<p class="desc">Gostos, gatilhos, o que funciona. Personaliza ainda mais a trilha.</p>'+
+    '<textarea class="inp" id="fObs" placeholder="Ex.: ama dinossauros, se acalma com música, não gosta de barulho alto..."></textarea></div>'+
+    '<div class="wz-resumo"><b>Resumo:</b> '+(cad.nome||'—')+', '+(cad.idade||'?')+' anos · nível '+(cad.nivel||'?')+(resumo?' · '+resumo:'')+'</div>';
+}
+function pickGenero(g){cad.genero=g;markSeg('wzGenero',g);}
+function pickNivel(n){cad.nivel=n;markSeg('wzNivel',n);}
+function markSeg(id,val){document.querySelectorAll('#'+id+' button').forEach(b=>{const on=b.dataset.g!==undefined?b.dataset.g===val:(+b.dataset.n===val);b.classList.toggle('on',!!on);});}
+function toggleArea(k){const i=cad.areas.findIndex(a=>a.area===k);if(i>=0)cad.areas.splice(i,1);else cad.areas.push({area:k,rung:null});wzRender();}
+function pickSit(area,i){const a=cad.areas.find(x=>x.area===area);if(a)a.rung=i;document.querySelectorAll('#wzBody .sit-card').forEach((b,idx)=>b.classList.toggle('on',idx===i));}
+function wzNext(){
+  const steps=cadSteps(),id=steps[cStep];
+  if(id==='basico'){cad.nome=document.getElementById('fNome').value.trim();cad.idade=document.getElementById('fIdade').value;cad.turma=document.getElementById('fTurma').value;cad.turmaNew=document.getElementById('fTurmaNew').value.trim();if(!cad.nome)return toast('Dê um nome pra criança');}
+  if(id==='perfil'&&!cad.nivel)return toast('Escolha o nível de suporte');
+  if(id==='quais'&&!cad.areas.length)return toast('Marque ao menos uma dificuldade');
+  if(id.indexOf('dif:')===0){const a=cad.areas.find(x=>x.area===id.slice(4));if(!a||a.rung==null)return toast('Escolha a situação da criança');}
+  if(id==='extra'){cad.obs=document.getElementById('fObs').value.trim();return saveStudent();}
+  cStep++;wzRender();
+}
+function wzPrev(){
+  const id=cadSteps()[cStep];
+  if(id==='basico'){cad.nome=document.getElementById('fNome').value.trim();cad.idade=document.getElementById('fIdade').value;cad.turma=document.getElementById('fTurma').value;cad.turmaNew=document.getElementById('fTurmaNew').value.trim();}
+  if(id==='extra')cad.obs=document.getElementById('fObs').value.trim();
+  cStep--;wzRender();
 }
 async function saveStudent(){
-  const nome=document.getElementById('fNome').value.trim();
+  const nome=(cad.nome||'').trim();
   if(!nome)return toast('Dê um nome pra criança');
-  if(!formNivel)return toast('Escolha o nível de suporte');
-  if(!formAreas.length)return toast('Marque ao menos uma dificuldade');
-  const idade=+document.getElementById('fIdade').value||6;
-  const genero=formGenero||'—';const obs=document.getElementById('fObs').value.trim();
-  let turma_id=null;const tsel=document.getElementById('fTurma').value;
-  if(tsel==='__new__'){
-    const tn=document.getElementById('fTurmaNew').value.trim();
+  if(!cad.nivel)return toast('Escolha o nível de suporte');
+  if(!cad.areas.length)return toast('Marque ao menos uma dificuldade');
+  const idade=+cad.idade||6;const genero=cad.genero||'—';const obs=cad.obs||'';
+  let turma_id=null;
+  if(cad.turma==='__new__'){
+    const tn=(cad.turmaNew||'').trim();
     if(!tn)return toast('Dê um nome pra turma ou escolha sem turma');
     const ins=await sb.from('turmas').insert({nome:tn}).select().single();
     if(ins.error)return toast('Erro ao criar turma: '+ins.error.message);
     turma_id=ins.data.id;
-  }else if(tsel){turma_id=tsel;}
-  const areas=formAreas.map(x=>({area:x.area,situacao:SIT[x.area][x.rung],rung:x.rung}));
-  const payload={nome,idade,genero,nivel_suporte:formNivel,areas,observacoes:obs,turma_id};
+  }else if(cad.turma){turma_id=cad.turma;}
+  const areas=cad.areas.map(x=>({area:x.area,situacao:SIT[x.area][x.rung],rung:x.rung}));
+  const payload={nome,idade,genero,nivel_suporte:cad.nivel,areas,observacoes:obs,turma_id};
   let openId=currentEditId;
   if(currentEditId){
     const up=await sb.from('alunos').update(payload).eq('id',currentEditId);
@@ -938,7 +972,7 @@ function openStudent(id){
   renderActivity(s,0);go('profile');
 }
 
-buildAreas();
+/* assistente renderiza ao abrir */
 </script>
 </body>
 </html>
