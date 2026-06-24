@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GeniousTea — atividades individuais para alunos autistas</title>
-<meta name="description" content="Cada criança no espectro precisa da atividade certa, no nível certo. O GeniousTea monta a trilha individual de cada aluno e gera o PDF em minutos. Base científica: fono, psicopedagoga e T.O.">
+<meta name="description" content="Cada criança no espectro precisa da atividade certa, no nível certo. O GeniousTea monta a trilha individual de cada aluno e gera o PDF em segundos. Base científica: fono, psicopedagoga e T.O.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,6 +15,7 @@
   --line:#E7E7DF; --line-soft:#EFEFE8;
   --red:#EC5A4E; --red-2:#D84A40; --red-soft:#FDECEA; --red-ink:#B33A30;
   --green:#1FA577; --green-soft:#E7F5EE; --green-ink:#157A58;
+  --gold:#F2A93B;
   --radius:18px; --radius-sm:12px;
   --shadow:0 6px 22px rgba(20,40,30,.07),0 1px 2px rgba(20,40,30,.04);
   --display:'Space Grotesk',sans-serif;
@@ -33,8 +34,6 @@ button,a{font-family:inherit}a{color:inherit;text-decoration:none}
 .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15.5px;padding:13px 24px;border-radius:999px;border:none;cursor:pointer;background:var(--red);color:#fff;transition:transform .14s,box-shadow .2s,background .2s;box-shadow:0 8px 20px rgba(236,90,78,.26)}
 .btn:hover{background:var(--red-2);box-shadow:0 12px 26px rgba(236,90,78,.34);transform:translateY(-1px)}
-.btn.ghost{background:#fff;color:var(--green-ink);box-shadow:inset 0 0 0 1.5px var(--line)}
-.btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--green);transform:translateY(-1px)}
 .btn.lg{padding:16px 30px;font-size:16.5px}
 .btn.sm{padding:9px 17px;font-size:14px}
 .eyebrow{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--red)}
@@ -56,19 +55,23 @@ button,a{font-family:inherit}a{color:inherit;text-decoration:none}
 .hero h1 .hl{color:var(--red)}
 .hero .lede{font-size:clamp(16.5px,1.9vw,19px);color:var(--ink-soft);margin:18px 0 0;max-width:36ch}
 .hero .lede b{color:var(--green-ink);font-weight:700}
-.hero .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
-.hero .trust{margin-top:18px;font-size:13px;color:var(--ink-faint)}
+.stars{display:flex;align-items:center;gap:11px;margin-top:24px;flex-wrap:wrap}
+.stars .s{color:var(--gold);font-size:19px;letter-spacing:2px;line-height:1}
+.stars .st{font-size:14px;color:var(--ink-soft)}
+.stars .st b{color:var(--ink);font-weight:700}
 
 .demo{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);animation:rise .7s .1s ease both}
 .d-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .d-ava{width:46px;height:46px;border-radius:12px;overflow:hidden;position:relative;background:var(--green);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:19px;flex:none}
-.d-ava img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .d-nm{font-family:var(--display);font-weight:600;font-size:17px;color:var(--ink)}
 .d-meta{font-size:12.5px;color:var(--ink-faint)}
 .d-tag{margin-left:auto;font-size:11px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--green-soft);color:var(--green-ink)}
-.act{border:1px solid var(--line);background:var(--tint);border-radius:14px;padding:18px}
+.act{border:1px solid var(--line);background:var(--tint);border-radius:14px;padding:16px 18px}
+.a-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
 .a-area{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--green-ink)}
-.a-title{font-family:var(--display);font-weight:600;font-size:20px;color:var(--ink);margin:5px 0 6px;min-height:48px;animation:pop .3s ease}
+.pdf-btn{font-size:11.5px;font-weight:700;color:var(--red-ink);background:var(--red-soft);border:1px solid rgba(236,90,78,.28);border-radius:999px;padding:6px 12px;cursor:pointer;transition:.15s;white-space:nowrap}
+.pdf-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.a-title{font-family:var(--display);font-weight:600;font-size:20px;color:var(--ink);margin:0 0 6px;min-height:48px;animation:pop .3s ease}
 .a-desc{font-size:13.5px;color:var(--ink-soft)}
 .leveler{display:flex;align-items:center;gap:12px;margin-top:14px;padding:14px;border-radius:13px;background:var(--tint);border:1px solid var(--line)}
 .ll{font-size:10.5px;font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.03em}
@@ -90,23 +93,27 @@ button,a{font-family:inherit}a{color:inherit;text-decoration:none}
 .sec{padding:60px 0}
 .sec-head{max-width:620px;margin:0 auto;text-align:center}
 .sec-head h2{font-size:clamp(26px,3.4vw,36px);margin-top:11px}
-.sec-head h2 em{font-style:normal;color:var(--red)}
 .sec-head p{font-size:16px;margin-top:12px}
 
-.band{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 30px;box-shadow:var(--shadow);display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:center;text-align:center}
-.band .from{font-family:var(--display);font-size:26px;font-weight:600;color:var(--ink-faint);text-decoration:line-through;text-decoration-color:#E3A6A0}
-.band .arrow{color:var(--red);font-size:22px;font-weight:800}
-.band .to{font-family:var(--display);font-size:clamp(34px,4.6vw,46px);font-weight:700;color:var(--red);line-height:1}
-.band .bl{font-size:14.5px;color:var(--ink-soft);max-width:34ch;text-align:left}
-
-.feats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:34px;max-width:880px;margin-left:auto;margin-right:auto}
-.feat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);display:flex;gap:15px;align-items:flex-start}
-.feat .fi{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:21px;background:var(--green-soft);flex:none}
-.feat h3{font-size:17.5px}
-.feat p{font-size:14px;margin-top:5px}
-.feat.star{border-color:rgba(236,90,78,.32);box-shadow:0 8px 24px rgba(236,90,78,.1)}
-.feat.star .fi{background:var(--red-soft)}
-.feat.star h3 .b{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--red);background:var(--red-soft);padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:middle}
+.steps{display:grid;gap:16px;max-width:860px;margin:34px auto 0}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;box-shadow:var(--shadow);display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+.step.star{border-color:rgba(236,90,78,.3)}
+.step .num{width:38px;height:38px;border-radius:11px;background:var(--green-soft);color:var(--green-ink);font-family:var(--display);font-weight:700;display:grid;place-items:center;font-size:16px}
+.step.last .num{background:var(--red-soft);color:var(--red)}
+.step h3{font-size:17.5px}
+.step .sd{font-size:14px;margin-top:4px}
+.mini{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.mini .lbl{width:100%;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-faint);margin-top:4px}
+.fld{background:var(--tint);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:13px;color:var(--ink-soft)}
+.fld b{color:var(--ink);font-weight:700}
+.chip{font-size:12.5px;font-weight:600;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink-faint)}
+.chip.on{background:var(--green-soft);border-color:rgba(31,165,119,.45);color:var(--green-ink)}
+.scale{display:inline-flex;gap:5px}
+.scale i{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:700;background:#fff;border:1px solid var(--line);color:var(--ink-faint)}
+.scale i.on{background:var(--red);color:#fff;border-color:var(--red)}
+.diag{width:100%;background:var(--green-soft);border:1px solid rgba(31,165,119,.25);border-radius:12px;padding:14px 16px;font-size:13.5px;color:var(--ink);line-height:1.5}
+.diag b{color:var(--green-ink)}
+.diag .pdf{display:inline-flex;align-items:center;gap:6px;margin-top:9px;font-size:12px;font-weight:700;color:var(--red-ink);background:#fff;border:1px solid rgba(236,90,78,.3);border-radius:999px;padding:5px 11px}
 
 .results{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
 .res{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);text-align:center}
@@ -136,14 +143,13 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
 
 @media (max-width:900px){
   .hero .grid{grid-template-columns:1fr;gap:32px}
-  .feats{grid-template-columns:1fr}
   .results{grid-template-columns:1fr 1fr}
 }
 @media (max-width:560px){
   .wrap{padding:0 20px}
   .nav .links a.txt{display:none}
   .results{grid-template-columns:1fr 1fr}
-  .band{flex-direction:column;gap:12px}.band .bl{text-align:center}
+  .step{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -163,24 +169,26 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
   <div class="hero-copy">
     <span class="eyebrow">Para quem ensina crianças no espectro</span>
     <h1>A atividade <span class="hl">certa</span>, no nível certo, para cada aluno autista.</h1>
-    <p class="lede">Chega de PDF genérico da internet. O GeniousTea monta a trilha individual de cada criança e gera o material em <b>PDF</b>, em minutos.</p>
-    <div class="cta-row">
-      <a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar conta grátis</a>
-      <a class="btn lg ghost" href="#como">Ver como funciona</a>
+    <p class="lede">Chega de PDF genérico da internet. O GeniousTea monta a trilha individual de cada criança e gera o material em <b>PDF</b>, em segundos.</p>
+    <div class="stars">
+      <span class="s">★★★★★</span>
+      <span class="st"><b>App campeão</b> para o desenvolvimento de crianças</span>
     </div>
-    <p class="trust">Sem cartão de crédito · materiais com base científica (fono + psicopedagoga + T.O.)</p>
   </div>
 
   <div class="demo">
     <div class="d-head">
-      <div class="d-ava">D<img src="https://i.pinimg.com/736x/94/d7/8b/94d78b4ada567e74e1db8ff8cd69b88b.jpg" alt="Davi" loading="lazy" onerror="this.remove()"></div>
-      <div><div class="d-nm">Davi, 7 anos</div><div class="d-meta">Nível 2 · não verbaliza</div></div>
+      <div class="d-ava">P</div>
+      <div><div class="d-nm">Pedro, 7 anos</div><div class="d-meta">Nível 2 · não verbaliza</div></div>
       <span class="d-tag">Comunicação</span>
     </div>
     <div class="act">
-      <div class="a-area">atividade de hoje</div>
+      <div class="a-top">
+        <span class="a-area">atividade de hoje</span>
+        <button class="pdf-btn" id="pdfBtn">🖨️ Imprimir PDF do Pedro</button>
+      </div>
       <div class="a-title" id="actTitle">Parear figura com figura idêntica</div>
-      <div class="a-desc">Pareamento visual — no nível atual do Davi.</div>
+      <div class="a-desc">Pareamento visual — no nível atual do Pedro.</div>
     </div>
     <div class="leveler">
       <span class="ll">nível</span>
@@ -191,7 +199,7 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
         <button class="lev-btn" id="up" aria-label="Subir nível">+</button>
       </div>
     </div>
-    <div class="coach steady" id="coach">No nível certo pra o Davi agora.</div>
+    <div class="coach steady" id="coach">No nível certo pra o Pedro agora.</div>
     <p class="d-hint">Travou? <b>Baixe o nível</b> — experimente o − e o +</p>
   </div>
 </div></div></header>
@@ -199,20 +207,50 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
 <section class="sec" id="como"><div class="wrap">
   <div class="sec-head">
     <span class="eyebrow">Como funciona</span>
-    <h2>Um caminho pra cada criança</h2>
+    <h2>Veja por dentro, em 3 passos</h2>
+    <p>Você cadastra a criança, marca as dificuldades e o app devolve o diagnóstico com as atividades certas.</p>
   </div>
-  <div class="feats">
-    <div class="feat"><div class="fi">🗂️</div><div><h3>Turmas e alunos organizados</h3><p>Cada criança com perfil e histórico próprios. Nada se mistura.</p></div></div>
-    <div class="feat"><div class="fi">🖨️</div><div><h3>Atividade no nível certo, em PDF</h3><p>Escolha o aluno e a área. Sai pronto pra imprimir em segundos.</p></div></div>
-    <div class="feat star"><div class="fi">↕️</div><div><h3>Ajuste de nível ao vivo<span class="b">★ destaque</span></h3><p>Travou? Baixa o nível. Respondeu bem? Sobe. No ritmo de cada criança.</p></div></div>
-    <div class="feat"><div class="fi">👨‍👩‍👧</div><div><h3>Histórico e feedback pra família</h3><p>Clareza do que muda — e o que reforçar em casa, sem "tá indo bem".</p></div></div>
-  </div>
-</div></section>
+  <div class="steps">
 
-<section class="sec"><div class="wrap">
-  <div class="band">
-    <span class="from">12 h</span><span class="arrow">→</span><span class="to">40 min</span>
-    <p class="bl">é o seu planejamento da semana toda. O resto do tempo vira observação em sala e descanso.</p>
+    <div class="step">
+      <div class="num">1</div>
+      <div>
+        <h3>Cadastre seu aluno</h3>
+        <p class="sd">Nome, idade e o nível de suporte da criança (1, 2 ou 3).</p>
+        <div class="mini">
+          <span class="fld">Nome: <b>Pedro</b></span>
+          <span class="fld">Idade: <b>7 anos</b></span>
+          <span class="lbl">Nível de suporte</span>
+          <span class="chip">Nível 1</span><span class="chip on">Nível 2</span><span class="chip">Nível 3</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">2</div>
+      <div>
+        <h3>Marque as dificuldades e nivele de 1 a 5</h3>
+        <p class="sd">Selecione as áreas que mais pesam e dê uma nota de 1 a 5 pra cada uma.</p>
+        <div class="mini">
+          <span class="lbl">Principais dificuldades</span>
+          <span class="chip">Matemática</span><span class="chip">Alfabetização</span><span class="chip">Leitura</span><span class="chip">Escrita</span><span class="chip on">Comunicação</span><span class="chip on">Comportamento</span><span class="chip">Rotina</span>
+          <span class="lbl">Nível da dificuldade — Comunicação</span>
+          <span class="scale"><i>1</i><i>2</i><i class="on">3</i><i>4</i><i>5</i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step last">
+      <div class="num">3</div>
+      <div>
+        <h3>Receba o diagnóstico e as atividades</h3>
+        <p class="sd">O app cruza idade + dificuldade e devolve um diagnóstico com as atividades certas — prontas pra imprimir.</p>
+        <div class="mini">
+          <div class="diag"><b>Diagnóstico — Pedro, 7 anos:</b> foco em comunicação (nível 3/5) e comportamento. <b>Atividades geradas</b> de acordo com a idade e a dificuldade. <span class="pdf">🖨️ PDF pronto pra imprimir</span></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div></section>
 
@@ -270,6 +308,8 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
 
 <script>
 document.querySelectorAll('.applem').forEach(b=>b.appendChild(document.getElementById('appleTpl').content.cloneNode(true)));
+const pb=document.getElementById('pdfBtn');
+if(pb)pb.addEventListener('click',()=>{const o=pb.textContent;pb.textContent='✓ PDF do Pedro pronto';setTimeout(()=>{pb.textContent=o;},1800);});
 const LADDER=['Parear objeto real com objeto igual','Parear figura com figura idêntica','Parear figura com objeto real','Apontar a figura pedida entre duas','Apontar a figura certa entre quatro'];
 let rung=1;
 const t=document.getElementById('actTitle'),n=document.getElementById('num'),d=document.getElementById('dots'),c=document.getElementById('coach'),up=document.getElementById('up'),dn=document.getElementById('down');
@@ -280,7 +320,7 @@ function render(delta){
   up.disabled=rung===LADDER.length-1;dn.disabled=rung===0;
   if(delta<0){c.className='coach down';c.textContent='↓ Baixei o nível pra ele retomar a confiança. Depois subimos aos poucos.';}
   else if(delta>0){c.className='coach up';c.textContent='↑ Subindo um degrau, no ritmo certo. É o que estimula a neuroplasticidade.';}
-  else{c.className='coach steady';c.textContent='No nível certo pra o Davi agora.';}
+  else{c.className='coach steady';c.textContent='No nível certo pra o Pedro agora.';}
 }
 up.addEventListener('click',()=>{if(rung<LADDER.length-1){rung++;render(1);}});
 dn.addEventListener('click',()=>{if(rung>0){rung--;render(-1);}});
