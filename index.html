@@ -463,13 +463,24 @@ footer.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-fain
 
   <!-- ---- CADASTRO ---- -->
   <main class="page screen" id="cadastro"><div class="wrap">
-    <div class="crumb"><button onclick="go('dash')">Minha turma</button><span>›</span><span style="color:var(--ink)">Novo aluno</span></div>
+    <div class="crumb"><button onclick="go('dash')">Minha turma</button><span>›</span><span style="color:var(--ink)" id="crumbForm">Novo aluno</span></div>
     <div class="form-wrap">
-      <h1 style="font-size:28px;margin-bottom:6px">Cadastrar uma criança</h1>
+      <style>
+        #cadastro .area-row{margin-bottom:10px}
+        #cadastro .area-row .area-sit{display:none;margin-top:8px}
+        #cadastro select.inp{appearance:none;-webkit-appearance:none;cursor:pointer}
+        #fTurmaNewWrap{margin-top:10px;display:none}
+      </style>
+      <h1 id="formTitle" style="font-size:28px;margin-bottom:6px">Cadastrar uma criança</h1>
       <p style="color:var(--ink-soft);font-size:15px;margin-bottom:30px">O que você preencher aqui define a trilha e o material dela. Dá pra ajustar quando quiser.</p>
       <div class="two-col">
         <div class="field"><label for="fNome">Nome</label><input class="inp" id="fNome" placeholder="Ex.: Lucas"></div>
         <div class="field"><label for="fIdade">Idade</label><input class="inp" id="fIdade" type="number" min="2" max="18" placeholder="Ex.: 7"></div>
+      </div>
+      <div class="field"><label for="fTurma">Turma</label>
+        <p class="desc">Coloque numa turma ou deixe o aluno solto. Dá pra criar uma turma nova aqui.</p>
+        <select class="inp" id="fTurma" onchange="toggleTurmaNew()"></select>
+        <div id="fTurmaNewWrap"><input class="inp" id="fTurmaNew" placeholder="Nome da nova turma (ex.: Turma do Sol)"></div>
       </div>
       <div class="field"><label>Gênero</label>
         <div class="seg" id="fGenero">
@@ -484,9 +495,9 @@ footer.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-fain
           <button data-n="3">Nível 3<small>Apoio intenso</small></button>
         </div>
       </div>
-      <div class="field"><label>Áreas para evoluir</label>
-        <p class="desc">Marque quantas precisar. Cada área tem sua cor e puxa materiais próprios.</p>
-        <div class="chips" id="fAreas"></div>
+      <div class="field"><label>Dificuldades — marque e descreva cada uma</label>
+        <p class="desc">Marque as áreas que pesam e, pra cada uma, escolha a situação real da criança hoje. É isso que define o nível inicial da trilha.</p>
+        <div id="fAreas"></div>
       </div>
       <div class="field"><label for="fObs">O que mais importa saber sobre ela</label>
         <p class="desc">Gostos, gatilhos, o que funciona. Isso personaliza ainda mais a trilha.</p>
@@ -539,72 +550,74 @@ const MATERIAL={
   rotina:['🗓️','Rotina visual em cartões'],
 };
 
-let students=[
-  {id:1,nome:'Davi',idade:7,genero:'Menino',nivel:2,areas:['comunicacao'],rung:1,prog:35,inicio:'Set/2025',
-   forte:'pareamento visual',forteObs:'avança rápido — estímulo mais visual funciona com ele',
-   trava:'sequência',travaObs:'trava quando a tarefa pede ordem; vou aos poucos',
-   marcos:[['Aceitar trocas com figuras','6 sem',1],['Apontar pra pedir','em curso',0],['Reação a som',"marco 🎵",2]],
-   famQuote:'O Davi está demonstrando muita reação a estímulo sonoro. Responde a música, bate o pé no ritmo, sorri quando ouve melodia.',
-   famRec:['🎵','Coloquem música nos momentos de tensão e observem se ajuda na regulação. Se der, vale pensar em musicalização.'],
-   ganho:'Não verbalizava nada. Hoje aponta pra figura quando eu pergunto.'},
-  {id:2,nome:'Helena',idade:6,genero:'Menina',nivel:1,areas:['alfabetizacao','leitura'],rung:2,prog:62,inicio:'Ago/2025',
-   forte:'jogos de letra e som',forteObs:'por aí ela aprende qualquer coisa',
-   trava:'manter o foco',travaObs:'no início não passava de 2 min na tarefa — já melhorou muito',
-   marcos:[['Reconhecer vogais','3 sem',1],['Som inicial','4 sem',1],['Sílabas simples','em curso',0]],
-   famQuote:'A Helena responde muito bem à leitura de história antes de dormir.',
-   famRec:['📚','Uma historinha antes de dormir, todo dia. Virou rotina na casa dela e o engajamento disparou.'],
-   ganho:'Está lendo palavrinha de 3 sílabas. Antes não ficava 2 min numa atividade.'},
-  {id:3,nome:'Caio',idade:9,genero:'Menino',nivel:2,areas:['matematica','escrita'],rung:2,prog:48,inicio:'Set/2025',
-   forte:'matemática',forteObs:'é um gênio nos números — uso isso pra introduzir letras',
-   trava:'escrita',travaObs:'resiste; só topou quando a escrita veio amarrada num problema de matemática',
-   marcos:[['Contar até 20','2 sem',1],['Sequência até 50','5 sem',1],['Aceitar escrever','Jan/2026 🎯',2]],
-   famQuote:'O Caio tem um fascínio enorme por números — dá pra usar isso como porta de entrada pra quase tudo.',
-   famRec:['🛒','Usem números no dia a dia: contar produtos e preços no supermercado mantém ele engajado.'],
-   ganho:'Aceitou escrever pela primeira vez em janeiro — porque a tarefa veio dentro de um problema de matemática.'},
-  {id:4,nome:'Manu',idade:5,genero:'Menina',nivel:1,areas:['escrita'],rung:2,prog:44,inicio:'Out/2025',
-   forte:'evolução motora',forteObs:'avançou muito em 4 meses',
-   trava:'motor fino',travaObs:'ainda cansa rápido ao escrever; massinha ajuda a fortalecer',
-   marcos:[['Segurar lápis com apoio','5 sem',1],['Traçar linhas','7 sem',1],['Segurar lápis sozinha','recente 🎯',2]],
-   famQuote:'A Manu evoluiu muito na motricidade fina — já segura o lápis sozinha, antes precisava da minha mão por cima.',
-   famRec:['🖐️','Fisioterapia caseira com massinha. Trouxe um avanço incrível na motricidade dela.'],
-   ganho:'Segura o lápis sozinha agora. Antes precisava da minha mão por cima.'},
-  {id:5,nome:'Téo',idade:8,genero:'Menino',nivel:1,areas:['rotina','comportamento'],rung:2,prog:55,inicio:'Set/2025',
-   forte:'rotina visual',forteObs:'responde muito bem quando o dia é previsível',
-   trava:'transições',travaObs:'mudanças bruscas desorganizam; aviso antecipado resolve',
-   marcos:[['Reconhecer cartões','3 sem',1],['Seguir rotina da manhã','em curso',0]],
-   famQuote:'O Téo se organiza muito melhor quando sabe o que vem a seguir.',
-   famRec:['🗓️','Um quadro visual da rotina em casa ajuda a evitar crises nas transições.'],
-   ganho:'Consegue seguir a rotina da manhã quase toda sem ajuda.'},
-  {id:6,nome:'Bia',idade:7,genero:'Menina',nivel:2,areas:['comunicacao','comportamento'],rung:0,prog:26,inicio:'Out/2025',
-   forte:'expressão por figuras',forteObs:'comunica bem o que quer pelas pranchas',
-   trava:'brincar junto',travaObs:'ainda brinca sempre sozinha; aproximação gradual',
-   marcos:[['Aceitar prancha','2 sem',1],['Pedir por figura','em curso',0]],
-   famQuote:'A Bia já comunica bem o que quer através das figuras.',
-   famRec:['🤝','Brincadeiras lado a lado em casa, sem pressão de interação, ajudam a aproximar aos poucos.'],
-   ganho:'Já usa a prancha pra pedir o que quer, em vez de só apontar.'},
-  {id:7,nome:'Rafa',idade:6,genero:'Menino',nivel:1,areas:['alfabetizacao','escrita'],rung:1,prog:50,inicio:'Set/2025',
-   forte:'reconhecer letras',forteObs:'identifica letras fácil; o desafio é o traçado',
-   trava:'traçar',travaObs:'reconhece mas tem dificuldade de escrever — pontilhado ajuda',
-   marcos:[['Reconhecer letras','3 sem',1],['Traçar com guia','em curso',0]],
-   famQuote:'O Rafa reconhece as letras com facilidade — a mão é que ainda precisa de treino.',
-   famRec:['✏️','Brincar de desenhar caminhos pontilhados em casa fortalece o traçado.'],
-   ganho:'Reconhece o alfabeto inteiro e já tenta traçar sozinho.'},
-  {id:8,nome:'Léo',idade:10,genero:'Menino',nivel:3,areas:['comunicacao','rotina'],rung:0,prog:22,inicio:'Ago/2025',
-   forte:'rotina previsível',forteObs:'apoio intenso; rotina clara muda o dia dele',
-   trava:'comunicação',travaObs:'comunicação por pranchas; cada palavra nova é uma conquista',
-   marcos:[['Aceitar prancha','4 sem',1],['Trocar 1 figura','em curso',0]],
-   famQuote:'O Léo fica muito mais regulado quando o dia segue uma sequência clara.',
-   famRec:['🗓️','Manter em casa a mesma sequência visual de atividades que usamos na escola.'],
-   ganho:'Começou a usar a prancha pra trocar figura por item que quer.'},
-  {id:9,nome:'Cecília',idade:5,genero:'Menina',nivel:1,areas:['matematica'],rung:1,prog:58,inicio:'Set/2025',
-   forte:'padrões e contagem',forteObs:'conta até 20 sozinha e adora sequências',
-   trava:'esperar a vez',travaObs:'quer responder tudo na hora; trabalhando o turno',
-   marcos:[['Contar até 10','2 sem',1],['Contar até 20','4 sem',1]],
-   famQuote:'A Cecília tem um talento natural pra números e padrões.',
-   famRec:['🔢','Contar degraus, brinquedos, frutas — transformar a casa em campo de contagem.'],
-   ganho:'Conta até 20 sozinha e começa a montar sequências.'},
-];
-let currentId=2, quiz={}, qStep=1; const QTOTAL=7;
+let students=[], turmas=[];
+let currentEditId=null;
+const SIT={
+  comunicacao:['Não se comunica / não aponta','Aponta pra pedir','Usa figuras ou prancha','Fala palavras soltas','Já forma frases'],
+  alfabetizacao:['Não reconhece letras','Reconhece algumas vogais','Sabe o som inicial','Lê sílabas simples','Já lê palavras'],
+  leitura:['Não reconhece o próprio nome','Reconhece o próprio nome','Liga figura à palavra','Lê palavras simples','Lê frases curtas'],
+  matematica:['Ainda não conta','Conta até 10','Conta até 20','Faz somas simples','Resolve probleminhas'],
+  escrita:['Não segura o lápis','Rabisca com apoio','Traça linhas','Contorna pontilhado','Escreve com guia'],
+  comportamento:['Crises frequentes','Aceita troca com apoio','Tolera tarefa curta','Pede pausa em vez de surtar','Sustenta o foco'],
+  rotina:['Não segue rotina','Reconhece os cartões','Segue 2 passos','Segue a manhã toda','Se organiza sozinho'],
+};
+function mapAluno(row){
+  let list=Array.isArray(row.areas)?row.areas:Object.keys(row.areas||{}).map(k=>({area:k,situacao:(row.areas[k]||{}).situacao,rung:(row.areas[k]||{}).rung}));
+  if(!list.length)list=[{area:'comunicacao',situacao:SIT.comunicacao[0],rung:0}];
+  const primary=list[0];const ld=LADDER[primary.area]||LADDER.comunicacao;
+  const prog=Math.max(8,Math.round((primary.rung||0)/(ld.length-1)*100));
+  return {id:row.id,turma_id:row.turma_id,nome:row.nome,idade:row.idade||6,genero:row.genero||'—',
+    nivel:row.nivel_suporte||1,areas:list.map(x=>x.area),sit:list,rung:primary.rung||0,prog,inicio:'cadastro',
+    forte:'a descobrir',forteObs:'as primeiras atividades vão revelar onde ela brilha',
+    trava:'a observar',travaObs:'o app aprende o padrão conforme você ajusta o nível',
+    marcos:[['Cadastro criado','hoje',0]],
+    famQuote:'Cadastro recente — em poucas semanas dá pra trazer observações concretas pra família.',
+    famRec:[(MATERIAL[primary.area]||['📌',''])[0],'Conforme você ajusta o nível, o app sugere o que reforçar em casa.'],
+    obs:row.observacoes||'',ganho:'Trilha começando agora.'};
+}
+async function loadData(){
+  try{
+    const r1=await sb.from('turmas').select('*').order('created_at');
+    const r2=await sb.from('alunos').select('*').order('created_at');
+    turmas=r1.data||[];
+    students=(r2.data||[]).map(mapAluno);
+    students.forEach(s=>s.turmaNome=(turmas.find(t=>t.id===s.turma_id)||{}).nome||null);
+  }catch(e){toast('Erro ao carregar seus alunos');}
+}
+function fillTurmaSelect(sel){
+  const el=document.getElementById('fTurma');
+  el.innerHTML='<option value="">— Sem turma (aluno solto) —</option>'+
+    turmas.map(t=>'<option value="'+t.id+'">'+t.nome+'</option>').join('')+
+    '<option value="__new__">+ Criar nova turma…</option>';
+  el.value=sel||'';toggleTurmaNew();
+}
+function toggleTurmaNew(){
+  const isNew=document.getElementById('fTurma').value==='__new__';
+  document.getElementById('fTurmaNewWrap').style.display=isNew?'block':'none';
+  if(!isNew)document.getElementById('fTurmaNew').value='';
+}
+function editStudent(id){
+  const s=students.find(x=>x.id===id);if(!s)return;currentEditId=id;
+  document.getElementById('fNome').value=s.nome;
+  document.getElementById('fIdade').value=s.idade;
+  document.getElementById('fObs').value=s.obs||'';
+  formGenero=s.genero;formNivel=s.nivel;formAreas=s.sit.map(x=>({area:x.area,rung:x.rung}));
+  document.querySelectorAll('#fGenero button').forEach(b=>b.classList.toggle('on',b.dataset.g===s.genero));
+  document.querySelectorAll('#fNivel button').forEach(b=>b.classList.toggle('on',+b.dataset.n===s.nivel));
+  fillTurmaSelect(s.turma_id);buildAreas();
+  formAreas.forEach(fa=>{const row=document.querySelector('#fAreas .area-row[data-area="'+fa.area+'"]');if(row){row.querySelector('.chip').classList.add('on');const se=row.querySelector('.area-sit');se.style.display='block';se.value=fa.rung;}});
+  document.getElementById('formTitle').textContent='Editar '+s.nome.split(' ')[0];
+  document.getElementById('crumbForm').textContent='Editar '+s.nome.split(' ')[0];
+  go('cadastro');window.scrollTo(0,0);
+}
+async function deleteStudent(id){
+  if(!confirm('Excluir esse aluno? Isso não dá pra desfazer.'))return;
+  const r=await sb.from('alunos').delete().eq('id',id);
+  if(r.error)return toast('Erro ao excluir: '+r.error.message);
+  toast('Aluno excluído');await loadData();renderDay();renderDash();go('dash');
+}
+
+let currentId=null, quiz={}, qStep=1; const QTOTAL=7;
 let formGenero=null, formNivel=null, formAreas=[];
 
 let tT;
@@ -632,7 +645,7 @@ document.querySelectorAll('.opt[data-q]').forEach(b=>b.addEventListener('click',
 }));
 qNext.addEventListener('click',()=>{qStep<QTOTAL?(qStep++,renderQuiz()):doAuth();});
 qBack.addEventListener('click',()=>{if(qStep>1){qStep--;renderQuiz();}});
-function enterApp(displayName){
+async function enterApp(displayName){
   const name=displayName||'Prof.';
   const first=name.replace(/^Prof\.?\s*/i,'').split(' ')[0]||'Prof.';
   document.getElementById('meName').textContent=name;
@@ -640,7 +653,7 @@ function enterApp(displayName){
   document.getElementById('daySaud').textContent='Bom dia, '+first;
   document.getElementById('quiz').classList.remove('active');
   document.getElementById('app').classList.add('active');
-  renderDay();renderDash();go('day');window.scrollTo(0,0);
+  await loadData();renderDay();renderDash();go('day');window.scrollTo(0,0);
 }
 
 /* ===== Supabase: criar conta, entrar, sair ===== */
@@ -722,6 +735,7 @@ function go(view){
 
 function renderDay(){
   const box=document.getElementById('dayList');box.innerHTML='';
+  if(!students.length){box.innerHTML='<div style="padding:30px;text-align:center;color:var(--ink-soft)">Nenhum aluno ainda. Vá em <b>Minha turma</b> e cadastre o primeiro.</div>';return;}
   students.forEach(s=>{
     const d=DOM[s.areas[0]],act=LADDER[s.areas[0]][s.rung];
     const el=document.createElement('div');el.className='day-row';el.style.setProperty('--accent',d.c);
@@ -749,7 +763,7 @@ function renderDash(){
       <div class="row1"><div class="s-ava">${s.nome[0]}</div>
         <div><div class="nm">${s.nome}</div><div class="meta">${s.idade} anos · ${s.genero}</div></div>
         <span class="lvl n${s.nivel}" style="margin-left:auto">Nível ${s.nivel}</span></div>
-      <div class="tags">${tags}</div>
+      <div class="tags">${s.turmaNome?'<span class="tag" style="background:rgba(255,225,205,.1);color:var(--ink-soft)">🏫 '+s.turmaNome+'</span>':''}${tags}</div>
       <div class="s-strong">⭐ Forte em <b>${s.forte}</b> · trava em <b>${s.trava}</b></div>
       <div class="s-foot"><div class="prog">Trilha ${s.prog}%<div class="mini-bar"><span style="width:${s.prog}%"></span></div></div>
         <span class="go">Abrir →</span></div>`;
@@ -760,45 +774,71 @@ function renderDash(){
 }
 
 function newStudent(){
+  currentEditId=null;
   ['fNome','fIdade','fObs'].forEach(i=>document.getElementById(i).value='');
   formGenero=null;formNivel=null;formAreas=[];
   document.querySelectorAll('#fGenero button,#fNivel button').forEach(b=>b.classList.remove('on'));
-  buildChips();go('cadastro');
+  fillTurmaSelect(null);buildAreas();
+  document.getElementById('formTitle').textContent='Cadastrar uma criança';
+  document.getElementById('crumbForm').textContent='Novo aluno';
+  go('cadastro');
 }
 document.querySelectorAll('#fGenero button').forEach(b=>b.onclick=()=>{formGenero=b.dataset.g;document.querySelectorAll('#fGenero button').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
 document.querySelectorAll('#fNivel button').forEach(b=>b.onclick=()=>{formNivel=+b.dataset.n;document.querySelectorAll('#fNivel button').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
-function buildChips(){
+function buildAreas(){
   const box=document.getElementById('fAreas');box.innerHTML='';
   Object.entries(DOM).forEach(([k,d])=>{
-    const c=document.createElement('button');c.className='chip';c.style.setProperty('--c',d.c);c.style.setProperty('--c-bg',d.bg);
-    c.innerHTML=`<span class="cdot"></span>${d.label}`;
-    c.onclick=()=>{if(formAreas.includes(k)){formAreas=formAreas.filter(x=>x!==k);c.classList.remove('on');}else{formAreas.push(k);c.classList.add('on');}};
-    box.appendChild(c);
+    const row=document.createElement('div');row.className='area-row';row.dataset.area=k;
+    const chip=document.createElement('button');chip.type='button';chip.className='chip';chip.style.setProperty('--c',d.c);chip.style.setProperty('--c-bg',d.bg);
+    chip.innerHTML='<span class="cdot"></span>'+d.label;
+    const sel=document.createElement('select');sel.className='inp area-sit';
+    sel.innerHTML=SIT[k].map((t,i)=>'<option value="'+i+'">'+t+'</option>').join('');
+    chip.onclick=()=>{const cur=formAreas.find(x=>x.area===k);
+      if(cur){formAreas=formAreas.filter(x=>x.area!==k);chip.classList.remove('on');sel.style.display='none';}
+      else{formAreas.push({area:k,rung:+sel.value});chip.classList.add('on');sel.style.display='block';}};
+    sel.onchange=()=>{const cur=formAreas.find(x=>x.area===k);if(cur)cur.rung=+sel.value;};
+    row.appendChild(chip);row.appendChild(sel);box.appendChild(row);
   });
 }
-function saveStudent(){
+async function saveStudent(){
   const nome=document.getElementById('fNome').value.trim();
   if(!nome)return toast('Dê um nome pra criança');
   if(!formNivel)return toast('Escolha o nível de suporte');
-  if(!formAreas.length)return toast('Marque ao menos uma área');
-  const id=Math.max(...students.map(s=>s.id))+1;
-  const a0=formAreas[0];
-  students.push({id,nome,idade:+document.getElementById('fIdade').value||6,genero:formGenero||'—',nivel:formNivel,areas:[...formAreas],rung:0,prog:8,inicio:'Hoje',
-    forte:'a descobrir',forteObs:'as primeiras atividades vão revelar onde ela brilha',
-    trava:'a observar',travaObs:'o app aprende o padrão dela conforme você marca as respostas',
-    marcos:[['Cadastro criado','hoje',0]],
-    famQuote:'Cadastro recém-criado — em poucas semanas dá pra trazer observações concretas pra família.',
-    famRec:[MATERIAL[a0][0],'Conforme as respostas, o app sugere o que reforçar em casa.'],
-    obs:document.getElementById('fObs').value.trim(),
-    ganho:'Trilha começando agora.'});
-  renderDay();renderDash();openStudent(id);toast(nome+' cadastrado(a) — trilha criada');
+  if(!formAreas.length)return toast('Marque ao menos uma dificuldade');
+  const idade=+document.getElementById('fIdade').value||6;
+  const genero=formGenero||'—';const obs=document.getElementById('fObs').value.trim();
+  let turma_id=null;const tsel=document.getElementById('fTurma').value;
+  if(tsel==='__new__'){
+    const tn=document.getElementById('fTurmaNew').value.trim();
+    if(!tn)return toast('Dê um nome pra turma ou escolha sem turma');
+    const ins=await sb.from('turmas').insert({nome:tn}).select().single();
+    if(ins.error)return toast('Erro ao criar turma: '+ins.error.message);
+    turma_id=ins.data.id;
+  }else if(tsel){turma_id=tsel;}
+  const areas=formAreas.map(x=>({area:x.area,situacao:SIT[x.area][x.rung],rung:x.rung}));
+  const payload={nome,idade,genero,nivel_suporte:formNivel,areas,observacoes:obs,turma_id};
+  let openId=currentEditId;
+  if(currentEditId){
+    const up=await sb.from('alunos').update(payload).eq('id',currentEditId);
+    if(up.error)return toast('Erro ao salvar: '+up.error.message);
+  }else{
+    const ins=await sb.from('alunos').insert(payload).select().single();
+    if(ins.error)return toast('Erro ao salvar: '+ins.error.message);
+    openId=ins.data.id;
+  }
+  toast(nome+(currentEditId?' atualizado(a)':' cadastrado(a) — trilha criada'));
+  currentEditId=null;
+  await loadData();renderDay();renderDash();
+  if(openId)openStudent(openId);else go('dash');
 }
 
 function adjustLevel(delta){
   const s=students.find(x=>x.id===currentId);const a=s.areas[0];
   const max=LADDER[a].length-1;const nv=Math.min(max,Math.max(0,s.rung+delta));
   if(nv===s.rung && delta!==0)return;
-  s.rung=nv;renderActivity(s,delta);renderDay();
+  s.rung=nv;if(s.sit[0])s.sit[0].rung=nv;renderActivity(s,delta);renderDay();
+  const areas=s.sit.map(x=>({area:x.area,situacao:SIT[x.area][x.rung],rung:x.rung}));
+  sb.from('alunos').update({areas}).eq('id',s.id);
 }
 function renderActivity(s,delta){
   const a=s.areas[0],d=DOM[a],max=LADDER[a].length-1;const act=LADDER[a][s.rung];
@@ -833,7 +873,7 @@ function shareFamily(nome){toast('Resumo do(a) '+nome.split(' ')[0]+' pronto pra
 function openStudent(id){
   const s=students.find(x=>x.id===id);if(!s)return;currentId=id;
   const a=s.areas[0],d=DOM[a],steps=LADDER[a];
-  const cur=Math.min(steps.length-1,Math.round(s.prog/100*steps.length));
+  const cur=s.rung;
   const tags=s.areas.map(x=>`<span class="pill" style="background:${DOM[x].bg};color:${DOM[x].c}"><span class="dot" style="background:${DOM[x].c}"></span>${DOM[x].label}</span>`).join('');
   const trilha=steps.map((t,i)=>{const st=i<cur?'done':(i===cur?'now':'upc');const lbl=i<cur?'Dominado':(i===cur?'Trabalhando agora':'Próximo passo');return `<div class="t-step ${st}"><div class="t-rail"><div class="t-node">${i<cur?'✓':''}</div></div><div><div class="t-ttl">${t}</div><div class="t-stt">${lbl}</div></div></div>`;}).join('');
   const marcos=s.marcos.map(m=>`<div class="mrow ${m[2]===2?'mark':''}"><div class="mi">${m[2]===2?'🎯':(m[2]===1?'✓':'…')}</div><div class="mk">${m[0]}</div><div class="mt">${m[1]}</div></div>`).join('');
@@ -841,7 +881,7 @@ function openStudent(id){
   const wk=weeks.map((v,i)=>`<div class="wk"><div class="bar" style="height:${v}%"></div><div class="wl">S${i+1}</div></div>`).join('');
 
   document.getElementById('profileBody').innerHTML=`
-    <div class="crumb"><button onclick="go('dash')">Minha turma</button><span>›</span><span style="color:var(--ink)">${s.nome}</span></div>
+    <div class="crumb" style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><button onclick="go('dash')">Minha turma</button><span>›</span><span style="color:var(--ink)">${s.nome}</span><button class="btn sm ghost" style="margin-left:auto" onclick="editStudent('${s.id}')">Editar</button><button class="btn sm ghost" onclick="deleteStudent('${s.id}')">Excluir</button></div>
     <div class="p-hero" style="--accent:${d.c}">
       <div class="p-ava">${s.nome[0]}</div>
       <div style="flex:1">
@@ -898,7 +938,7 @@ function openStudent(id){
   renderActivity(s,0);go('profile');
 }
 
-renderDay();renderDash();buildChips();
+buildAreas();
 </script>
 </body>
 </html>
