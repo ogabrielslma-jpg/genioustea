@@ -416,11 +416,9 @@ footer.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-fain
 <!-- ===================== APP ===================== -->
 <div id="app">
   <header class="topbar"><div class="wrap">
-    <div class="brand" onclick="go('day')"><span class="brain"></span><b>Genious</b><span class="tea">Tea</span></div>
+    <div class="brand" onclick="go('materiais')"><span class="brain"></span><b>Genious</b><span class="tea">Tea</span></div>
     <nav class="nav">
-      <button class="on" data-nav="day" onclick="go('day')">Meu dia</button>
-      <button data-nav="dash" onclick="go('dash')">Minha turma</button>
-      <button data-nav="profile" onclick="openStudent(currentId)">Aluno</button>
+      <button class="on" data-nav="materiais" onclick="go('materiais')">Materiais</button>
     </nav>
     <div class="me">
       <div class="who"><b id="meName">Prof. Marina</b><span id="meCtx">Rede pública · 9 alunos</span></div>
@@ -428,6 +426,26 @@ footer.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-fain
       <button class="btn sm ghost" onclick="doLogout()" style="margin-left:4px">Sair</button>
     </div>
   </div></header>
+
+  <main class="page screen" id="materiais"><div class="wrap">
+    <style>
+      #materiais .mat-h1{font-size:30px;margin-bottom:6px}
+      #materiais .mat-lead{color:var(--ink-soft);font-size:15px;margin-bottom:26px}
+      #materiais .mat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+      #materiais .mat-card{text-align:left;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:16px;padding:20px;box-shadow:var(--shadow);cursor:pointer;transition:.15s}
+      #materiais .mat-card:hover{transform:translateY(-2px);border-color:var(--accent)}
+      #materiais .mat-ico{font-size:30px;margin-bottom:8px}
+      #materiais .mat-nm{font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink)}
+      #materiais .mat-sub{font-size:12.5px;color:var(--ink-faint);margin-top:3px}
+      #materiais .lvl-list{display:flex;flex-direction:column;gap:12px}
+      #materiais .lvl-card{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+      #materiais .lvl-tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--accent);min-width:62px}
+      #materiais .lvl-ttl{font-weight:600;color:var(--ink);flex:1}
+      #materiais .lvl-card .btn{white-space:nowrap}
+      @media(max-width:560px){#materiais .lvl-card{flex-wrap:wrap}}
+    </style>
+    <div id="matBody"></div>
+  </div></main>
 
   <!-- ---- MEU DIA ---- -->
   <main class="page screen active" id="day"><div class="wrap">
@@ -632,7 +650,7 @@ async function enterApp(displayName){
   document.getElementById('daySaud').textContent='Bom dia, '+first;
   document.getElementById('quiz').classList.remove('active');
   document.getElementById('app').classList.add('active');
-  await loadData();renderDay();renderDash();go('day');window.scrollTo(0,0);
+  document.getElementById('meCtx').textContent='biblioteca de materiais';renderMateriais();go('materiais');window.scrollTo(0,0);
 }
 
 /* ===== Supabase: criar conta, entrar, sair ===== */
@@ -703,6 +721,90 @@ async function doLogout(){
   }catch(e){}
 })();
 renderQuiz();
+
+/* ===== Biblioteca de materiais ===== */
+const WSCSS="@page{size:A4;margin:14mm}*{box-sizing:border-box}body{font-family:'Trebuchet MS','Comic Sans MS',sans-serif;color:#1a1320;margin:0}.ws-head{display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #FF6F5E;padding-bottom:10px;margin-bottom:16px}.ws-brand{font-weight:800;font-size:18px;color:#FF6F5E}.ws-brand span{color:#1FA577}.ws-area{font-size:13px;color:#555;text-align:right}.ws-title{font-size:24px;font-weight:800;margin:0 0 10px}.ws-name{display:flex;gap:24px;font-size:13px;margin-bottom:16px}.ws-name b{display:inline-block;border-bottom:1.5px solid #999;min-width:170px}.blk{margin:14px 0;padding:14px 16px;border:2px solid #eee;border-radius:12px;page-break-inside:avoid}.blk h3{font-size:15px;margin:0 0 12px}.emoji-row{font-size:32px;letter-spacing:6px;line-height:1.7}.box{display:inline-block;width:44px;height:44px;border:2px solid #333;border-radius:8px;vertical-align:middle;margin:0 6px}.wline{border-bottom:2px solid #bbb;height:32px;margin:12px 0}.dotted{font-size:58px;color:#dcdcdc;font-weight:800;letter-spacing:12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cell{border:2px solid #ddd;border-radius:10px;padding:14px;text-align:center;font-size:40px}.foot{margin-top:18px;text-align:center;font-size:10px;color:#aaa}@media print{.noprint{display:none}}";
+function rep(e,n){let o='';for(let i=0;i<n;i++)o+=e;return o;}
+function blk(h,inner){return '<div class="blk"><h3>'+h+'</h3>'+inner+'</div>';}
+function wsContent(area,lvl){
+  if(area==='matematica'){
+    if(lvl===0)return blk('1) Conte os bichinhos e escreva o número na caixa.','<p class="emoji-row">'+rep('🐶',3)+' <span class="box"></span></p><p class="emoji-row">'+rep('🐱',5)+' <span class="box"></span></p><p class="emoji-row">'+rep('🐰',8)+' <span class="box"></span></p>')+blk('2) Desenhe 4 bolinhas.','<div class="wline"></div>');
+    if(lvl===1)return blk('1) Complete a sequência até 20.','<p class="emoji-row" style="font-size:24px">1 · 2 · <span class="box"></span> · 4 · <span class="box"></span> · 6 · 7 · <span class="box"></span> · 9 · 10</p>')+blk('2) Escreva os que faltam.','<p class="emoji-row" style="font-size:24px">11 · <span class="box"></span> · 13 · <span class="box"></span> · 15 · <span class="box"></span> · 20</p>');
+    if(lvl===2)return blk('1) Continue a contagem até 50.','<p class="emoji-row" style="font-size:22px">20 · <span class="box"></span> · 22 · <span class="box"></span> · 24 · 25 · <span class="box"></span> · 30</p>')+blk('2) Conte de 5 em 5.','<p class="emoji-row" style="font-size:22px">5 · 10 · <span class="box"></span> · 20 · <span class="box"></span> · 30 · <span class="box"></span> · 40</p>');
+    if(lvl===3)return blk('1) Resolva as somas.','<p class="emoji-row" style="font-size:22px">3 + 4 = <span class="box"></span> &nbsp; 5 + 2 = <span class="box"></span></p><p class="emoji-row" style="font-size:22px">6 + 3 = <span class="box"></span> &nbsp; 8 + 1 = <span class="box"></span></p>')+blk('2) Desenhe pra ajudar a contar.','<div class="wline"></div>');
+    return blk('1) Leia e resolva o probleminha.','<p style="font-size:16px">A Ana tem 4 maçãs 🍎. Ganhou mais 3 🍎. Quantas maçãs ela tem agora?</p><p>Resposta: <span class="box"></span></p>')+blk('2) Mostre como você pensou.','<div class="wline"></div><div class="wline"></div>');
+  }
+  if(area==='alfabetizacao'){
+    if(lvl===0)return blk('1) Faça um círculo em todas as VOGAIS.','<p class="emoji-row">A &nbsp; R &nbsp; E &nbsp; M &nbsp; I &nbsp; P &nbsp; O &nbsp; T &nbsp; U</p>')+blk('2) Cubra as letras pontilhadas.','<p class="dotted">A E I O U</p>');
+    if(lvl===1)return blk('1) Escreva a letra com que cada figura começa.','<p class="emoji-row">🍌 <span class="box"></span> &nbsp; 🐱 <span class="box"></span> &nbsp; 🍎 <span class="box"></span> &nbsp; 🐶 <span class="box"></span></p>');
+    if(lvl===2)return blk('1) Leia as sílabas em voz alta.','<p class="emoji-row">BA &nbsp; BE &nbsp; BI &nbsp; BO &nbsp; BU</p>')+blk('2) Circule a sílaba BO.','<p class="emoji-row">BA &nbsp; BO &nbsp; BI &nbsp; BU &nbsp; BO &nbsp; BE</p>');
+    if(lvl===3)return blk('1) Junte as sílabas e escreva a palavra.','<p class="emoji-row" style="font-size:22px">BO + LA = <span class="wline" style="display:inline-block;width:200px"></span></p><p class="emoji-row" style="font-size:22px">CA + SA = <span class="wline" style="display:inline-block;width:200px"></span></p>');
+    return blk('1) Leia as palavras.','<p class="emoji-row" style="font-size:26px">BANANA &nbsp; CAVALO &nbsp; SAPATO</p>')+blk('2) Ligue cada palavra ao desenho.','<p class="emoji-row">BANANA &nbsp;&nbsp; 🐴 &nbsp; 👟 &nbsp; 🍌</p>');
+  }
+  if(area==='leitura'){
+    if(lvl===0)return blk('1) Escreva o seu nome nas linhas.','<div class="wline"></div><div class="wline"></div>');
+    if(lvl===1)return blk('1) Ligue a figura à palavra.','<div class="grid2"><div class="cell">🐱</div><div class="cell" style="font-size:22px">CASA</div><div class="cell">🏠</div><div class="cell" style="font-size:22px">GATO</div></div>');
+    if(lvl===2)return blk('1) Leia as palavrinhas.','<p class="emoji-row" style="font-size:26px">PÁ &nbsp; SOL &nbsp; PÉ &nbsp; LUA</p>')+blk('2) Circule a palavra SOL.','<p class="emoji-row" style="font-size:24px">PÉ &nbsp; SOL &nbsp; PÁ &nbsp; SOL &nbsp; LUA</p>');
+    if(lvl===3)return blk('1) Leia a frase com a ajuda da figura.','<p class="emoji-row" style="font-size:22px">O gato 🐱 está na caixa 📦.</p>');
+    return blk('1) Leia as frases sozinho(a).','<p style="font-size:18px">O sol está no céu.<br>A bola é vermelha.</p>')+blk('2) Faça um ✓ na frase que você leu.','<p style="font-size:16px">☐ O sol está no céu &nbsp;&nbsp; ☐ A bola é vermelha</p>');
+  }
+  if(area==='escrita'){
+    if(lvl===0)return blk('1) Rabisque livremente dentro do quadro.','<div style="height:170px;border:2px dashed #ccc;border-radius:12px"></div>');
+    if(lvl===1)return blk('1) Cubra as linhas pontilhadas.','<p class="dotted" style="letter-spacing:0">— — — — — — — —</p><p class="dotted" style="letter-spacing:0">— — — — — — — —</p>');
+    if(lvl===2)return blk('1) Contorne as formas pontilhadas.','<p style="font-size:80px;color:#dcdcdc;letter-spacing:30px">◯ □ △</p>');
+    if(lvl===3)return blk('1) Cubra as letras grandes.','<p class="dotted">A B C</p>');
+    return blk('1) Cubra o nome modelo e escreva o seu embaixo.','<p class="dotted" style="font-size:44px">NOME</p><div class="wline"></div>');
+  }
+  if(area==='comunicacao'){
+    if(lvl===0)return blk('1) Ligue os iguais (objeto com objeto).','<div class="grid2"><div class="cell">🍎</div><div class="cell">🚗</div><div class="cell">🚗</div><div class="cell">🍎</div></div>');
+    if(lvl===1)return blk('1) Ligue as figuras iguais.','<div class="grid2"><div class="cell">🐶</div><div class="cell">⭐</div><div class="cell">⭐</div><div class="cell">🐶</div></div>');
+    if(lvl===2)return blk('1) Ligue a figura ao objeto igual.','<div class="grid2"><div class="cell">🍌</div><div class="cell">🍎</div><div class="cell">🍎</div><div class="cell">🍌</div></div>');
+    if(lvl===3)return blk('1) Faça um círculo na 🍎.','<p class="emoji-row" style="font-size:54px">🍎 &nbsp;&nbsp;&nbsp; 🚗</p>');
+    return blk('1) Faça um círculo na 🐱.','<p class="emoji-row" style="font-size:48px">🐶 &nbsp; 🐱 &nbsp; 🚗 &nbsp; ⭐</p>');
+  }
+  if(area==='comportamento'){
+    if(lvl===0)return blk('Quadro PRIMEIRO / DEPOIS — desenhe ou cole a atividade.','<div class="grid2"><div class="cell" style="height:120px;font-size:16px">PRIMEIRO</div><div class="cell" style="height:120px;font-size:16px">DEPOIS</div></div>');
+    if(lvl===1)return blk('Quadro do tempo — marque os minutinhos combinados.','<p class="emoji-row">⏱️ 1 ☐ &nbsp; 2 ☐ &nbsp; 3 ☐ &nbsp; 4 ☐ &nbsp; 5 ☐</p>');
+    if(lvl===2)return blk('O que vem agora? Desenhe a sequência.','<div class="grid2"><div class="cell" style="height:100px;font-size:16px">AGORA</div><div class="cell" style="height:100px;font-size:16px">DEPOIS</div></div>');
+    if(lvl===3)return blk('Cartão PAUSA — recorte e use quando precisar.','<div class="cell" style="font-size:30px;height:110px">✋ PAUSA</div>');
+    return blk('Meu foco hoje — pinte uma estrela a cada tarefa concluída.','<p class="emoji-row">⭐ ☆ ☆ ☆ ☆</p>');
+  }
+  if(area==='rotina'){
+    if(lvl===0)return blk('Cartões da rotina — recorte e use.','<div class="grid2"><div class="cell" style="font-size:18px">🌅 Acordar</div><div class="cell" style="font-size:18px">🪥 Escovar</div><div class="cell" style="font-size:18px">🍽️ Comer</div><div class="cell" style="font-size:18px">🎒 Escola</div></div>');
+    if(lvl===1)return blk('Sequência de 2 passos — ligue 1 → 2.','<div class="grid2"><div class="cell" style="font-size:22px">1 🪥</div><div class="cell" style="font-size:22px">2 🍽️</div></div>');
+    if(lvl===2)return blk('Rotina da manhã — numere a ordem certa.','<div class="grid2"><div class="cell" style="font-size:22px">🌅 ☐</div><div class="cell" style="font-size:22px">🪥 ☐</div><div class="cell" style="font-size:22px">🍽️ ☐</div><div class="cell" style="font-size:22px">🎒 ☐</div></div>');
+    if(lvl===3)return blk('Hoje vai ser diferente — desenhe a mudança.','<div class="cell" style="height:120px;font-size:16px">MUDANÇA DE HOJE</div>');
+    return blk('Minha rotina — escreva ou desenhe seu dia.','<div class="wline"></div><div class="wline"></div><div class="wline"></div>');
+  }
+  return blk('Material','<div class="wline"></div>');
+}
+function wsDoc(area,lvl){
+  const d=DOM[area],title=LADDER[area][lvl];
+  return '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><title>'+d.label+' — '+title+'</title><style>'+WSCSS+'</style></head><body>'+
+    '<div class="ws-head"><div class="ws-brand">Genious<span>Tea</span></div><div class="ws-area">'+d.label+' · Nível '+(lvl+1)+'</div></div>'+
+    '<div class="ws-title">'+title+'</div>'+
+    '<div class="ws-name">Nome: <b></b> Data: <b style="min-width:90px"></b></div>'+
+    wsContent(area,lvl)+
+    '<div class="foot">GeniousTea · material por nível · fono + psicopedagoga + T.O.</div>'+
+    '<div class="noprint" style="text-align:center;margin-top:18px"><button onclick="window.print()" style="font-size:15px;padding:10px 18px;border:none;border-radius:8px;background:#FF6F5E;color:#fff;font-weight:700;cursor:pointer">🖨️ Imprimir / Salvar PDF</button></div>'+
+    '</body></html>';
+}
+function printMaterial(area,lvl){
+  const w=window.open('','_blank');
+  if(!w){toast('Permita pop-ups pra abrir o material');return;}
+  w.document.write(wsDoc(area,lvl));w.document.close();w.focus();
+  setTimeout(()=>{try{w.print();}catch(e){}},400);
+}
+function renderMateriais(){
+  const grid=Object.entries(DOM).map(([k,d])=>'<button class="mat-card" style="--accent:'+d.c+';--accent-bg:'+d.bg+'" onclick="openArea(\''+k+'\')"><div class="mat-ico">'+((MATERIAL[k]||['📘'])[0])+'</div><div class="mat-nm">'+d.label+'</div><div class="mat-sub">'+LADDER[k].length+' níveis · materiais prontos</div></button>').join('');
+  document.getElementById('matBody').innerHTML='<h1 class="mat-h1">Materiais por área</h1><p class="mat-lead">Escolha uma área. Dentro dela, cada nível tem o material pronto pra imprimir.</p><div class="mat-grid">'+grid+'</div>';
+}
+function openArea(area){
+  const d=DOM[area];
+  const cards=LADDER[area].map((t,i)=>'<div class="lvl-card" style="--accent:'+d.c+'"><div class="lvl-tag">Nível '+(i+1)+'</div><div class="lvl-ttl">'+t+'</div><button class="btn sm" onclick="printMaterial(\''+area+'\','+i+')">🖨️ Imprimir PDF</button></div>').join('');
+  document.getElementById('matBody').innerHTML='<div class="crumb"><button onclick="renderMateriais()">Materiais</button><span>›</span><span style="color:var(--ink)">'+d.label+'</span></div><h1 class="mat-h1" style="color:'+d.c+'">'+d.label+'</h1><p class="mat-lead">'+LADDER[area].length+' níveis, do mais básico ao mais avançado.</p><div class="lvl-list">'+cards+'</div>';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
 function go(view){
   document.querySelectorAll('#app .page').forEach(p=>p.classList.remove('active'));
