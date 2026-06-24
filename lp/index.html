@@ -67,7 +67,7 @@ button,a{font-family:inherit}a{color:inherit;text-decoration:none}
 .d-live{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green-ink);margin-bottom:16px}
 .d-live i{width:8px;height:8px;border-radius:50%;background:var(--green);animation:blink 1.6s ease-in-out infinite}
 .d-head{display:flex;align-items:center;gap:13px;margin-bottom:18px}
-.d-ava{width:54px;height:54px;border-radius:15px;background:linear-gradient(135deg,var(--coral),var(--coral-2));color:#241218;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:24px;flex:none}
+.d-ava{width:54px;height:54px;border-radius:15px;overflow:hidden;background:linear-gradient(135deg,var(--coral),var(--coral-2));color:#241218;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:24px;flex:none}
 .d-nm{font-family:var(--body);font-weight:700;font-size:18px;color:var(--ink)}
 .d-meta{font-size:13px;color:var(--ink-faint)}
 .d-tag{margin-left:auto;font-size:11px;font-weight:700;padding:6px 12px;border-radius:999px;background:var(--green-soft);color:var(--green-ink)}
@@ -187,7 +187,7 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-fain
     <div class="demo">
       <div class="d-live"><i></i> material ao vivo</div>
       <div class="d-head">
-        <div class="d-ava">P</div>
+        <div class="d-ava" id="avaPedro"></div>
         <div><div class="d-nm">Pedro, 7 anos</div><div class="d-meta">Nível 2 de suporte · não verbaliza</div></div>
         <span class="d-tag">Comunicação</span>
       </div>
@@ -273,22 +273,22 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-fain
   </div>
   <div class="results">
     <div class="res">
-      <div class="r-ava">D<img src="https://i.pinimg.com/736x/94/d7/8b/94d78b4ada567e74e1db8ff8cd69b88b.jpg" alt="Davi" loading="lazy" onerror="this.remove()"></div>
+      <div class="r-ava" id="avaDavi"></div>
       <div class="r-nm">Davi</div><div class="r-meta">7 anos · comunicação</div>
       <p class="r-txt">Não verbalizava. Hoje <b>aponta pra figura</b> quando perguntam.</p>
     </div>
     <div class="res">
-      <div class="r-ava">H<img src="https://i.pinimg.com/control1/736x/4d/6d/90/4d6d90c8d6a1705c3f59061f10151ad2.jpg" alt="Helena" loading="lazy" onerror="this.remove()"></div>
+      <div class="r-ava" id="avaHelena"></div>
       <div class="r-nm">Helena</div><div class="r-meta">6 anos · alfabetização</div>
       <p class="r-txt">Não ficava 2 min. Hoje <b>lê palavra de 3 sílabas</b>.</p>
     </div>
     <div class="res">
-      <div class="r-ava">C<img src="https://i.pinimg.com/1200x/e3/5a/26/e35a262a6e6224dc128a29392f06b9bb.jpg" alt="Caio" loading="lazy" onerror="this.remove()"></div>
+      <div class="r-ava" id="avaCaio"></div>
       <div class="r-nm">Caio</div><div class="r-meta">9 anos · matemática</div>
       <p class="r-txt">Resistia à escrita. <b>Escreveu pela 1ª vez</b> via um problema de matemática.</p>
     </div>
     <div class="res">
-      <div class="r-ava">M<img src="https://i.pinimg.com/736x/20/8d/d1/208dd16d79d34651cb8847a0e62d1bed.jpg" alt="Manu" loading="lazy" onerror="this.remove()"></div>
+      <div class="r-ava" id="avaManu"></div>
       <div class="r-nm">Manu</div><div class="r-meta">5 anos · escrita</div>
       <p class="r-txt">Precisava da mão por cima. Hoje <b>segura o lápis sozinha</b>.</p>
     </div>
@@ -338,6 +338,36 @@ function render(delta){
 up.addEventListener('click',()=>{if(rung<LADDER.length-1){rung++;render(1);}});
 dn.addEventListener('click',()=>{if(rung>0){rung--;render(-1);}});
 render(0);
+
+function kidAvatar(o){
+  const bg=o.bg,skin=o.skin,hair=o.hair,shirt=o.shirt,st=o.style||'short';
+  const back=(st==='pony'||st==='bun')?'<path d="M28 46 Q24 82 40 86 L60 86 Q76 82 72 46 Z" fill="'+hair+'"/>':'';
+  let extra='';
+  if(st==='curly'){for(let a=0;a<7;a++){const ang=Math.PI*(0.15+0.7*a/6);const cx=50-26*Math.cos(ang);const cy=42-22*Math.sin(ang);extra+='<circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="6" fill="'+hair+'"/>';}}
+  if(st==='bun')extra='<circle cx="50" cy="18" r="7" fill="'+hair+'"/>';
+  if(st==='pony')extra='<circle cx="75" cy="44" r="7" fill="'+hair+'"/>';
+  return '<svg viewBox="0 0 100 100" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">'
+    +'<rect width="100" height="100" fill="'+bg+'"/>'
+    +'<path d="M14 100 Q14 73 50 73 Q86 73 86 100 Z" fill="'+shirt+'"/>'
+    +'<rect x="44" y="58" width="12" height="14" rx="6" fill="'+skin+'"/>'
+    +back
+    +'<circle cx="50" cy="40" r="21" fill="'+hair+'"/>'
+    +'<circle cx="50" cy="49" r="17" fill="'+skin+'"/>'
+    +'<circle cx="33" cy="50" r="4" fill="'+skin+'"/><circle cx="67" cy="50" r="4" fill="'+skin+'"/>'
+    +extra
+    +'<circle cx="43" cy="49" r="2.4" fill="#3a2a2a"/><circle cx="57" cy="49" r="2.4" fill="#3a2a2a"/>'
+    +'<circle cx="39.5" cy="55" r="3" fill="#FF9A8A" opacity=".45"/><circle cx="60.5" cy="55" r="3" fill="#FF9A8A" opacity=".45"/>'
+    +'<path d="M44 56 Q50 61 56 56" stroke="#3a2a2a" stroke-width="2" fill="none" stroke-linecap="round"/>'
+    +'</svg>';
+}
+const KIDS={
+  Pedro:{bg:'#FFE3DC',skin:'#EDB98A',hair:'#6B4423',shirt:'#FF6F5E',style:'short'},
+  Davi:{bg:'#FFE0EC',skin:'#C68642',hair:'#241A12',shirt:'#37D9A2',style:'short'},
+  Helena:{bg:'#FFF1D0',skin:'#F2C9A0',hair:'#4A2C18',shirt:'#FF85A6',style:'pony'},
+  Caio:{bg:'#D6F7EE',skin:'#E0A877',hair:'#1F1410',shirt:'#46B4FF',style:'curly'},
+  Manu:{bg:'#E7E3FF',skin:'#F5D0B0',hair:'#6B4423',shirt:'#C28CFF',style:'bun'}
+};
+['Pedro','Davi','Helena','Caio','Manu'].forEach(k=>{const el=document.getElementById('ava'+k);if(el)el.innerHTML=kidAvatar(KIDS[k]);});
 </script>
 </body>
 </html>
