@@ -393,32 +393,24 @@ footer.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-fain
       <p class="hint">Materiais com base científica, construídos por fono, psicopedagoga e terapeuta ocupacional.</p>
     </div>
 
+    <div class="q-step" data-step="7">
+      <div class="q-eyebrow">// criar conta</div>
+      <h2 id="authTitle">Crie sua conta</h2>
+      <p class="q-sub" id="authSub">Pra guardar suas turmas e acompanhar cada aluno.</p>
+      <div class="auth-field"><label for="auNome">Nome</label><input class="inp" id="auNome" placeholder="Seu nome"></div>
+      <div class="auth-field"><label for="auEmail">E-mail</label><input class="inp" id="auEmail" type="email" placeholder="voce@email.com" autocomplete="email"></div>
+      <div class="auth-field" id="fieldPhone"><label for="auPhone">Telefone</label><input class="inp" id="auPhone" type="tel" placeholder="(00) 00000-0000" autocomplete="tel"></div>
+      <div class="auth-field"><label for="auPass">Senha</label><input class="inp" id="auPass" type="password" placeholder="mínimo 6 caracteres" autocomplete="new-password"></div>
+      <div class="auth-msg" id="authMsg"></div>
+      <p class="hint" id="authSwitch">Já tem conta? <a href="#" onclick="authTab('login');return false;" style="color:var(--cyan);font-weight:700">Entrar</a></p>
+    </div>
+
     <div class="q-nav">
       <button class="q-back" id="qBack" style="visibility:hidden">← Voltar</button>
       <button class="btn" id="qNext" disabled>Continuar →</button>
     </div>
     <div class="q-cred">[ GeniousTea ] desenvolvimento infantil · intervenção pedagógica no TEA</div>
   </div></div>
-</section>
-
-<!-- ===================== LOGIN / CADASTRO ===================== -->
-<section id="auth">
-  <div class="auth-card">
-    <div class="brand"><span class="brain"></span><b>Genious</b><span class="tea">Tea</span></div>
-    <div class="auth-toggle">
-      <button id="tabSignup" class="on" onclick="authTab('signup')">Criar conta</button>
-      <button id="tabLogin" onclick="authTab('login')">Entrar</button>
-    </div>
-    <h2 id="authTitle">Crie sua conta</h2>
-    <p class="auth-sub" id="authSub">Pra guardar suas turmas e acompanhar cada aluno.</p>
-
-    <div class="auth-field"><label for="auEmail">E-mail</label><input class="inp" id="auEmail" type="email" placeholder="voce@email.com" autocomplete="email"></div>
-    <div class="auth-field" id="fieldPhone"><label for="auPhone">Telefone</label><input class="inp" id="auPhone" type="tel" placeholder="(00) 00000-0000" autocomplete="tel"></div>
-    <div class="auth-field"><label for="auPass">Senha</label><input class="inp" id="auPass" type="password" placeholder="mínimo 6 caracteres" autocomplete="current-password"></div>
-
-    <button class="btn" id="authBtn" onclick="doAuth()">Criar conta e entrar →</button>
-    <div class="auth-msg" id="authMsg"></div>
-  </div>
 </section>
 
 <!-- ===================== APP ===================== -->
@@ -612,7 +604,7 @@ let students=[
    famRec:['🔢','Contar degraus, brinquedos, frutas — transformar a casa em campo de contagem.'],
    ganho:'Conta até 20 sozinha e começa a montar sequências.'},
 ];
-let currentId=2, quiz={}, qStep=1; const QTOTAL=6;
+let currentId=2, quiz={}, qStep=1; const QTOTAL=7;
 let formGenero=null, formNivel=null, formAreas=[];
 
 let tT;
@@ -624,23 +616,22 @@ function renderQuiz(){
   document.querySelectorAll('.q-step').forEach(s=>s.classList.toggle('active',+s.dataset.step===qStep));
   qBar.style.width=(qStep/QTOTAL*100)+'%';qLabel.textContent=`Etapa ${qStep} / ${QTOTAL}`;
   qBack.style.visibility=qStep===1?'hidden':'visible';
-  qNext.textContent=qStep===QTOTAL?'Montar meu painel →':'Continuar →';
-  const key=['','papel','qtd','dor','hoje','rede','name'][qStep];
-  qNext.disabled=qStep===QTOTAL?false:!quiz[key];
+  if(qStep===7){
+    quizName=document.getElementById('qName').value.trim()||'Prof.';
+    const nf=document.getElementById('auNome'); if(nf&&!nf.value)nf.value=quizName.replace(/^Prof\.?\s*/i,'');
+    applyAuthMode(); qNext.disabled=false;
+  }else{
+    qNext.textContent='Continuar →';
+    const key=['','papel','qtd','dor','hoje','rede','name'][qStep];
+    qNext.disabled=(qStep===6)?false:!quiz[key];
+  }
 }
 document.querySelectorAll('.opt[data-q]').forEach(b=>b.addEventListener('click',()=>{
   const q=b.dataset.q;document.querySelectorAll(`.opt[data-q="${q}"]`).forEach(x=>x.classList.remove('sel'));
   b.classList.add('sel');quiz[q]=b.dataset.v;qNext.disabled=false;
 }));
-qNext.addEventListener('click',()=>{qStep<QTOTAL?(qStep++,renderQuiz()):finishQuiz();});
+qNext.addEventListener('click',()=>{qStep<QTOTAL?(qStep++,renderQuiz()):doAuth();});
 qBack.addEventListener('click',()=>{if(qStep>1){qStep--;renderQuiz();}});
-function finishQuiz(){
-  const name=document.getElementById('qName').value.trim()||'Prof.';
-  quizName=name;
-  document.getElementById('quiz').classList.remove('active');
-  document.getElementById('auth').classList.add('active');
-  window.scrollTo(0,0);
-}
 function enterApp(displayName){
   const name=displayName||'Prof.';
   const first=name.replace(/^Prof\.?\s*/i,'').split(' ')[0]||'Prof.';
@@ -648,7 +639,6 @@ function enterApp(displayName){
   document.getElementById('meAva').textContent=first.charAt(0).toUpperCase();
   document.getElementById('daySaud').textContent='Bom dia, '+first;
   document.getElementById('quiz').classList.remove('active');
-  document.getElementById('auth').classList.remove('active');
   document.getElementById('app').classList.add('active');
   renderDay();renderDash();go('day');window.scrollTo(0,0);
 }
@@ -659,60 +649,54 @@ const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let quizName='Prof.', authMode='signup';
 
-function authTab(mode){
-  authMode=mode;
-  document.getElementById('tabSignup').classList.toggle('on',mode==='signup');
-  document.getElementById('tabLogin').classList.toggle('on',mode==='login');
-  document.getElementById('authTitle').textContent=mode==='signup'?'Crie sua conta':'Bem-vindo de volta';
-  document.getElementById('authSub').textContent=mode==='signup'?'Pra guardar suas turmas e acompanhar cada aluno.':'Entre pra ver seu painel.';
-  document.getElementById('authBtn').textContent=mode==='signup'?'Criar conta e entrar →':'Entrar →';
-  document.getElementById('fieldPhone').classList.toggle('auth-hide',mode!=='signup');
-  document.getElementById('auPass').setAttribute('autocomplete',mode==='signup'?'new-password':'current-password');
-  setAuthMsg('');
+function applyAuthMode(){
+  const signup=authMode==='signup';
+  document.getElementById('authTitle').textContent=signup?'Crie sua conta':'Bem-vindo de volta';
+  document.getElementById('authSub').textContent=signup?'Pra guardar suas turmas e acompanhar cada aluno.':'Entre com seu e-mail e senha pra ver seu painel.';
+  document.getElementById('fieldPhone').classList.toggle('auth-hide',!signup);
+  document.getElementById('authSwitch').innerHTML=signup
+    ?'Já tem conta? <a href="#" onclick="authTab(\'login\');return false;" style="color:var(--cyan);font-weight:700">Entrar</a>'
+    :'Ainda não tem conta? <a href="#" onclick="authTab(\'signup\');return false;" style="color:var(--cyan);font-weight:700">Criar conta</a>';
+  qNext.textContent=signup?'Criar conta e entrar →':'Entrar →';
 }
-function setAuthMsg(txt,type){const m=document.getElementById('authMsg');m.textContent=txt;m.className='auth-msg'+(type?' '+type:'');}
+function authTab(mode){authMode=mode;setAuthMsg('');applyAuthMode();}
+function setAuthMsg(txt,type){const m=document.getElementById('authMsg');if(!m)return;m.textContent=txt||'';m.className='auth-msg'+(type?' '+type:'');}
 
 async function doAuth(){
+  const nome=(document.getElementById('auNome').value.trim())||'Prof.';
   const email=document.getElementById('auEmail').value.trim();
   const phone=document.getElementById('auPhone').value.trim();
   const pass=document.getElementById('auPass').value;
-  const btn=document.getElementById('authBtn');
+  quizName=nome;
   if(!email||!email.includes('@'))return setAuthMsg('Digite um e-mail válido.','err');
   if(authMode==='signup'&&!phone)return setAuthMsg('O telefone é obrigatório.','err');
   if(pass.length<6)return setAuthMsg('A senha precisa de pelo menos 6 caracteres.','err');
-  btn.disabled=true;setAuthMsg('Um instante...');
+  qNext.disabled=true;setAuthMsg('Um instante...');
   try{
     if(authMode==='signup'){
-      const{data,error}=await sb.auth.signUp({email,password:pass,options:{data:{nome:quizName,telefone:phone}}});
+      const{data,error}=await sb.auth.signUp({email,password:pass,options:{data:{nome:nome,telefone:phone}}});
       if(error)throw error;
-      if(!data.session){
-        const{error:e2}=await sb.auth.signInWithPassword({email,password:pass});
-        if(e2)throw e2;
-      }
-      setAuthMsg('Conta criada!','ok');
-      enterApp(quizName);
+      if(!data.session){const{error:e2}=await sb.auth.signInWithPassword({email,password:pass});if(e2)throw e2;}
+      setAuthMsg('Conta criada!','ok');enterApp(nome);
     }else{
       const{data,error}=await sb.auth.signInWithPassword({email,password:pass});
       if(error)throw error;
-      const nome=(data.user&&data.user.user_metadata&&data.user.user_metadata.nome)||quizName;
-      setAuthMsg('Entrando...','ok');
-      enterApp(nome);
+      const n=(data.user&&data.user.user_metadata&&data.user.user_metadata.nome)||nome;
+      setAuthMsg('Entrando...','ok');enterApp(n);
     }
   }catch(err){
     let msg=err.message||'Algo deu errado. Tente de novo.';
-    if(/already registered|already exists/i.test(msg))msg='Esse e-mail já tem conta. Use "Entrar".';
+    if(/already registered|already exists|User already/i.test(msg))msg='Esse e-mail já tem conta. Toque em "Entrar".';
     if(/invalid login credentials/i.test(msg))msg='E-mail ou senha incorretos.';
     setAuthMsg(msg,'err');
-  }finally{btn.disabled=false;}
+  }finally{qNext.disabled=false;}
 }
 
 async function doLogout(){
   await sb.auth.signOut();
   document.getElementById('app').classList.remove('active');
-  document.getElementById('auth').classList.remove('active');
   document.getElementById('quiz').classList.add('active');
-  qStep=1;quiz={};document.querySelectorAll('.opt.sel').forEach(o=>o.classList.remove('sel'));
-  renderQuiz();window.scrollTo(0,0);
+  qStep=7;renderQuiz();authTab('login');window.scrollTo(0,0);
 }
 
 /* se já estiver logado, pula direto pro painel */
