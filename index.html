@@ -582,7 +582,8 @@ function toggleTurmaNew(){
 }
 function editStudent(id){
   const s=students.find(x=>x.id===id);if(!s)return;currentEditId=id;
-  cad={nome:s.nome,idade:s.idade,turma:s.turma_id||'',turmaNew:'',genero:s.genero,nivel:s.nivel,areas:s.sit.map(x=>({area:x.area,rung:x.rung})),obs:s.obs||''};
+  cad={nome:s.nome,idade:s.idade,turma:s.turma_id||'',turmaNew:'',genero:s.genero,nivel:s.nivel,answers:{},obs:s.obs||''};
+  s.sit.forEach(x=>cad.answers[x.area]=x.rung);
   cStep=0;
   document.getElementById('formTitle').textContent='Editar '+s.nome.split(' ')[0];
   document.getElementById('crumbForm').textContent='Editar '+s.nome.split(' ')[0];
@@ -752,14 +753,15 @@ function renderDash(){
 }
 
 let cad={}, cStep=0;
-function resetCad(){cad={nome:'',idade:'',turma:'',turmaNew:'',genero:null,nivel:null,areas:[],obs:''};cStep=0;}
+function resetCad(){cad={nome:'',idade:'',turma:'',turmaNew:'',genero:null,nivel:null,answers:{},obs:''};cStep=0;}
+function focusAreas(){return Object.keys(DOM).filter(k=>cad.answers[k]>=0).map(k=>({area:k,rung:cad.answers[k]}));}
 function newStudent(){
   currentEditId=null;resetCad();
   document.getElementById('formTitle').textContent='Cadastrar uma criança';
   document.getElementById('crumbForm').textContent='Novo aluno';
   go('cadastro');wzRender();
 }
-function cadSteps(){return ['basico','perfil','quais'].concat(cad.areas.map(a=>'dif:'+a.area),['extra']);}
+function cadSteps(){return ['basico','perfil'].concat(Object.keys(DOM).map(k=>'area:'+k),['extra']);}
 function wzRender(){
   const steps=cadSteps();
   if(cStep<0)cStep=0;if(cStep>steps.length-1)cStep=steps.length-1;
@@ -771,8 +773,7 @@ function wzRender(){
   document.getElementById('wzNext').textContent=last?(currentEditId?'Salvar alterações →':'Salvar e ver a trilha →'):'Continuar →';
   if(id==='basico')body.innerHTML=stepBasico();
   else if(id==='perfil')body.innerHTML=stepPerfil();
-  else if(id==='quais')body.innerHTML=stepQuais();
-  else if(id.indexOf('dif:')===0)body.innerHTML=stepDif(id.slice(4));
+  else if(id.indexOf('area:')===0)body.innerHTML=stepArea(id.slice(5));
   else body.innerHTML=stepExtra();
   if(id==='basico'){document.getElementById('fNome').value=cad.nome;document.getElementById('fIdade').value=cad.idade;fillTurmaSelect(cad.turma);document.getElementById('fTurmaNew').value=cad.turmaNew||'';toggleTurmaNew();}
   if(id==='perfil'){markSeg('wzGenero',cad.genero);markSeg('wzNivel',cad.nivel);}
@@ -795,38 +796,36 @@ function stepPerfil(){return '<h2 class="wz-q">Qual o perfil de apoio?</h2>'+
   '<button type="button" data-n="1" onclick="pickNivel(1)">Nível 1<small>Apoio leve</small></button>'+
   '<button type="button" data-n="2" onclick="pickNivel(2)">Nível 2<small>Apoio substancial</small></button>'+
   '<button type="button" data-n="3" onclick="pickNivel(3)">Nível 3<small>Apoio intenso</small></button></div></div>';}
-function stepQuais(){
-  const chips=Object.entries(DOM).map(([k,d])=>{const on=cad.areas.find(a=>a.area===k)?'on':'';
-    return '<button type="button" class="chip '+on+'" style="--c:'+d.c+';--c-bg:'+d.bg+'" onclick="toggleArea(\''+k+'\')"><span class="cdot"></span>'+d.label+'</button>';}).join('');
-  return '<h2 class="wz-q">Quais dificuldades pesam hoje?</h2><p class="desc">Marque as áreas que importam. Em seguida você descreve cada uma.</p><div class="chips" id="wzChips">'+chips+'</div>';
-}
-function stepDif(area){
-  const d=DOM[area],cur=cad.areas.find(a=>a.area===area);
-  const cards=SIT[area].map((t,i)=>'<button type="button" class="sit-card '+(cur&&cur.rung===i?'on':'')+'" onclick="pickSit(\''+area+'\','+i+')">'+t+'</button>').join('');
+function stepArea(area){
+  const d=DOM[area],ans=cad.answers[area];
+  const none=(ans===undefined||ans===-1)?'on':'';
+  const cards=SIT[area].map((t,i)=>'<button type="button" class="sit-card '+(ans===i?'on':'')+'" onclick="pickArea(\''+area+'\','+i+')">'+t+'</button>').join('');
   return '<div class="wz-area" style="--c:'+d.c+'"><span class="cdot"></span>'+d.label+'</div>'+
-    '<h2 class="wz-q">Como '+(cad.nome||'a criança')+' está em '+d.label.toLowerCase()+' hoje?</h2>'+
-    '<p class="desc">Escolha a frase que mais combina. Isso define o ponto de partida da trilha.</p><div class="sit-list">'+cards+'</div>';
+    '<h2 class="wz-q">Como '+(cad.nome||'a criança')+' está em '+d.label.toLowerCase()+'?</h2>'+
+    '<p class="desc">Se essa área não é uma dificuldade, marque a primeira opção e siga em frente.</p>'+
+    '<div class="sit-list">'+
+      '<button type="button" class="sit-card none '+none+'" onclick="pickArea(\''+area+'\',-1)">✓ Sem dificuldade nessa área</button>'+
+      cards+'</div>';
 }
+function pickArea(area,i){cad.answers[area]=i;document.getElementById('wzBody').innerHTML=stepArea(area);}
 function stepExtra(){
-  const resumo=cad.areas.map(a=>DOM[a.area].label+': '+SIT[a.area][a.rung]).join(' · ');
+  const fa=focusAreas();
+  const resumo=fa.length?fa.map(a=>DOM[a.area].label+': '+SIT[a.area][a.rung]).join(' · '):'nenhuma dificuldade marcada';
   return '<h2 class="wz-q">Mais alguma coisa?</h2>'+
     '<div class="field"><label for="fObs">O que mais importa saber sobre '+(cad.nome||'ela')+'</label>'+
     '<p class="desc">Gostos, gatilhos, o que funciona. Personaliza ainda mais a trilha.</p>'+
     '<textarea class="inp" id="fObs" placeholder="Ex.: ama dinossauros, se acalma com música, não gosta de barulho alto..."></textarea></div>'+
-    '<div class="wz-resumo"><b>Resumo:</b> '+(cad.nome||'—')+', '+(cad.idade||'?')+' anos · nível '+(cad.nivel||'?')+(resumo?' · '+resumo:'')+'</div>';
+    '<div class="wz-resumo"><b>Resumo:</b> '+(cad.nome||'—')+', '+(cad.idade||'?')+' anos · nível '+(cad.nivel||'?')+' · '+resumo+'</div>';
 }
 function pickGenero(g){cad.genero=g;markSeg('wzGenero',g);}
 function pickNivel(n){cad.nivel=n;markSeg('wzNivel',n);}
 function markSeg(id,val){document.querySelectorAll('#'+id+' button').forEach(b=>{const on=b.dataset.g!==undefined?b.dataset.g===val:(+b.dataset.n===val);b.classList.toggle('on',!!on);});}
-function toggleArea(k){const i=cad.areas.findIndex(a=>a.area===k);if(i>=0)cad.areas.splice(i,1);else cad.areas.push({area:k,rung:null});wzRender();}
-function pickSit(area,i){const a=cad.areas.find(x=>x.area===area);if(a)a.rung=i;document.querySelectorAll('#wzBody .sit-card').forEach((b,idx)=>b.classList.toggle('on',idx===i));}
 function wzNext(){
   const steps=cadSteps(),id=steps[cStep];
   if(id==='basico'){cad.nome=document.getElementById('fNome').value.trim();cad.idade=document.getElementById('fIdade').value;cad.turma=document.getElementById('fTurma').value;cad.turmaNew=document.getElementById('fTurmaNew').value.trim();if(!cad.nome)return toast('Dê um nome pra criança');}
   if(id==='perfil'&&!cad.nivel)return toast('Escolha o nível de suporte');
-  if(id==='quais'&&!cad.areas.length)return toast('Marque ao menos uma dificuldade');
-  if(id.indexOf('dif:')===0){const a=cad.areas.find(x=>x.area===id.slice(4));if(!a||a.rung==null)return toast('Escolha a situação da criança');}
-  if(id==='extra'){cad.obs=document.getElementById('fObs').value.trim();return saveStudent();}
+  if(id.indexOf('area:')===0){const ar=id.slice(5);if(cad.answers[ar]===undefined)cad.answers[ar]=-1;}
+  if(id==='extra'){cad.obs=document.getElementById('fObs').value.trim();if(!focusAreas().length)return toast('Marque ao menos uma dificuldade em alguma área');return saveStudent();}
   cStep++;wzRender();
 }
 function wzPrev(){
@@ -839,7 +838,8 @@ async function saveStudent(){
   const nome=(cad.nome||'').trim();
   if(!nome)return toast('Dê um nome pra criança');
   if(!cad.nivel)return toast('Escolha o nível de suporte');
-  if(!cad.areas.length)return toast('Marque ao menos uma dificuldade');
+  const fa=focusAreas();
+  if(!fa.length)return toast('Marque ao menos uma dificuldade');
   const idade=+cad.idade||6;const genero=cad.genero||'—';const obs=cad.obs||'';
   let turma_id=null;
   if(cad.turma==='__new__'){
@@ -849,7 +849,7 @@ async function saveStudent(){
     if(ins.error)return toast('Erro ao criar turma: '+ins.error.message);
     turma_id=ins.data.id;
   }else if(cad.turma){turma_id=cad.turma;}
-  const areas=cad.areas.map(x=>({area:x.area,situacao:SIT[x.area][x.rung],rung:x.rung}));
+  const areas=fa.map(x=>({area:x.area,situacao:SIT[x.area][x.rung],rung:x.rung}));
   const payload={nome,idade,genero,nivel_suporte:cad.nivel,areas,observacoes:obs,turma_id};
   let openId=currentEditId;
   if(currentEditId){
