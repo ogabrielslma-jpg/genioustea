@@ -3,217 +3,157 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GeniousTea — pare de usar PDF genérico com seus alunos autistas</title>
-<meta name="description" content="Cada criança no espectro precisa da atividade certa, no nível certo, no momento certo. O GeniousTea monta a trilha individual de cada aluno e gera o material em PDF. Base científica: fono, psicopedagoga e terapeuta ocupacional.">
+<title>GeniousTea — atividades individuais para alunos autistas</title>
+<meta name="description" content="Cada criança no espectro precisa da atividade certa, no nível certo. O GeniousTea monta a trilha individual de cada aluno e gera o PDF em minutos. Base científica: fono, psicopedagoga e T.O.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0A1410; --surface:#11211A; --surface-2:#0D1B15; --glass:rgba(20,38,30,.6);
-  --ink:#EFF6F1; --ink-soft:#A6C6B6; --ink-faint:#6A8E7C;
-  --line:rgba(90,210,150,.14); --line-soft:rgba(90,210,150,.08);
-
-  /* vermelho = marca / ação / destaque */
-  --red:#FF5147; --red-2:#E23A33; --red-soft:rgba(255,81,71,.14); --red-ink:#FFD8D3;
-  /* verde = apoio / positivo / fundo */
-  --green:#23D98A; --green-2:#12B89A; --green-soft:rgba(35,217,138,.14); --mint:#5BF0AE;
-  --leaf:#37D979;
-
+  --bg:#F7F7F2; --surface:#FFFFFF; --tint:#F1F5F1;
+  --ink:#17241D; --ink-soft:#4F5C53; --ink-faint:#8C978E;
+  --line:#E7E7DF; --line-soft:#EFEFE8;
+  --red:#EC5A4E; --red-2:#D84A40; --red-soft:#FDECEA; --red-ink:#B33A30;
+  --green:#1FA577; --green-soft:#E7F5EE; --green-ink:#157A58;
   --radius:18px; --radius-sm:12px;
-  --shadow:0 1px 1px rgba(0,0,0,.4),0 18px 44px rgba(0,0,0,.5);
-  --glow:0 0 0 1px rgba(90,210,150,.06);
+  --shadow:0 6px 22px rgba(20,40,30,.07),0 1px 2px rgba(20,40,30,.04);
   --display:'Space Grotesk',sans-serif;
   --body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  --mono:'Space Mono',ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:var(--body);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;font-size:16px;
-  background:
-    radial-gradient(880px 600px at 88% -14%, rgba(255,81,71,.16), transparent 58%),
-    radial-gradient(820px 640px at -4% 110%, rgba(18,184,154,.18), transparent 60%),
-    var(--bg);
-  background-attachment:fixed;overflow-x:hidden;
-}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;
-  background-image:linear-gradient(rgba(90,210,150,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(90,210,150,.05) 1px,transparent 1px);
-  background-size:56px 56px;mask-image:radial-gradient(120% 90% at 50% 0,#000 22%,transparent 92%)}
-h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.1;letter-spacing:-.015em}
-button,a{font-family:inherit}
-a{color:inherit;text-decoration:none}
+body{font-family:var(--body);color:var(--ink-soft);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px;background:var(--bg)}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.12;letter-spacing:-.015em;color:var(--ink)}
+button,a{font-family:inherit}a{color:inherit;text-decoration:none}
 :focus-visible{outline:2.5px solid var(--green);outline-offset:3px;border-radius:6px}
-@keyframes pulse{0%,100%{filter:drop-shadow(0 0 5px rgba(255,81,71,.5))}50%{filter:drop-shadow(0 0 12px rgba(255,81,71,.85))}}
-@keyframes pop{0%{transform:scale(.97);opacity:.4}60%{transform:scale(1.012)}100%{transform:scale(1);opacity:1}}
-@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.98);opacity:.5}100%{transform:scale(1);opacity:1}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
-.wrap{max-width:1140px;margin:0 auto;padding:0 28px;position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15.5px;padding:13px 24px;border-radius:999px;border:none;cursor:pointer;background:var(--red);color:#fff;transition:transform .14s,box-shadow .2s,background .2s;box-shadow:0 8px 20px rgba(236,90,78,.26)}
+.btn:hover{background:var(--red-2);box-shadow:0 12px 26px rgba(236,90,78,.34);transform:translateY(-1px)}
+.btn.ghost{background:#fff;color:var(--green-ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--green);transform:translateY(-1px)}
+.btn.lg{padding:16px 30px;font-size:16.5px}
+.btn.sm{padding:9px 17px;font-size:14px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--red)}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:700;font-size:15.5px;padding:14px 26px;border-radius:999px;border:none;cursor:pointer;
-  background:linear-gradient(135deg,var(--red),var(--red-2));color:#fff;transition:transform .15s,box-shadow .2s,filter .2s;box-shadow:0 10px 26px rgba(255,81,71,.32)}
-.btn:hover{filter:brightness(1.06);box-shadow:0 14px 36px rgba(255,81,71,.46);transform:translateY(-1px)}
-.btn:active{transform:translateY(0)}
-.btn.ghost{background:transparent;color:var(--mint);box-shadow:inset 0 0 0 1.5px var(--line)}
-.btn.ghost:hover{box-shadow:inset 0 0 0 1.5px var(--green);filter:none}
-.btn.lg{padding:17px 34px;font-size:17px}
-.btn.sm{padding:10px 18px;font-size:14px}
-
-.eyebrow{font-family:var(--mono);font-size:12.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
-
-.brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-size:21px;font-weight:600;color:var(--ink)}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:20px;font-weight:600;color:var(--ink)}
 .brand .tea{color:var(--green)}
-.brain{width:34px;height:34px;display:inline-grid;place-items:center;color:var(--red);flex:none;animation:pulse 4s ease-in-out infinite}
-.brain svg{width:100%;height:100%}
+.applem{width:30px;height:30px;flex:none}.applem svg{width:100%;height:100%;display:block}
 
-.nav{position:sticky;top:0;z-index:40;background:rgba(10,20,16,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,81,71,.4),transparent)}
-.nav .wrap{display:flex;align-items:center;height:68px;gap:16px}
-.nav .links{margin-left:auto;display:flex;align-items:center;gap:14px}
-.nav .links a.txt{font-weight:700;font-size:14.5px;color:var(--ink-soft)}
+.nav{position:sticky;top:0;z-index:40;background:rgba(247,247,242,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;height:66px;gap:16px}
+.nav .links{margin-left:auto;display:flex;align-items:center;gap:16px}
+.nav .links a.txt{font-weight:600;font-size:14.5px;color:var(--ink-soft)}
 .nav .links a.txt:hover{color:var(--ink)}
 
-.hero{padding:64px 0 30px}
-.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+.hero{padding:60px 0 24px}
+.hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
 .hero-copy{animation:rise .6s ease both}
-.hero h1{font-size:clamp(34px,5.2vw,56px);margin:16px 0 0;color:#fff}
-.hero h1 .hl{color:var(--red);position:relative;white-space:nowrap;text-shadow:0 0 22px rgba(255,81,71,.35)}
-.hero .lede{font-size:clamp(17px,2vw,20px);color:var(--ink-soft);margin:20px 0 0;max-width:34ch}
-.hero .lede b{color:var(--mint);font-weight:700}
-.hero .cta-row{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
-.hero .trust{margin-top:20px;font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.02em;line-height:1.7}
-.hero .trust b{color:var(--ink-soft);font-weight:700}
+.hero h1{font-size:clamp(32px,4.8vw,50px);margin:14px 0 0}
+.hero h1 .hl{color:var(--red)}
+.hero .lede{font-size:clamp(16.5px,1.9vw,19px);color:var(--ink-soft);margin:18px 0 0;max-width:36ch}
+.hero .lede b{color:var(--green-ink);font-weight:700}
+.hero .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.hero .trust{margin-top:18px;font-size:13px;color:var(--ink-faint)}
 
-.demo{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:var(--shadow),var(--glow);animation:rise .7s .1s ease both;position:relative;overflow:hidden}
-.demo::before{content:"";position:absolute;top:-50%;right:-15%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(35,217,138,.16),transparent 70%);pointer-events:none}
-.demo .d-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-.demo .d-ava{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:20px;color:#06130D;background:var(--green);flex:none;position:relative;overflow:hidden;box-shadow:0 0 16px rgba(35,217,138,.4)}
-.demo .d-nm{font-family:var(--display);font-weight:600;font-size:18px}
-.demo .d-meta{font-size:12.5px;color:var(--ink-faint)}
-.demo .d-tag{margin-left:auto;font-family:var(--mono);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:5px 11px;border-radius:999px;background:var(--green-soft);color:var(--mint)}
-.act{border:1.5px solid rgba(35,217,138,.4);background:var(--green-soft);border-radius:16px;padding:19px}
-.act .a-area{font-family:var(--mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--mint)}
-.act .a-title{font-family:var(--display);font-weight:600;font-size:21px;color:#fff;margin:5px 0 6px;min-height:52px;animation:pop .3s ease}
-.act .a-desc{font-size:13.5px;color:var(--ink-soft)}
-.leveler{display:flex;align-items:center;gap:12px;margin-top:16px;padding:15px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line)}
-.leveler .ll{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em}
+.demo{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);animation:rise .7s .1s ease both}
+.d-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.d-ava{width:46px;height:46px;border-radius:12px;overflow:hidden;position:relative;background:var(--green);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:19px;flex:none}
+.d-ava img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.d-nm{font-family:var(--display);font-weight:600;font-size:17px;color:var(--ink)}
+.d-meta{font-size:12.5px;color:var(--ink-faint)}
+.d-tag{margin-left:auto;font-size:11px;font-weight:700;padding:5px 11px;border-radius:999px;background:var(--green-soft);color:var(--green-ink)}
+.act{border:1px solid var(--line);background:var(--tint);border-radius:14px;padding:18px}
+.a-area{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--green-ink)}
+.a-title{font-family:var(--display);font-weight:600;font-size:20px;color:var(--ink);margin:5px 0 6px;min-height:48px;animation:pop .3s ease}
+.a-desc{font-size:13.5px;color:var(--ink-soft)}
+.leveler{display:flex;align-items:center;gap:12px;margin-top:14px;padding:14px;border-radius:13px;background:var(--tint);border:1px solid var(--line)}
+.ll{font-size:10.5px;font-weight:700;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.03em}
 .lev-ctrl{display:flex;align-items:center;gap:10px;margin-left:auto}
-.lev-btn{width:38px;height:38px;border-radius:50%;background:var(--surface);border:1.5px solid var(--line);font-size:21px;font-weight:800;color:var(--mint);display:grid;place-items:center;cursor:pointer;transition:.15s}
-.lev-btn:hover:not(:disabled){border-color:var(--green);background:rgba(35,217,138,.1);box-shadow:0 0 14px rgba(35,217,138,.25)}
-.lev-btn:disabled{opacity:.3;cursor:not-allowed}
+.lev-btn{width:36px;height:36px;border-radius:50%;background:#fff;border:1.5px solid var(--line);font-size:20px;font-weight:800;color:var(--green-ink);display:grid;place-items:center;cursor:pointer;transition:.15s}
+.lev-btn:hover:not(:disabled){border-color:var(--green);background:var(--green-soft)}
+.lev-btn:disabled{opacity:.35;cursor:not-allowed}
 .lev-dots{display:flex;gap:6px}
-.lev-dots i{width:11px;height:11px;border-radius:50%;background:rgba(90,210,150,.2);transition:.2s}
-.lev-dots i.on{background:var(--green);box-shadow:0 0 8px var(--green)}
-.lev-num{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--ink);min-width:54px;text-align:center}
-.coach{margin-top:13px;font-size:13px;font-weight:600;padding:11px 14px;border-radius:11px;line-height:1.45;animation:pop .3s ease}
+.lev-dots i{width:10px;height:10px;border-radius:50%;background:#DDE3DC;transition:.2s}
+.lev-dots i.on{background:var(--green)}
+.lev-num{font-size:13.5px;font-weight:700;color:var(--ink);min-width:50px;text-align:center}
+.coach{margin-top:12px;font-size:13px;font-weight:600;padding:10px 13px;border-radius:10px;line-height:1.45;animation:pop .3s ease}
 .coach.down{background:var(--red-soft);color:var(--red-ink)}
-.coach.up{background:rgba(35,217,138,.13);color:#8BF2C4}
-.coach.steady{background:rgba(90,210,150,.08);color:var(--ink-soft)}
-.demo .d-hint{text-align:center;font-size:12px;color:var(--ink-faint);margin-top:14px}
-.demo .d-hint b{color:var(--red)}
+.coach.up{background:var(--green-soft);color:var(--green-ink)}
+.coach.steady{background:var(--tint);color:var(--ink-soft)}
+.d-hint{text-align:center;font-size:12px;color:var(--ink-faint);margin-top:12px}
+.d-hint b{color:var(--red-ink)}
 
-.sec{padding:72px 0}
-.sec-head{max-width:680px}
-.sec-head h2{font-size:clamp(28px,3.8vw,40px);color:#fff;margin-top:13px}
+.sec{padding:60px 0}
+.sec-head{max-width:620px;margin:0 auto;text-align:center}
+.sec-head h2{font-size:clamp(26px,3.4vw,36px);margin-top:11px}
 .sec-head h2 em{font-style:normal;color:var(--red)}
-.sec-head p{color:var(--ink-soft);font-size:17px;margin-top:14px}
+.sec-head p{font-size:16px;margin-top:12px}
 
-.pain-lead{color:var(--ink-soft);font-size:17px;max-width:60ch;margin-top:14px}
-.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
-.pain{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--glow)}
-.pain .pi{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:21px;background:var(--red-soft);border:1px solid rgba(255,81,71,.2);margin-bottom:14px}
-.pain h4{font-size:17px;color:var(--ink)}
-.pain p{font-size:14px;color:var(--ink-soft);margin-top:8px}
-.pain p .kid{color:var(--red-ink);font-weight:600}
+.band{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 30px;box-shadow:var(--shadow);display:flex;align-items:center;gap:22px;flex-wrap:wrap;justify-content:center;text-align:center}
+.band .from{font-family:var(--display);font-size:26px;font-weight:600;color:var(--ink-faint);text-decoration:line-through;text-decoration-color:#E3A6A0}
+.band .arrow{color:var(--red);font-size:22px;font-weight:800}
+.band .to{font-family:var(--display);font-size:clamp(34px,4.6vw,46px);font-weight:700;color:var(--red);line-height:1}
+.band .bl{font-size:14.5px;color:var(--ink-soft);max-width:34ch;text-align:left}
 
-.truth{margin-top:30px;display:flex;gap:18px;align-items:flex-start;border-radius:var(--radius);padding:26px 28px;
-  background:linear-gradient(110deg,rgba(255,81,71,.1),rgba(35,217,138,.1));border:1px solid var(--line)}
-.truth .tq{font-size:34px;flex:none;line-height:1;color:var(--red);font-family:var(--display)}
-.truth p{font-size:clamp(17px,2.1vw,21px);color:var(--ink);font-family:var(--display);font-weight:500;line-height:1.4}
-.truth p b{color:var(--red);font-weight:700}
+.feats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:34px;max-width:880px;margin-left:auto;margin-right:auto}
+.feat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);display:flex;gap:15px;align-items:flex-start}
+.feat .fi{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:21px;background:var(--green-soft);flex:none}
+.feat h3{font-size:17.5px}
+.feat p{font-size:14px;margin-top:5px}
+.feat.star{border-color:rgba(236,90,78,.32);box-shadow:0 8px 24px rgba(236,90,78,.1)}
+.feat.star .fi{background:var(--red-soft)}
+.feat.star h3 .b{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--red);background:var(--red-soft);padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:middle}
 
-.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
-.feat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;position:relative;overflow:hidden;box-shadow:var(--glow);transition:transform .16s,box-shadow .2s,border-color .2s}
-.feat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--green);box-shadow:0 0 14px rgba(35,217,138,.5)}
-.feat:hover{transform:translateY(-3px);box-shadow:0 0 28px rgba(35,217,138,.14);border-color:rgba(35,217,138,.4)}
-.feat .fi{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-size:23px;background:var(--green-soft);border:1px solid var(--line-soft);margin-bottom:15px}
-.feat h3{font-size:19px;color:var(--ink)}
-.feat p{font-size:14.5px;color:var(--ink-soft);margin-top:9px}
-.feat.star::before{background:var(--red);box-shadow:0 0 14px rgba(255,81,71,.55)}
-.feat.star{border-color:rgba(255,81,71,.3)}
-.feat.star:hover{box-shadow:0 0 28px rgba(255,81,71,.18);border-color:rgba(255,81,71,.5)}
-.feat.star .fi{background:var(--red-soft);border-color:rgba(255,81,71,.2)}
-.feat.star .badge{position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);background:var(--red-soft);border:1px solid rgba(255,81,71,.25);padding:4px 9px;border-radius:999px}
+.results{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+.res{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);text-align:center}
+.r-ava{width:64px;height:64px;border-radius:50%;overflow:hidden;position:relative;margin:0 auto 12px;background:var(--green);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:24px}
+.r-ava img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.r-nm{font-family:var(--display);font-weight:600;font-size:16px;color:var(--ink)}
+.r-meta{font-size:12px;color:var(--ink-faint);margin-bottom:9px}
+.r-txt{font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+.r-txt b{color:var(--green-ink)}
 
-.metrics{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:18px;margin-top:8px;align-items:stretch}
-.metric{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;box-shadow:var(--glow);display:flex;flex-direction:column;justify-content:center}
-.metric.hero-m{background:linear-gradient(120deg,rgba(255,81,71,.16),rgba(18,184,154,.1));border-color:rgba(255,81,71,.22)}
-.metric .mline{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.metric .from{font-family:var(--display);font-size:26px;font-weight:600;color:var(--ink-faint);text-decoration:line-through;text-decoration-color:rgba(255,81,71,.55)}
-.metric .arrow{color:var(--red);font-size:22px;font-weight:800}
-.metric .big{font-family:var(--display);font-size:clamp(38px,5vw,54px);font-weight:700;color:#fff;line-height:1}
-.metric .big.red{color:var(--red);text-shadow:0 0 22px rgba(255,81,71,.4)}
-.metric .big.green{color:var(--mint)}
-.metric .ml{font-size:14px;color:var(--ink-soft);margin-top:10px}
+.qbox{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:34px 38px;box-shadow:var(--shadow);max-width:780px;margin:0 auto;text-align:center}
+.qbox blockquote{font-family:var(--display);font-size:clamp(18px,2.2vw,23px);font-weight:500;color:var(--ink);line-height:1.5;margin-bottom:18px}
+.qbox blockquote b{color:var(--green-ink);font-weight:600}
+.qauthor{display:flex;align-items:center;gap:12px;justify-content:center}
+.qa-ava{width:46px;height:46px;border-radius:50%;background:var(--red);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:19px;flex:none}
+.qa-nm{font-weight:700;font-size:15px;color:var(--ink);text-align:left}
+.qa-role{font-size:12.5px;color:var(--ink-faint);text-align:left}
 
-.results{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
-.res{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--glow)}
-.res .r-top{display:flex;align-items:center;gap:11px;margin-bottom:14px}
-.res .r-ava{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-family:var(--display);font-weight:600;font-size:18px;color:#06130D;background:var(--green);flex:none;position:relative;overflow:hidden}
-.res .r-nm{font-family:var(--display);font-weight:600;font-size:16px}
-.res .r-meta{font-size:12px;color:var(--ink-faint)}
-.res .r-before{font-size:12.5px;color:var(--ink-faint);font-style:italic}
-.res .r-after{font-size:14.5px;color:var(--ink);margin-top:8px;line-height:1.45}
-.res .r-after b{color:var(--mint)}
-.r-ava img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.final{padding:70px 0}
+.final .box{background:var(--green-soft);border:1px solid var(--line);border-radius:26px;padding:50px 40px;text-align:center}
+.final h2{font-size:clamp(28px,4vw,42px);max-width:18ch;margin:0 auto}
+.final p{font-size:17px;margin:14px auto 0;max-width:46ch}
+.final .cta-row{margin-top:26px}
+.final .free{margin-top:14px;font-size:12.5px;color:var(--ink-faint)}
 
-.quote-sec{padding:64px 0}
-.qbox{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:42px 44px;box-shadow:var(--shadow),var(--glow);position:relative;overflow:hidden;max-width:880px;margin:0 auto}
-.qbox::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--red),var(--green));box-shadow:0 0 16px rgba(255,81,71,.35)}
-.qbox .qmark{font-family:var(--display);font-size:60px;color:var(--red);line-height:.6;opacity:.55}
-.qbox blockquote{font-family:var(--display);font-size:clamp(19px,2.4vw,25px);font-weight:500;color:#fff;line-height:1.45;margin:6px 0 22px}
-.qbox blockquote b{color:var(--mint);font-weight:500}
-.qbox .qauthor{display:flex;align-items:center;gap:13px}
-.qbox .qa-ava{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-2));color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:21px;flex:none}
-.qbox .qa-nm{font-weight:700;font-size:15.5px;color:var(--ink)}
-.qbox .qa-role{font-size:13px;color:var(--ink-faint)}
+footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-faint);font-size:12px;text-align:center;line-height:1.8}
 
-.final{padding:80px 0}
-.final .box{background:linear-gradient(125deg,rgba(255,81,71,.14),rgba(18,184,154,.14));border:1px solid var(--line);border-radius:28px;padding:56px 44px;text-align:center;position:relative;overflow:hidden;box-shadow:var(--shadow)}
-.final .box::before{content:"";position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:540px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(255,81,71,.16),transparent 64%);pointer-events:none}
-.final h2{font-size:clamp(30px,4.4vw,46px);color:#fff;max-width:18ch;margin:0 auto}
-.final p{color:var(--ink-soft);font-size:18px;margin:18px auto 0;max-width:50ch}
-.final .cta-row{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;margin-top:32px}
-.final .free{margin-top:18px;font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);letter-spacing:.03em}
-
-footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-faint);font-family:var(--mono);font-size:11.5px;text-align:center;letter-spacing:.02em;line-height:1.8}
-
-@media (max-width:980px){
-  .hero .grid{grid-template-columns:1fr;gap:34px}
-  .hero{padding:44px 0 20px}
-  .pains,.feats{grid-template-columns:1fr 1fr}
-  .metrics{grid-template-columns:1fr}
+@media (max-width:900px){
+  .hero .grid{grid-template-columns:1fr;gap:32px}
+  .feats{grid-template-columns:1fr}
   .results{grid-template-columns:1fr 1fr}
 }
-@media (max-width:620px){
+@media (max-width:560px){
   .wrap{padding:0 20px}
   .nav .links a.txt{display:none}
-  .pains,.feats,.results{grid-template-columns:1fr}
-  .truth{flex-direction:column;gap:10px}
-  .qbox,.final .box{padding:32px 24px}
-  .sec{padding:54px 0}
+  .results{grid-template-columns:1fr 1fr}
+  .band{flex-direction:column;gap:12px}.band .bl{text-align:center}
 }
 </style>
 </head>
 <body>
 
-<template id="brainTpl"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M31 24 C26 17 15.5 17 11.5 26 C6.5 37.5 13 52.5 24 55.5 C28 56.8 30 54.5 32 54.5 C34 54.5 36 56.8 40 55.5 C51 52.5 57.5 37.5 52.5 26 C48.5 17 38 17 33 24 Z" fill="currentColor"/><path d="M33 23 C34 17 36.5 12.5 40.5 10" fill="none" stroke="#7A4A2B" stroke-width="2.6" stroke-linecap="round"/><path d="M40.5 11 C46.5 6 54.5 9 53 16.5 C47 21.5 40 18.5 40.5 11 Z" fill="var(--leaf)"/><ellipse cx="21.5" cy="33" rx="4.6" ry="8.2" fill="#fff" opacity=".22" transform="rotate(-20 21.5 33)"/></svg></template>
+<template id="appleTpl"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M31 24 C26 17 15.5 17 11.5 26 C6.5 37.5 13 52.5 24 55.5 C28 56.8 30 54.5 32 54.5 C34 54.5 36 56.8 40 55.5 C51 52.5 57.5 37.5 52.5 26 C48.5 17 38 17 33 24 Z" fill="#EC5A4E"/><path d="M33 23 C34 17 36.5 12.5 40.5 10" fill="none" stroke="#8A5A33" stroke-width="2.6" stroke-linecap="round"/><path d="M40.5 11 C46.5 6 54.5 9 53 16.5 C47 21.5 40 18.5 40.5 11 Z" fill="#1FA577"/><ellipse cx="22" cy="33" rx="4.4" ry="7.6" fill="#fff" opacity=".3" transform="rotate(-20 22 33)"/></svg></template>
 
 <nav class="nav"><div class="wrap">
-  <a class="brand" href="#topo"><span class="brain"></span><b>Genious</b><span class="tea">Tea</span></a>
+  <a class="brand" href="#topo"><span class="applem"></span><b>Genious</b><span class="tea">Tea</span></a>
   <div class="links">
-    <a class="txt" href="#como">Como funciona</a>
     <a class="txt" href="https://genioustea-steel.vercel.app/">Entrar</a>
     <a class="btn sm" href="https://genioustea-steel.vercel.app/">Criar conta grátis</a>
   </div>
@@ -221,29 +161,29 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-fain
 
 <header class="hero" id="topo"><div class="wrap"><div class="grid">
   <div class="hero-copy">
-    <span class="eyebrow">// para quem ensina crianças no espectro</span>
-    <h1>Pare de baixar <span class="hl">PDF genérico</span> da internet para seus alunos autistas.</h1>
-    <p class="lede">Cada criança no espectro precisa da atividade <b>certa</b>, no <b>nível certo</b>, no <b>momento certo</b>. O GeniousTea monta a trilha individual de cada aluno — e te devolve o tempo que você não tem.</p>
+    <span class="eyebrow">Para quem ensina crianças no espectro</span>
+    <h1>A atividade <span class="hl">certa</span>, no nível certo, para cada aluno autista.</h1>
+    <p class="lede">Chega de PDF genérico da internet. O GeniousTea monta a trilha individual de cada criança e gera o material em <b>PDF</b>, em minutos.</p>
     <div class="cta-row">
       <a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar conta grátis</a>
       <a class="btn lg ghost" href="#como">Ver como funciona</a>
     </div>
-    <p class="trust"><b>sem cartão de crédito</b> · sem prazo de teste<br>atividades em PDF · materiais com base científica (fono + psicopedagoga + T.O.)</p>
+    <p class="trust">Sem cartão de crédito · materiais com base científica (fono + psicopedagoga + T.O.)</p>
   </div>
 
-  <div class="demo" aria-label="Demonstração: ajuste de nível ao vivo">
+  <div class="demo">
     <div class="d-head">
       <div class="d-ava">D<img src="https://i.pinimg.com/736x/94/d7/8b/94d78b4ada567e74e1db8ff8cd69b88b.jpg" alt="Davi" loading="lazy" onerror="this.remove()"></div>
-      <div><div class="d-nm">Davi, 7 anos</div><div class="d-meta">Nível 2 de suporte · não verbaliza</div></div>
+      <div><div class="d-nm">Davi, 7 anos</div><div class="d-meta">Nível 2 · não verbaliza</div></div>
       <span class="d-tag">Comunicação</span>
     </div>
     <div class="act">
       <div class="a-area">atividade de hoje</div>
       <div class="a-title" id="actTitle">Parear figura com figura idêntica</div>
-      <div class="a-desc" id="actDesc">🖼️ Pareamento visual — gerado no nível atual do Davi.</div>
+      <div class="a-desc">Pareamento visual — no nível atual do Davi.</div>
     </div>
     <div class="leveler">
-      <span class="ll">nível da atividade</span>
+      <span class="ll">nível</span>
       <div class="lev-ctrl">
         <button class="lev-btn" id="down" aria-label="Baixar nível">−</button>
         <div class="lev-dots" id="dots"></div>
@@ -251,141 +191,66 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-fain
         <button class="lev-btn" id="up" aria-label="Subir nível">+</button>
       </div>
     </div>
-    <div class="coach steady" id="coach">No nível certo pra o Davi agora. Ajuste a qualquer momento se ele travar ou pedir mais.</div>
-    <p class="d-hint">Travou? <b>Baixe o nível</b> e o app devolve algo que ele consiga fazer. — experimente o − e o +</p>
+    <div class="coach steady" id="coach">No nível certo pra o Davi agora.</div>
+    <p class="d-hint">Travou? <b>Baixe o nível</b> — experimente o − e o +</p>
   </div>
 </div></div></header>
 
-<section class="sec" id="dor"><div class="wrap">
-  <div class="sec-head">
-    <span class="eyebrow">// a rotina que consome você</span>
-    <h2>Você trabalha demais e ainda fica com a sensação de estar <em>devendo</em>.</h2>
-  </div>
-  <p class="pain-lead">Não é falta de empenho. É falta de ferramenta. Quando o material é genérico, a criança no espectro não engata — e quem paga o preço é ela e você.</p>
-
-  <div class="pains">
-    <div class="pain">
-      <span class="pi">🌙</span>
-      <h4>O dia não acaba às 18h</h4>
-      <p>Você chega em casa às 7 da noite e ainda passa 3 horas planejando. No fim de semana, mais 8. Dorme mal, devendo.</p>
-    </div>
-    <div class="pain">
-      <span class="pi">🔎</span>
-      <h4>12 horas por semana garimpando</h4>
-      <p>Apostila padrão, PDF do Pinterest, recorte de revista plastificado, material comprado do próprio bolso. E sem certeza se vai servir pra cada aluno.</p>
-    </div>
-    <div class="pain">
-      <span class="pi">😞</span>
-      <h4>O material não engata</h4>
-      <p><span class="kid">O Davi</span> fica 5 min olhando o papel sem entender. <span class="kid">A Helena</span> termina em 30 segundos e trava. <span class="kid">O Caio</span> se irrita e joga o lápis. <span class="kid">A Manu</span> nem segura o lápis direito.</p>
-    </div>
-  </div>
-
-  <div class="truth">
-    <span class="tq">“</span>
-    <p>Fazer só o básico ocupa o tempo de aula, mas <b>não desenvolve</b>. A criança autista não precisa de qualquer atividade — precisa da atividade certa, no nível certo, na linguagem que ela entende.</p>
-  </div>
-</div></section>
-
 <section class="sec" id="como"><div class="wrap">
   <div class="sec-head">
-    <span class="eyebrow">// um caminho pra cada criança</span>
-    <h2>O que o GeniousTea faz pela sua sala</h2>
-    <p>Você organiza suas turmas, cadastra cada aluno do jeito dele, e o app cuida do material — no nível certo, com histórico, pronto pra imprimir.</p>
+    <span class="eyebrow">Como funciona</span>
+    <h2>Um caminho pra cada criança</h2>
   </div>
-
   <div class="feats">
-    <div class="feat">
-      <div class="fi">🗂️</div>
-      <h3>Turmas e alunos, cada um no seu lugar</h3>
-      <p>Crie turmas com nome próprio e cadastre os alunos um a um: idade, nível de suporte, áreas a trabalhar. Cada criança com perfil e histórico separados — nada se mistura.</p>
-    </div>
-    <div class="feat">
-      <div class="fi">🎯</div>
-      <h3>Atividade gerada no nível certo</h3>
-      <p>Escolha o aluno e a área. O app devolve um material personalizado, baseado no histórico de evolução daquela criança. Nada de garimpar e adaptar na mão.</p>
-    </div>
-    <div class="feat">
-      <div class="fi">🖨️</div>
-      <h3>PDF pronto num clique</h3>
-      <p>Cliquei, abriu o PDF, mandei pra impressora. Em segundos você tem o material individual da semana inteira de cada aluno na mão.</p>
-    </div>
-    <div class="feat star">
-      <span class="badge">★ destaque</span>
-      <div class="fi">↕️</div>
-      <h3>Ajuste de nível ao vivo</h3>
-      <p>A criança travou? Baixe o nível e o app devolve algo que ela consiga fazer pra retomar a confiança. Respondeu bem? Sobe. É o que estimula a neuroplasticidade.</p>
-    </div>
-    <div class="feat">
-      <div class="fi">📈</div>
-      <h3>Histórico completo de cada aluno</h3>
-      <p>Quando começou, em que nível estava, quanto levou pra dominar cada habilidade, onde avança rápido e onde trava. Clareza real — sem caderninho e memória.</p>
-    </div>
-    <div class="feat">
-      <div class="fi">👨‍👩‍👧</div>
-      <h3>Feedback concreto pra família</h3>
-      <p>Em vez de "tá indo bem", você senta com os pais e dá direção: o que reforçar em casa, onde o filho tem força. Pais viram aliados — e indicam a escola.</p>
-    </div>
+    <div class="feat"><div class="fi">🗂️</div><div><h3>Turmas e alunos organizados</h3><p>Cada criança com perfil e histórico próprios. Nada se mistura.</p></div></div>
+    <div class="feat"><div class="fi">🖨️</div><div><h3>Atividade no nível certo, em PDF</h3><p>Escolha o aluno e a área. Sai pronto pra imprimir em segundos.</p></div></div>
+    <div class="feat star"><div class="fi">↕️</div><div><h3>Ajuste de nível ao vivo<span class="b">★ destaque</span></h3><p>Travou? Baixa o nível. Respondeu bem? Sobe. No ritmo de cada criança.</p></div></div>
+    <div class="feat"><div class="fi">👨‍👩‍👧</div><div><h3>Histórico e feedback pra família</h3><p>Clareza do que muda — e o que reforçar em casa, sem "tá indo bem".</p></div></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="band">
+    <span class="from">12 h</span><span class="arrow">→</span><span class="to">40 min</span>
+    <p class="bl">é o seu planejamento da semana toda. O resto do tempo vira observação em sala e descanso.</p>
   </div>
 </div></section>
 
 <section class="sec"><div class="wrap">
   <div class="sec-head">
-    <span class="eyebrow">// o tempo de volta</span>
-    <h2>De 12 horas por semana para <em>40 minutos</em>.</h2>
-  </div>
-  <div class="metrics">
-    <div class="metric hero-m">
-      <div class="mline"><span class="from">12 h</span><span class="arrow">→</span><span class="big red">40 min</span></div>
-      <p class="ml">por semana entre planejar, buscar material e adaptar. O resto do tempo vira observação em sala, conversa com os pais e descanso.</p>
-    </div>
-    <div class="metric">
-      <div class="big green">15 min</div>
-      <p class="ml">de segunda de manhã pra deixar as atividades da semana inteira prontas pra imprimir.</p>
-    </div>
-    <div class="metric">
-      <div class="big green">7 áreas</div>
-      <p class="ml">matemática, alfabetização, leitura, escrita, comunicação, comportamento e rotina — cada aluno com as dele.</p>
-    </div>
-  </div>
-</div></section>
-
-<section class="sec"><div class="wrap">
-  <div class="sec-head">
-    <span class="eyebrow">// o que muda em 6 meses</span>
-    <h2>Sem número bonito. Só o que se vê na criança.</h2>
+    <span class="eyebrow">O que muda em 6 meses</span>
+    <h2>Só o que se vê na criança</h2>
   </div>
   <div class="results">
     <div class="res">
-      <div class="r-top"><div class="r-ava">D<img src="https://i.pinimg.com/736x/94/d7/8b/94d78b4ada567e74e1db8ff8cd69b88b.jpg" alt="Davi" loading="lazy" onerror="this.remove()"></div><div><div class="r-nm">Davi</div><div class="r-meta">7 anos · comunicação</div></div></div>
-      <div class="r-before">Antes: não verbalizava nada.</div>
-      <div class="r-after">Hoje <b>aponta pra figura</b> quando a professora pergunta. Pra quem trabalha com TEA, é avanço gigante.</div>
+      <div class="r-ava">D<img src="https://i.pinimg.com/736x/94/d7/8b/94d78b4ada567e74e1db8ff8cd69b88b.jpg" alt="Davi" loading="lazy" onerror="this.remove()"></div>
+      <div class="r-nm">Davi</div><div class="r-meta">7 anos · comunicação</div>
+      <p class="r-txt">Não verbalizava. Hoje <b>aponta pra figura</b> quando perguntam.</p>
     </div>
     <div class="res">
-      <div class="r-top"><div class="r-ava">H<img src="https://i.pinimg.com/control1/736x/4d/6d/90/4d6d90c8d6a1705c3f59061f10151ad2.jpg" alt="Helena" loading="lazy" onerror="this.remove()"></div><div><div class="r-nm">Helena</div><div class="r-meta">6 anos · alfabetização</div></div></div>
-      <div class="r-before">Antes: não ficava 2 min numa atividade.</div>
-      <div class="r-after">Hoje <b>lê palavra de 3 sílabas</b> e sustenta o foco no exercício.</div>
+      <div class="r-ava">H<img src="https://i.pinimg.com/control1/736x/4d/6d/90/4d6d90c8d6a1705c3f59061f10151ad2.jpg" alt="Helena" loading="lazy" onerror="this.remove()"></div>
+      <div class="r-nm">Helena</div><div class="r-meta">6 anos · alfabetização</div>
+      <p class="r-txt">Não ficava 2 min. Hoje <b>lê palavra de 3 sílabas</b>.</p>
     </div>
     <div class="res">
-      <div class="r-top"><div class="r-ava">C<img src="https://i.pinimg.com/1200x/e3/5a/26/e35a262a6e6224dc128a29392f06b9bb.jpg" alt="Caio" loading="lazy" onerror="this.remove()"></div><div><div class="r-nm">Caio</div><div class="r-meta">9 anos · matemática</div></div></div>
-      <div class="r-before">Antes: resistia e jogava o lápis.</div>
-      <div class="r-after">Aceitou <b>escrever pela 1ª vez</b> — porque a tarefa veio dentro de um problema de matemática.</div>
+      <div class="r-ava">C<img src="https://i.pinimg.com/1200x/e3/5a/26/e35a262a6e6224dc128a29392f06b9bb.jpg" alt="Caio" loading="lazy" onerror="this.remove()"></div>
+      <div class="r-nm">Caio</div><div class="r-meta">9 anos · matemática</div>
+      <p class="r-txt">Resistia à escrita. <b>Escreveu pela 1ª vez</b> via um problema de matemática.</p>
     </div>
     <div class="res">
-      <div class="r-top"><div class="r-ava">M<img src="https://i.pinimg.com/736x/20/8d/d1/208dd16d79d34651cb8847a0e62d1bed.jpg" alt="Manu" loading="lazy" onerror="this.remove()"></div><div><div class="r-nm">Manu</div><div class="r-meta">5 anos · escrita</div></div></div>
-      <div class="r-before">Antes: precisava da mão da professora por cima.</div>
-      <div class="r-after">Hoje <b>segura o lápis sozinha</b>. Avançou muito na motricidade fina em 4 meses.</div>
+      <div class="r-ava">M<img src="https://i.pinimg.com/736x/20/8d/d1/208dd16d79d34651cb8847a0e62d1bed.jpg" alt="Manu" loading="lazy" onerror="this.remove()"></div>
+      <div class="r-nm">Manu</div><div class="r-meta">5 anos · escrita</div>
+      <p class="r-txt">Precisava da mão por cima. Hoje <b>segura o lápis sozinha</b>.</p>
     </div>
   </div>
 </div></section>
 
-<section class="quote-sec"><div class="wrap">
+<section class="sec"><div class="wrap">
   <div class="qbox">
-    <div class="qmark">“</div>
-    <blockquote>Em 18 anos de profissão, nunca tive uma ferramenta que me deixasse trabalhar com a <b>dignidade que essas crianças merecem</b>. Hoje atendo 37 alunos no espectro — e ensino melhor que nunca, sem estar esgotada.</blockquote>
+    <blockquote>“Em 18 anos, nunca tive uma ferramenta que me deixasse trabalhar com a <b>dignidade que essas crianças merecem</b> — e sem estar esgotada.”</blockquote>
     <div class="qauthor">
       <div class="qa-ava">M</div>
-      <div><div class="qa-nm">Miriam Sales</div><div class="qa-role">Professora de educação especial há 18 anos · mãe da Helena</div></div>
+      <div><div class="qa-nm">Miriam Sales</div><div class="qa-role">Professora de educação especial há 18 anos</div></div>
     </div>
   </div>
 </div></section>
@@ -393,47 +258,32 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-fain
 <section class="final"><div class="wrap">
   <div class="box">
     <h2>Dá uma olhada. Não custa nada.</h2>
-    <p>Cria sua conta, cadastra um aluno, gera uma atividade e imprime. Vê na prática se faz sentido pra sua realidade.</p>
-    <div class="cta-row">
-      <a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar minha conta grátis</a>
-    </div>
+    <p>Cria sua conta, cadastra um aluno, gera uma atividade e imprime.</p>
+    <div class="cta-row"><a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar minha conta grátis</a></div>
     <p class="free">cadastro grátis · sem cartão de crédito · sem prazo de teste</p>
   </div>
 </div></section>
 
 <footer class="foot"><div class="wrap">
-  GeniousTea · desenvolvimento infantil e intervenção pedagógica no TEA<br>
-  materiais construídos por fonoaudióloga, psicopedagoga e terapeuta ocupacional
+  GeniousTea · intervenção pedagógica no TEA · materiais por fono, psicopedagoga e terapeuta ocupacional
 </div></footer>
 
 <script>
-document.querySelectorAll('.brain').forEach(b=>b.appendChild(document.getElementById('brainTpl').content.cloneNode(true)));
-const LADDER=[
-  'Parear objeto real com objeto igual',
-  'Parear figura com figura idêntica',
-  'Parear figura com objeto real',
-  'Apontar a figura pedida entre duas',
-  'Apontar a figura certa entre quatro'
-];
+document.querySelectorAll('.applem').forEach(b=>b.appendChild(document.getElementById('appleTpl').content.cloneNode(true)));
+const LADDER=['Parear objeto real com objeto igual','Parear figura com figura idêntica','Parear figura com objeto real','Apontar a figura pedida entre duas','Apontar a figura certa entre quatro'];
 let rung=1;
-const titleEl=document.getElementById('actTitle');
-const numEl=document.getElementById('num');
-const dotsEl=document.getElementById('dots');
-const coachEl=document.getElementById('coach');
-const upB=document.getElementById('up'), downB=document.getElementById('down');
+const t=document.getElementById('actTitle'),n=document.getElementById('num'),d=document.getElementById('dots'),c=document.getElementById('coach'),up=document.getElementById('up'),dn=document.getElementById('down');
 function render(delta){
-  titleEl.textContent=LADDER[rung];
-  titleEl.style.animation='none'; void titleEl.offsetWidth; titleEl.style.animation='';
-  numEl.textContent=(rung+1)+' / '+LADDER.length;
-  dotsEl.innerHTML=LADDER.map((_,i)=>`<i class="${i<=rung?'on':''}"></i>`).join('');
-  upB.disabled=rung===LADDER.length-1;
-  downB.disabled=rung===0;
-  if(delta<0){coachEl.className='coach down';coachEl.textContent='↓ Baixei o nível pra o Davi retomar a confiança com algo que ele consegue fazer. Depois subimos aos poucos.';}
-  else if(delta>0){coachEl.className='coach up';coachEl.textContent='↑ Subindo o desafio um degrau — pequenos passos sucessivos no ritmo certo. É o que estimula a neuroplasticidade.';}
-  else{coachEl.className='coach steady';coachEl.textContent='No nível certo pra o Davi agora. Ajuste a qualquer momento se ele travar ou pedir mais.';}
+  t.textContent=LADDER[rung];t.style.animation='none';void t.offsetWidth;t.style.animation='';
+  n.textContent=(rung+1)+' / '+LADDER.length;
+  d.innerHTML=LADDER.map((_,i)=>`<i class="${i<=rung?'on':''}"></i>`).join('');
+  up.disabled=rung===LADDER.length-1;dn.disabled=rung===0;
+  if(delta<0){c.className='coach down';c.textContent='↓ Baixei o nível pra ele retomar a confiança. Depois subimos aos poucos.';}
+  else if(delta>0){c.className='coach up';c.textContent='↑ Subindo um degrau, no ritmo certo. É o que estimula a neuroplasticidade.';}
+  else{c.className='coach steady';c.textContent='No nível certo pra o Davi agora.';}
 }
-upB.addEventListener('click',()=>{if(rung<LADDER.length-1){rung++;render(1);}});
-downB.addEventListener('click',()=>{if(rung>0){rung--;render(-1);}});
+up.addEventListener('click',()=>{if(rung<LADDER.length-1){rung++;render(1);}});
+dn.addEventListener('click',()=>{if(rung>0){rung--;render(-1);}});
 render(0);
 </script>
 </body>
