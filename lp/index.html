@@ -193,6 +193,41 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
   .final .cta .btn.lg{width:100%}
 }
 @media (max-width:380px){.areas-grid,.results{grid-template-columns:1fr}}
+
+/* mobile centralizado (override) */
+@media (max-width:600px){
+  .wrap{padding:0 18px}
+  .nav .links a.txt{display:none}.nav .wrap{height:62px}
+  .hero{padding:24px 0 14px}
+  .hero .grid{grid-template-columns:1fr!important;gap:26px;text-align:center}
+  .hero-copy{display:flex;flex-direction:column;align-items:center}
+  .stars{justify-content:center;gap:8px;margin-bottom:14px}
+  .stars .s{font-size:17px;letter-spacing:2px}.stars .st{font-size:12.5px}
+  .hero h1{font-size:clamp(27px,8vw,34px);max-width:100%;margin-top:12px}
+  .hero .lede{font-size:15.5px;max-width:100%;margin-top:14px}
+  .hero .cta{margin-top:22px;flex-direction:column;align-items:center;gap:12px;width:100%}
+  .hero .cta .btn.lg{width:100%;padding:16px 20px}
+  .hero .free{width:100%;text-align:center}
+  .demo{padding:18px;border-radius:22px;margin-top:6px}
+  .a-title{font-size:20px;min-height:auto}.d-tag{display:none}
+  .sec{padding:42px 0}
+  .sec-head h2{font-size:clamp(24px,7vw,30px)}.sec-head p{font-size:15px;margin-top:10px}
+  .areas-grid{grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+  .area-c{padding:16px;border-radius:18px}
+  .area-c .ic{width:50px;height:50px;font-size:26px;border-radius:15px}
+  .area-c .nm{font-size:16px;margin-top:10px}.area-c .lv{font-size:11.5px}
+  .band{margin:10px 0}.band .inner{padding:46px 0}
+  .band h2{font-size:clamp(23px,6.5vw,30px);max-width:100%}.band p{font-size:15px;margin-top:14px}
+  .steps{grid-template-columns:1fr!important;gap:14px;margin-top:26px}.step{padding:24px 20px}
+  .results{grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
+  .res{padding:20px 14px;border-radius:18px}.r-ava{width:72px;height:72px}.r-txt{font-size:13px}
+  .quote-sec{padding:46px 0}
+  .qbox{padding:32px 22px;border-radius:22px}.qbox blockquote{font-size:clamp(19px,5.5vw,24px)}
+  .final{padding:8px 0 56px}
+  .final .box{padding:42px 22px;border-radius:24px}
+  .final h2{font-size:clamp(25px,7vw,32px)}.final p{font-size:15.5px}.final .cta .btn.lg{width:100%}
+}
+@media (max-width:400px){.areas-grid,.results{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -203,7 +238,7 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
   <a class="brand" href="#topo"><span class="applem"></span><b>Genious</b><span class="tea">Tea</span></a>
   <div class="links">
     <a class="txt" href="https://genioustea-steel.vercel.app/">Entrar</a>
-    <a class="btn sm" href="https://genioustea-steel.vercel.app/">Criar conta grátis</a>
+    <a class="btn sm" href="https://genioustea-steel.vercel.app/">Criar conta</a>
   </div>
 </div></nav>
 
@@ -214,8 +249,8 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
     <h1>O material certo pra cada criança autista — na <span class="hl">área</span> e no <span class="hl">nível</span> dela.</h1>
     <p class="lede">Milhares de atividades em PDF, organizadas por área e por nível. Cadastre o aluno, <b>acompanhe a evolução</b> e imprima o material certo em 1 clique.</p>
     <div class="cta">
-      <a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar conta grátis</a>
-      <span class="free">grátis · sem cartão de crédito</span>
+      <a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar conta</a>
+      <span class="free">Leva menos de 3 minutos</span>
     </div>
   </div>
 
@@ -257,6 +292,7 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
     <div class="area-c" style="--ac:#FF7DA6;--ab:#FFE3EC"><div class="ic">🖼️</div><div class="nm">Comunicação</div><div class="lv">5 níveis · pareamento e pranchas</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
     <div class="area-c" style="--ac:#B583F5;--ab:#EFE4FD"><div class="ic">🧩</div><div class="nm">Comportamento</div><div class="lv">5 níveis · rotina e autorregulação</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
     <div class="area-c" style="--ac:#FF9E5C;--ab:#FFEAD7"><div class="ic">🗓️</div><div class="nm">Rotina</div><div class="lv">5 níveis · cartões e sequências</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="area-c" style="--ac:#19C3C3;--ab:#D6F4F4"><div class="ic">🤝</div><div class="nm">Habilidades sociais</div><div class="lv">5 níveis · turnos, contato, brincar junto</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
   </div>
 </div></section>
 
@@ -295,8 +331,8 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
   <div class="box">
     <h2>Milhares de materiais esperando pelo seu aluno.</h2>
     <p>Cria sua conta, cadastra a criança e imprime o primeiro material no nível certo. Leva 2 minutos.</p>
-    <div class="cta"><a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar minha conta grátis</a></div>
-    <p class="free">cadastro grátis · sem cartão de crédito · sem prazo de teste</p>
+    <div class="cta"><a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar minha conta</a></div>
+    <p class="free">Leva menos de 3 minutos</p>
   </div>
 </div></section>
 
