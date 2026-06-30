@@ -362,6 +362,13 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
 .madeby .ml{font-family:var(--mono,monospace);font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px}
 .madeby .mitems{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .madeby .mitems b{font-family:var(--display);font-weight:600;font-size:14px;color:var(--teal-d);background:var(--teal-soft);padding:9px 16px;border-radius:999px}
+
+/* estrelas demarcadas como pilula */
+.hero .stars.badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(4px);padding:8px 16px;border-radius:999px}
+/* faixa "o unico metodo" abaixo do hero */
+.uno{background:var(--teal-soft);text-align:center;padding:18px 0;border-bottom:1px solid var(--line)}
+.uno span{font-family:var(--display);font-weight:700;font-size:clamp(14px,3.6vw,17px);color:var(--teal-d);display:inline-flex;align-items:center;gap:10px}
+.uno span::before{content:"✦";color:var(--amber)}
 </style>
 </head>
 <body>
@@ -377,8 +384,7 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
 
 <header class="hero" id="topo"><div class="wrap"><div class="grid">
   <div class="hero-copy">
-    <div class="stars"><span class="s">★★★★★</span><span class="st"><b>Método nº 1</b> na alfabetização de crianças com TEA</span></div>
-    <span class="pill">O único método de alfabetização pensado para o TEA</span>
+    <div class="stars badge"><span class="s">★★★★★</span><span class="st"><b>Método nº 1</b> na alfabetização de crianças com TEA</span></div>
     <h1>O método que alfabetiza crianças autistas — no <span class="hl">nível</span> de cada uma.</h1>
     <p class="lede">Das <b>habilidades precursoras</b> à leitura e à escrita. Material multidisciplinar, organizado por níveis, que usa o <b>hiperfoco</b> da criança — e atende até quem <b>não fala</b>.</p>
     <span class="uniq">A maioria entrega atividade solta. A gente entrega o caminho inteiro — da primeira troca de olhar até a leitura.</span>
@@ -413,6 +419,8 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
     <p class="d-hint">Toque em <b>− / +</b> e veja a atividade mudar de nível</p>
   </div>
 </div></div></header>
+
+<section class="uno"><div class="wrap"><span>O único método de alfabetização pensado para o TEA</span></div></section>
 
 <section class="sec"><div class="wrap">
   <div class="prob">
