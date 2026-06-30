@@ -3,257 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GeniousTea — materiais no nível certo de cada criança autista</title>
-<meta name="description" content="Milhares de atividades em PDF por área e nível. Cadastre o aluno, acompanhe a evolução e imprima o material certo em 1 clique.">
+<title>GeniousTea — o método que alfabetiza crianças autistas por níveis</title>
+<meta name="description" content="O único método de alfabetização pensado para o TEA. Das habilidades precursoras à leitura e escrita, por níveis, multidisciplinar e usando o hiperfoco da criança. Material para todos os tipos de autismo, inclusive não-verbais.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FFF8F1; --surface:#FFFFFF; --cream:#FDF1E7;
-  --ink:#352A20; --ink-soft:#6E6256; --ink-faint:#A99C8C;
-  --line:#F0E6DA;
+  --ink:#2E241B; --ink-soft:#6B6053; --ink-faint:#A99C8C; --line:#F0E6DA;
   --coral:#FF6F5E; --coral-2:#FF8E6E; --coral-soft:#FFE9E3; --coral-ink:#D8462F;
   --green:#22B58C; --green-soft:#E2F6EF; --green-ink:#0F8E68;
-  --gold:#F4B860;
-  --display:'Fredoka',sans-serif;
-  --body:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --gold:#F4B860; --purple:#8C7DFF; --blue:#3FA0F0;
+  --display:'Fredoka',sans-serif; --body:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   --shadow:0 10px 30px rgba(170,120,80,.10),0 2px 6px rgba(170,120,80,.06);
   --shadow-lg:0 22px 50px rgba(170,120,80,.16);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--body);color:var(--ink-soft);line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px;
-  background:radial-gradient(720px 520px at 88% -8%, #FFE7DF, transparent 60%),radial-gradient(680px 520px at -8% 8%, #E5F6EF, transparent 60%),var(--bg);
-  overflow-x:hidden}
-h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.1;letter-spacing:-.01em;color:var(--ink)}
-button,a{font-family:inherit}a{color:inherit;text-decoration:none}
+body{font-family:var(--body);color:var(--ink-soft);line-height:1.62;-webkit-font-smoothing:antialiased;font-size:16px;overflow-x:hidden;
+  background:radial-gradient(680px 480px at 92% -6%, #FFE7DF, transparent 60%),radial-gradient(640px 480px at -10% 4%, #E5F6EF, transparent 60%),var(--bg)}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.16;letter-spacing:-.01em;color:var(--ink)}
+a{color:inherit;text-decoration:none}button,a{font-family:inherit}
 :focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:8px}
-@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes pop{0%{transform:scale(.96);opacity:.4}100%{transform:scale(1);opacity:1}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
-.wrap{max-width:1080px;margin:0 auto;padding:0 26px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--display);font-weight:600;font-size:16px;padding:14px 28px;border-radius:999px;border:none;cursor:pointer;background:var(--coral);color:#fff;transition:transform .15s,box-shadow .2s,background .2s;box-shadow:0 10px 22px rgba(255,111,94,.32)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--display);font-weight:600;font-size:16px;padding:15px 26px;border-radius:999px;border:none;cursor:pointer;background:var(--coral);color:#fff;transition:transform .15s,box-shadow .2s,background .2s;box-shadow:0 10px 22px rgba(255,111,94,.32)}
 .btn:hover{background:var(--coral-2);transform:translateY(-2px);box-shadow:0 16px 30px rgba(255,111,94,.4)}
-.btn.lg{padding:17px 36px;font-size:18px}
-.btn.sm{padding:9px 18px;font-size:14.5px;box-shadow:0 6px 14px rgba(255,111,94,.28)}
-.eyebrow{font-family:var(--display);font-size:13.5px;font-weight:600;letter-spacing:.02em;color:var(--coral-ink);background:var(--coral-soft);padding:6px 14px;border-radius:999px;display:inline-block}
+.btn.lg{padding:17px 34px;font-size:18px}
+.btn.sm{padding:9px 16px;font-size:14px;box-shadow:0 6px 14px rgba(255,111,94,.28)}
+.btn.full{width:100%}
+.eyebrow{font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:.01em;color:var(--coral-ink);background:var(--coral-soft);padding:7px 15px;border-radius:999px;display:inline-block;line-height:1.35}
+.stars{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap}
+.stars .s{color:var(--gold);font-size:18px;letter-spacing:2px;line-height:1}
+.stars .st{font-size:13px;color:var(--ink-soft)}.stars .st b{color:var(--ink);font-weight:800}
 
-.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:22px;font-weight:700;color:var(--ink)}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--display);font-size:20px;font-weight:700;color:var(--ink)}
 .brand .tea{color:var(--green)}
-.applem{width:32px;height:32px;flex:none}.applem svg{width:100%;height:100%;display:block}
+.applem{width:29px;height:29px;flex:none}.applem svg{width:100%;height:100%;display:block}
+.nav{position:sticky;top:0;z-index:40;background:rgba(255,248,241,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;height:64px;gap:12px}
+.nav .links{margin-left:auto;display:flex;align-items:center;gap:14px}
+.nav .links a.txt{display:none;font-weight:700;font-size:15px;color:var(--ink-soft)}
 
-.nav{position:sticky;top:0;z-index:40;background:rgba(255,248,241,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav .wrap{display:flex;align-items:center;height:72px;gap:16px}
-.nav .links{margin-left:auto;display:flex;align-items:center;gap:18px}
-.nav .links a.txt{font-weight:700;font-size:15px;color:var(--ink-soft)}
-.nav .links a.txt:hover{color:var(--ink)}
-
-.hero{padding:54px 0 30px}
-.hero .grid{display:grid;grid-template-columns:1.04fr .96fr;gap:46px;align-items:center}
-.hero-copy{animation:rise .6s ease both}
-.stars{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
-.stars .s{color:var(--gold);font-size:19px;letter-spacing:3px;line-height:1}
-.stars .st{font-size:14px;color:var(--ink-soft)}.stars .st b{color:var(--ink);font-weight:800}
-.hero h1{font-size:clamp(34px,4.6vw,52px);margin:14px 0 0;max-width:15ch}
+/* ===== HERO (mobile-first, centralizado) ===== */
+.hero{padding:34px 0 16px}
+.hero-copy{display:flex;flex-direction:column;align-items:center;text-align:center;animation:rise .6s ease both}
+.hero .stars{margin-bottom:22px}
+.hero .eyebrow{margin-bottom:22px}
+.hero h1{font-size:clamp(29px,8.2vw,40px);max-width:16ch}
 .hero h1 .hl{color:var(--coral)}
-.hero .lede{font-size:clamp(16.5px,1.8vw,19px);color:var(--ink-soft);margin:18px 0 0;max-width:46ch}
+.hero .lede{font-size:clamp(16px,4.2vw,18px);margin-top:20px;max-width:42ch}
 .hero .lede b{color:var(--green-ink);font-weight:800}
-.hero .cta{margin-top:26px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hero .uniq{margin-top:18px;font-family:var(--display);font-weight:600;font-size:15px;color:var(--coral-ink);display:inline-flex;align-items:center;gap:8px}
+.hero .cta{margin-top:28px;width:100%;display:flex;flex-direction:column;align-items:center;gap:10px}
+.hero .cta .btn{width:100%;max-width:360px}
 .hero .free{font-size:13px;color:var(--ink-faint)}
 
-.demo{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow-lg);animation:rise .7s .1s ease both}
-.demo::after{content:"";position:absolute;inset:0;border-radius:26px;box-shadow:inset 0 2px 0 #fff;pointer-events:none}
-.blob{position:absolute;border-radius:50%;filter:blur(4px);z-index:-1;animation:float 6s ease-in-out infinite}
-.d-live{display:flex;align-items:center;gap:7px;font-family:var(--display);font-size:11.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--green-ink);margin-bottom:14px}
+.demo{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow-lg);margin-top:34px;animation:rise .7s .1s ease both}
+.blob{position:absolute;border-radius:50%;filter:blur(5px);z-index:-1;animation:float 6s ease-in-out infinite}
+.d-live{display:flex;align-items:center;gap:7px;font-family:var(--display);font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--green-ink);margin-bottom:14px}
 .d-live i{width:8px;height:8px;border-radius:50%;background:var(--green);animation:blink 1.6s ease-in-out infinite}
-.d-head{display:flex;align-items:center;gap:13px;margin-bottom:16px}
-.d-ava{width:54px;height:54px;border-radius:16px;overflow:hidden;background:var(--coral-soft);flex:none;box-shadow:var(--shadow)}
-.d-nm{font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink)}
-.d-meta{font-size:13px;color:var(--ink-faint)}
-.d-tag{margin-left:auto;font-family:var(--display);font-size:11.5px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--green-soft);color:var(--green-ink)}
-.act{border:1.5px solid var(--line);background:var(--cream);border-radius:18px;padding:18px}
-.a-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
-.a-area{font-family:var(--display);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--green-ink)}
-.pdf-btn{font-family:var(--display);font-size:12px;font-weight:600;color:#fff;background:var(--coral);border:none;border-radius:999px;padding:8px 13px;cursor:pointer;transition:.15s;white-space:nowrap;box-shadow:0 5px 12px rgba(255,111,94,.3)}
+.d-head{display:flex;align-items:center;gap:12px;margin-bottom:15px}
+.d-ava{width:52px;height:52px;border-radius:15px;overflow:hidden;background:var(--coral-soft);flex:none;box-shadow:var(--shadow)}
+.d-nm{font-family:var(--display);font-weight:600;font-size:17px;color:var(--ink)}
+.d-meta{font-size:12.5px;color:var(--ink-faint)}
+.d-tag{margin-left:auto;font-family:var(--display);font-size:11px;font-weight:600;padding:5px 11px;border-radius:999px;background:var(--green-soft);color:var(--green-ink)}
+.act{border:1.5px solid var(--line);background:var(--cream);border-radius:16px;padding:16px}
+.a-top{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-bottom:7px}
+.a-area{font-family:var(--display);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--green-ink)}
+.pdf-btn{font-family:var(--display);font-size:11.5px;font-weight:600;color:#fff;background:var(--coral);border:none;border-radius:999px;padding:7px 12px;cursor:pointer;white-space:nowrap;box-shadow:0 5px 12px rgba(255,111,94,.3)}
 .pdf-btn:hover{background:var(--coral-2)}
-.a-title{font-family:var(--display);font-weight:600;font-size:clamp(19px,2.4vw,24px);color:var(--ink);margin:2px 0 6px;min-height:56px;animation:pop .3s ease;line-height:1.15}
-.a-desc{font-size:14px;color:var(--ink-soft)}
-.leveler{display:flex;align-items:center;gap:14px;margin-top:14px;padding:14px;border-radius:16px;background:var(--cream);border:1.5px solid var(--line)}
-.ll{font-family:var(--display);font-size:11px;font-weight:600;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em}
-.lev-ctrl{display:flex;align-items:center;gap:12px;margin-left:auto}
-.lev-btn{width:42px;height:42px;border-radius:50%;background:#fff;border:2px solid var(--line);font-size:22px;font-weight:800;color:var(--coral);display:grid;place-items:center;cursor:pointer;transition:.15s}
+.a-title{font-family:var(--display);font-weight:600;font-size:19px;color:var(--ink);margin:2px 0 5px;animation:pop .3s ease;line-height:1.2}
+.a-desc{font-size:13.5px;color:var(--ink-soft)}
+.leveler{display:flex;align-items:center;gap:10px;margin-top:13px;padding:13px;border-radius:14px;background:var(--cream);border:1.5px solid var(--line)}
+.ll{font-family:var(--display);font-size:10.5px;font-weight:600;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em}
+.lev-ctrl{display:flex;align-items:center;gap:10px;margin-left:auto}
+.lev-btn{width:40px;height:40px;border-radius:50%;background:#fff;border:2px solid var(--line);font-size:21px;font-weight:800;color:var(--coral);display:grid;place-items:center;cursor:pointer;transition:.15s}
 .lev-btn:hover:not(:disabled){border-color:var(--coral);background:var(--coral-soft)}
 .lev-btn:disabled{opacity:.35;cursor:not-allowed}
-.lev-dots{display:flex;gap:6px}
-.lev-dots i{width:11px;height:11px;border-radius:50%;background:#E7DBCB;transition:.2s}
-.lev-dots i.on{background:var(--green)}
-.lev-num{font-family:var(--display);font-size:15px;font-weight:600;color:var(--ink);min-width:52px;text-align:center}
-.coach{margin-top:12px;font-size:13.5px;font-weight:600;padding:12px 15px;border-radius:14px;line-height:1.5;animation:pop .3s ease}
+.lev-dots{display:flex;gap:5px}.lev-dots i{width:10px;height:10px;border-radius:50%;background:#E7DBCB;transition:.2s}.lev-dots i.on{background:var(--green)}
+.lev-num{font-family:var(--display);font-size:14px;font-weight:600;color:var(--ink);min-width:44px;text-align:center}
+.coach{margin-top:11px;font-size:13px;font-weight:600;padding:11px 14px;border-radius:13px;line-height:1.5;animation:pop .3s ease}
 .coach.down{background:var(--coral-soft);color:var(--coral-ink)}
 .coach.up{background:var(--green-soft);color:var(--green-ink)}
 .coach.steady{background:var(--cream);color:var(--ink-soft)}
-.d-hint{text-align:center;font-size:12.5px;color:var(--ink-faint);margin-top:13px}
-.d-hint b{color:var(--coral-ink)}
+.d-hint{text-align:center;font-size:12px;color:var(--ink-faint);margin-top:12px}.d-hint b{color:var(--coral-ink)}
 
-.sec{padding:60px 0}
+/* ===== SECTIONS ===== */
+.sec{padding:48px 0}
 .sec-head{max-width:640px;margin:0 auto;text-align:center}
-.sec-head h2{font-size:clamp(27px,3.4vw,38px);margin-top:14px}
-.sec-head p{font-size:16.5px;margin-top:12px}
+.sec-head .eyebrow{margin-bottom:14px}
+.sec-head h2{font-size:clamp(25px,6.6vw,36px)}
+.sec-head p{font-size:16px;margin-top:14px}
 
-.areas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;max-width:960px;margin:40px auto 0}
-.area-c{text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow);transition:.16s}
-.area-c:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-.area-c .ic{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;font-size:30px;background:var(--ab);box-shadow:inset 0 -3px 0 rgba(0,0,0,.04)}
-.area-c .nm{font-family:var(--display);font-weight:600;font-size:19px;color:var(--ink);margin-top:14px}
-.area-c .lv{font-size:13px;color:var(--ink-faint);margin-top:3px}
-.area-c .dots{display:flex;gap:5px;margin-top:12px}
-.area-c .dots i{width:9px;height:9px;border-radius:50%;background:var(--ac)}
+/* problema */
+.prob{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:28px 22px;box-shadow:var(--shadow);max-width:760px;margin:0 auto;text-align:center}
+.prob h2{font-size:clamp(23px,6vw,30px);margin-bottom:14px}
+.prob p{font-size:16px}.prob p+p{margin-top:12px}
+.prob .em{color:var(--coral-ink);font-weight:800}
 
-.band{background:linear-gradient(135deg,var(--coral-soft),var(--green-soft));margin:20px 0}
-.band .inner{text-align:center;padding:66px 0}
-.band h2{font-size:clamp(26px,4vw,42px);max-width:18ch;margin:0 auto}
+/* metodo / niveis ladder */
+.ladder{max-width:640px;margin:30px auto 0;display:flex;flex-direction:column;gap:12px}
+.rung{display:flex;align-items:flex-start;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px 18px;box-shadow:var(--shadow);position:relative}
+.rung .node{width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:18px;color:#fff;box-shadow:inset 0 -3px 0 rgba(0,0,0,.08)}
+.rung .rb{flex:1}
+.rung .rt{font-family:var(--display);font-weight:600;font-size:17px;color:var(--ink)}
+.rung .rd{font-size:13.5px;color:var(--ink-soft);margin-top:2px}
+.rung .rk{font-family:var(--display);font-size:11px;font-weight:600;color:var(--ink-faint);text-transform:uppercase;letter-spacing:.04em}
+
+/* pilares */
+.pillars{display:grid;grid-template-columns:1fr;gap:16px;max-width:960px;margin:32px auto 0}
+.pillar{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px 22px;box-shadow:var(--shadow)}
+.pillar .pic{width:56px;height:56px;border-radius:17px;display:grid;place-items:center;font-size:28px;background:var(--pb);box-shadow:inset 0 -3px 0 rgba(0,0,0,.04);margin-bottom:14px}
+.pillar h3{font-size:20px}
+.pillar p{font-size:14.5px;margin-top:7px}
+
+/* band */
+.band{background:linear-gradient(135deg,var(--coral-soft),var(--green-soft));margin:14px 0}
+.band .inner{text-align:center;padding:48px 0}
+.band h2{font-size:clamp(24px,6vw,38px);max-width:20ch;margin:0 auto}
 .band h2 .hl{color:var(--coral)}
-.band p{font-size:clamp(15.5px,2vw,18px);max-width:52ch;margin:18px auto 0}
+.band p{font-size:clamp(15px,4vw,18px);max-width:50ch;margin:16px auto 0}
 
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:960px;margin:42px auto 0}
-.step{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:26px 22px;box-shadow:var(--shadow);text-align:center}
-.step .num{width:52px;height:52px;border-radius:18px;background:var(--coral-soft);color:var(--coral);font-family:var(--display);font-weight:700;display:grid;place-items:center;font-size:22px;margin:0 auto 14px}
-.step h3{font-size:19px}
-.step .sd{font-size:14.5px;margin-top:7px}
+/* como funciona */
+.steps{display:grid;grid-template-columns:1fr;gap:14px;max-width:920px;margin:32px auto 0}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:24px 20px;box-shadow:var(--shadow);text-align:center}
+.step .num{width:50px;height:50px;border-radius:16px;background:var(--coral-soft);color:var(--coral);font-family:var(--display);font-weight:700;display:grid;place-items:center;font-size:21px;margin:0 auto 13px}
+.step h3{font-size:19px}.step .sd{font-size:14.5px;margin-top:7px}
 
-.results{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:42px}
-.res{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px 18px;box-shadow:var(--shadow);text-align:center}
-.r-ava{width:84px;height:84px;border-radius:50%;overflow:hidden;margin:0 auto 14px;box-shadow:var(--shadow);border:3px solid #fff}
-.r-nm{font-family:var(--display);font-weight:600;font-size:18px;color:var(--ink)}
-.r-meta{font-size:12px;color:var(--ink-faint);margin-bottom:10px}
-.r-txt{font-size:14px;color:var(--ink-soft);line-height:1.5}
-.r-txt b{color:var(--green-ink);font-weight:800}
+/* resultados */
+.results{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px}
+.res{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:20px 16px;box-shadow:var(--shadow);text-align:center}
+.r-ava{width:74px;height:74px;border-radius:50%;overflow:hidden;margin:0 auto 12px;box-shadow:var(--shadow);border:3px solid #fff}
+.r-nm{font-family:var(--display);font-weight:600;font-size:17px;color:var(--ink)}
+.r-meta{font-size:11.5px;color:var(--ink-faint);margin-bottom:9px}
+.r-txt{font-size:13px;color:var(--ink-soft);line-height:1.5}.r-txt b{color:var(--green-ink);font-weight:800}
 
-.quote-sec{padding:70px 0}
-.qbox{max-width:780px;margin:0 auto;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:42px 40px;box-shadow:var(--shadow-lg)}
-.qbox blockquote{font-family:var(--display);font-weight:500;font-size:clamp(20px,2.8vw,30px);color:var(--ink);line-height:1.34;margin-bottom:22px}
+/* depoimento */
+.quote-sec{padding:50px 0}
+.qbox{max-width:780px;margin:0 auto;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:34px 24px;box-shadow:var(--shadow-lg)}
+.qbox blockquote{font-family:var(--display);font-weight:500;font-size:clamp(20px,5.4vw,28px);color:var(--ink);line-height:1.36;margin-bottom:20px}
 .qbox blockquote .hl{color:var(--coral)}
-.qauthor{display:inline-flex;align-items:center;gap:13px}
-.qa-ava{width:52px;height:52px;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:21px;flex:none}
-.qa-nm{font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink);text-align:left}
-.qa-role{font-size:12.5px;color:var(--ink-faint);text-align:left}
+.qauthor{display:inline-flex;align-items:center;gap:12px}
+.qa-ava{width:50px;height:50px;border-radius:50%;background:var(--coral);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:20px;flex:none}
+.qa-nm{font-family:var(--display);font-weight:600;font-size:15px;color:var(--ink);text-align:left}
+.qa-role{font-size:12px;color:var(--ink-faint);text-align:left}
 
-.final{padding:20px 0 80px}
-.final .box{background:var(--surface);border:1px solid var(--line);border-radius:30px;padding:60px 40px;text-align:center;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
-.final .box::before{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:520px;height:420px;border-radius:50%;background:radial-gradient(circle,var(--coral-soft),transparent 65%);pointer-events:none}
-.final h2{font-size:clamp(28px,4.2vw,44px);max-width:17ch;margin:0 auto;position:relative}
-.final p{font-size:17px;margin:14px auto 0;max-width:46ch;position:relative}
-.final .cta{margin-top:26px;position:relative}
-.final .free{margin-top:14px;font-size:12.5px;color:var(--ink-faint);position:relative}
+/* oferta final */
+.final{padding:14px 0 70px}
+.final .box{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:44px 24px;text-align:center;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.final .box::before{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:480px;height:400px;border-radius:50%;background:radial-gradient(circle,var(--coral-soft),transparent 65%);pointer-events:none}
+.final .eyebrow{margin-bottom:14px;position:relative}
+.final h2{font-size:clamp(26px,7vw,40px);max-width:18ch;margin:0 auto;position:relative}
+.final p{font-size:16px;margin:14px auto 0;max-width:44ch;position:relative}
+.final .cta{margin-top:24px;position:relative;display:flex;flex-direction:column;align-items:center;gap:8px}
+.final .cta .btn{width:100%;max-width:360px}
+.final .free{font-size:12.5px;color:var(--ink-faint)}
 
-footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-faint);font-size:12.5px;text-align:center;line-height:1.8}
+footer.foot{border-top:1px solid var(--line);padding:26px 0;color:var(--ink-faint);font-size:12.5px;text-align:center;line-height:1.8}
 
-@media (max-width:900px){
-  .hero .grid{grid-template-columns:1fr;gap:34px}
-  .steps{grid-template-columns:1fr}
-  .results{grid-template-columns:1fr 1fr}
+/* ===== DESKTOP ===== */
+@media (min-width:760px){
+  .wrap{padding:0 26px}
+  .nav .links a.txt{display:inline}
+  .hero{padding:54px 0 30px}
+  .hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+  .hero-copy{align-items:flex-start;text-align:left}
+  .hero .stars{justify-content:flex-start}
+  .hero h1{font-size:clamp(38px,4.4vw,52px)}
+  .hero .lede{font-size:19px}
+  .hero .cta{flex-direction:row;align-items:center;width:auto}
+  .hero .cta .btn{width:auto}
+  .demo{margin-top:0;padding:24px}
+  .a-title{font-size:23px}
+  .sec{padding:62px 0}
+  .pillars{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:repeat(3,1fr)}
+  .results{grid-template-columns:repeat(4,1fr)}
+  .band .inner{padding:66px 0}
+  .rung .node{width:52px;height:52px;font-size:20px}
 }
-@media (max-width:600px){
-  .wrap{padding:0 18px}
-  .nav .links a.txt{display:none}.nav .wrap{height:64px}
-  .hero{padding:28px 0 16px}
-  .hero .grid{gap:24px}
-  .stars{justify-content:flex-start;gap:8px}
-  .stars .s{font-size:17px;letter-spacing:2px}.stars .st{font-size:12.5px}
-  .hero h1{font-size:clamp(27px,8vw,34px);max-width:100%}
-  .hero .lede{font-size:15.5px;max-width:100%}
-  .hero .cta{gap:10px}
-  .hero .cta .btn.lg{width:100%;padding:15px 20px}
-  .hero .free{width:100%;text-align:center}
-  .demo{padding:18px;border-radius:22px}
-  .a-title{font-size:20px;min-height:auto}
-  .d-tag{display:none}
-  .sec{padding:40px 0}
-  .sec-head h2{font-size:clamp(24px,7vw,30px)}.sec-head p{font-size:15px}
-  .areas-grid{grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
-  .area-c{padding:16px;border-radius:18px}
-  .area-c .ic{width:48px;height:48px;font-size:25px;border-radius:14px}
-  .area-c .nm{font-size:16px;margin-top:10px}.area-c .lv{font-size:11.5px}
-  .band{margin:8px 0}.band .inner{padding:44px 0}
-  .band h2{font-size:clamp(23px,6.5vw,30px);max-width:100%}.band p{font-size:15px}
-  .steps{gap:12px;margin-top:24px}.step{padding:22px 18px}
-  .results{grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
-  .res{padding:18px 14px;border-radius:18px}
-  .r-ava{width:70px;height:70px}.r-txt{font-size:13px}
-  .quote-sec{padding:44px 0}
-  .qbox{padding:30px 22px;border-radius:22px}
-  .qbox blockquote{font-size:clamp(19px,5.5vw,24px)}
-  .final{padding:10px 0 54px}
-  .final .box{padding:40px 22px;border-radius:24px}
-  .final h2{font-size:clamp(25px,7vw,32px)}.final p{font-size:15.5px}
-  .final .cta .btn.lg{width:100%}
-}
-@media (max-width:380px){.areas-grid,.results{grid-template-columns:1fr}}
-
-/* mobile centralizado (override) */
-@media (max-width:600px){
-  .wrap{padding:0 18px}
-  .nav .links a.txt{display:none}.nav .wrap{height:62px}
-  .hero{padding:24px 0 14px}
-  .hero .grid{grid-template-columns:1fr!important;gap:26px;text-align:center}
-  .hero-copy{display:flex;flex-direction:column;align-items:center}
-  .stars{justify-content:center;gap:8px;margin-bottom:14px}
-  .stars .s{font-size:17px;letter-spacing:2px}.stars .st{font-size:12.5px}
-  .hero h1{font-size:clamp(27px,8vw,34px);max-width:100%;margin-top:12px}
-  .hero .lede{font-size:15.5px;max-width:100%;margin-top:14px}
-  .hero .cta{margin-top:22px;flex-direction:column;align-items:center;gap:12px;width:100%}
-  .hero .cta .btn.lg{width:100%;padding:16px 20px}
-  .hero .free{width:100%;text-align:center}
-  .demo{padding:18px;border-radius:22px;margin-top:6px}
-  .a-title{font-size:20px;min-height:auto}.d-tag{display:none}
-  .sec{padding:42px 0}
-  .sec-head h2{font-size:clamp(24px,7vw,30px)}.sec-head p{font-size:15px;margin-top:10px}
-  .areas-grid{grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
-  .area-c{padding:16px;border-radius:18px}
-  .area-c .ic{width:50px;height:50px;font-size:26px;border-radius:15px}
-  .area-c .nm{font-size:16px;margin-top:10px}.area-c .lv{font-size:11.5px}
-  .band{margin:10px 0}.band .inner{padding:46px 0}
-  .band h2{font-size:clamp(23px,6.5vw,30px);max-width:100%}.band p{font-size:15px;margin-top:14px}
-  .steps{grid-template-columns:1fr!important;gap:14px;margin-top:26px}.step{padding:24px 20px}
-  .results{grid-template-columns:1fr 1fr;gap:12px;margin-top:26px}
-  .res{padding:20px 14px;border-radius:18px}.r-ava{width:72px;height:72px}.r-txt{font-size:13px}
-  .quote-sec{padding:46px 0}
-  .qbox{padding:32px 22px;border-radius:22px}.qbox blockquote{font-size:clamp(19px,5.5vw,24px)}
-  .final{padding:8px 0 56px}
-  .final .box{padding:42px 22px;border-radius:24px}
-  .final h2{font-size:clamp(25px,7vw,32px)}.final p{font-size:15.5px}.final .cta .btn.lg{width:100%}
-}
-@media (max-width:400px){.areas-grid,.results{grid-template-columns:1fr}}
-
-/* mobile refino 2 */
-@media (max-width:600px){
-  .nav .wrap{gap:10px}
-  .brand{font-size:19px}.applem{width:28px;height:28px}
-  .nav .links .btn.sm{padding:9px 15px;font-size:13.5px}
-  .hero{padding:30px 0 20px}
-  .stars{margin-bottom:18px}.stars .st{font-size:12px}
-  .hero h1{font-size:clamp(26px,7.2vw,32px);line-height:1.18;margin-top:16px}
-  .hero .lede{margin-top:18px;line-height:1.6}
-  .hero .cta{margin-top:28px}
-  .hero .free{margin-top:4px}
-  .demo{margin-top:12px}
-  .sec{padding:46px 0}
-  .band .inner{padding:50px 0}
-}
-
-/* mobile espacamento hero */
-@media (max-width:600px){
-  .hero-copy .stars{margin:0 0 22px}
-  .hero-copy .eyebrow{margin:0 0 24px;line-height:1.35}
-  .hero h1{margin-top:0;line-height:1.24}
-  .hero .lede{margin-top:24px}
-  .hero .cta{margin-top:32px}
-  .hero .free{margin-top:6px}
-}
+@media (max-width:380px){.results{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -270,10 +206,11 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
 
 <header class="hero" id="topo"><div class="wrap"><div class="grid">
   <div class="hero-copy">
-    <div class="stars"><span class="s">★★★★★</span><span class="st"><b>App campeão</b> para o desenvolvimento de crianças</span></div>
-    <span class="eyebrow">Para professores que fazem a diferença</span>
-    <h1>O material certo pra cada criança autista — na <span class="hl">área</span> e no <span class="hl">nível</span> dela.</h1>
-    <p class="lede">Milhares de atividades em PDF, organizadas por área e por nível. Cadastre o aluno, <b>acompanhe a evolução</b> e imprima o material certo em 1 clique.</p>
+    <div class="stars"><span class="s">★★★★★</span><span class="st"><b>App campeão</b> no desenvolvimento de crianças</span></div>
+    <span class="eyebrow">O único método de alfabetização pensado para o TEA</span>
+    <h1>O método que alfabetiza crianças autistas — no <span class="hl">nível</span> de cada uma.</h1>
+    <p class="lede">Das <b>habilidades precursoras</b> à leitura e à escrita. Material multidisciplinar, organizado por níveis, que usa o <b>hiperfoco</b> da criança — e atende até quem <b>não fala</b>.</p>
+    <span class="uniq">✦ Ninguém alfabetiza autista com método. Nós alfabetizamos.</span>
     <div class="cta">
       <a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar conta</a>
       <span class="free">Leva menos de 3 minutos</span>
@@ -281,88 +218,104 @@ footer.foot{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-fain
   </div>
 
   <div class="demo">
-    <span class="blob" style="width:80px;height:80px;background:var(--coral-soft);top:-22px;right:30px"></span>
-    <span class="blob" style="width:54px;height:54px;background:var(--green-soft);bottom:-16px;left:24px;animation-delay:1.5s"></span>
-    <div class="d-live"><i></i> material ao vivo</div>
+    <span class="blob" style="width:74px;height:74px;background:var(--coral-soft);top:-20px;right:26px"></span>
+    <span class="blob" style="width:50px;height:50px;background:var(--green-soft);bottom:-14px;left:22px;animation-delay:1.5s"></span>
+    <div class="d-live"><i></i> método ao vivo</div>
     <div class="d-head">
       <div class="d-ava" id="avaPedro"></div>
-      <div><div class="d-nm">Pedro, 7 anos</div><div class="d-meta">Nível 2 de suporte · não verbaliza</div></div>
-      <span class="d-tag">Comunicação</span>
+      <div><div class="d-nm">Pedro, 7 anos</div><div class="d-meta">Não-verbal · nível 2 de suporte</div></div>
+      <span class="d-tag">Alfabetização</span>
     </div>
     <div class="act">
-      <div class="a-top"><span class="a-area">material do nível atual</span><button class="pdf-btn" id="pdfBtn">🖨️ Imprimir em 1 clique</button></div>
-      <div class="a-title" id="actTitle">Parear figura com figura idêntica</div>
-      <div class="a-desc">Atividade pronta pra imprimir — no nível certo do Pedro.</div>
+      <div class="a-top"><span class="a-area">atividade do nível atual</span><button class="pdf-btn" id="pdfBtn">🖨️ Imprimir</button></div>
+      <div class="a-title" id="actTitle">Reconhecer e parear as vogais</div>
+      <div class="a-desc">Pronta pra imprimir — no degrau exato em que o Pedro está hoje.</div>
     </div>
     <div class="leveler">
       <span class="ll">nível</span>
       <div class="lev-ctrl">
         <button class="lev-btn" id="down" aria-label="Baixar nível">−</button>
         <div class="lev-dots" id="dots"></div>
-        <span class="lev-num" id="num">2 / 5</span>
+        <span class="lev-num" id="num">2 / 6</span>
         <button class="lev-btn" id="up" aria-label="Subir nível">+</button>
       </div>
     </div>
-    <div class="coach steady" id="coach">No nível certo pra o Pedro agora.</div>
-    <p class="d-hint">Mude o nível no <b>− / +</b> e veja o material trocar</p>
+    <div class="coach steady" id="coach">No degrau certo pra o Pedro agora.</div>
+    <p class="d-hint">Mexa no <b>− / +</b> e veja a atividade mudar de nível</p>
   </div>
 </div></div></header>
 
 <section class="sec"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">Conteúdo por área e nível</span><h2>7 áreas, cada uma com vários níveis</h2><p>Do mais básico ao mais avançado. Você escolhe a área, o app entrega o material certo pra onde a criança está.</p></div>
-  <div class="areas-grid">
-    <div class="area-c" style="--ac:#20B89A;--ab:#D9F5EE"><div class="ic">🔢</div><div class="nm">Matemática</div><div class="lv">5 níveis · contar, sequência, somar</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="area-c" style="--ac:#F2A93B;--ab:#FCEFD3"><div class="ic">🔤</div><div class="nm">Alfabetização</div><div class="lv">5 níveis · vogais, sílabas, palavras</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="area-c" style="--ac:#3FA0F0;--ab:#DCEEFD"><div class="ic">📖</div><div class="nm">Leitura</div><div class="lv">5 níveis · do nome às frases</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="area-c" style="--ac:#8C7DFF;--ab:#E8E4FE"><div class="ic">✏️</div><div class="nm">Escrita</div><div class="lv">5 níveis · do traço ao nome</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="area-c" style="--ac:#FF7DA6;--ab:#FFE3EC"><div class="ic">🖼️</div><div class="nm">Comunicação</div><div class="lv">5 níveis · pareamento e pranchas</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="area-c" style="--ac:#B583F5;--ab:#EFE4FD"><div class="ic">🧩</div><div class="nm">Comportamento</div><div class="lv">5 níveis · rotina e autorregulação</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="area-c" style="--ac:#FF9E5C;--ab:#FFEAD7"><div class="ic">🗓️</div><div class="nm">Rotina</div><div class="lv">5 níveis · cartões e sequências</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
-    <div class="area-c" style="--ac:#19C3C3;--ab:#D6F4F4"><div class="ic">🤝</div><div class="nm">Habilidades sociais</div><div class="lv">5 níveis · turnos, contato, brincar junto</div><div class="dots"><i></i><i></i><i></i><i></i><i></i></div></div>
-  </div>
-</div></section>
-
-<section class="band"><div class="wrap"><div class="inner">
-  <h2>Milhares de materiais em PDF, sempre no <span class="hl">nível certo</span> da criança.</h2>
-  <p>Chega de garimpar apostila genérica e adaptar na madrugada. O material já vem pronto, por área e por nível — é só imprimir.</p>
-</div></div></section>
-
-<section class="sec" id="como"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">Como funciona</span><h2>Do cadastro à impressão, em 3 passos</h2></div>
-  <div class="steps">
-    <div class="step"><div class="num">1</div><h3>Cadastre o aluno</h3><p class="sd">Nome, idade e a situação real da criança em cada área. Leva 2 minutos.</p></div>
-    <div class="step"><div class="num">2</div><h3>O app indica o material</h3><p class="sd">Ele cruza idade + área + nível e monta a trilha individual pra onde a criança está hoje.</p></div>
-    <div class="step"><div class="num">3</div><h3>Imprima e acompanhe</h3><p class="sd">Baixe o PDF em 1 clique. Travou? Baixe o nível. Avançou? Suba — e o app registra o progresso.</p></div>
+  <div class="prob">
+    <h2>Apostila genérica não alfabetiza criança autista.</h2>
+    <p>Quase todo material por aí <span class="em">assume que a criança já presta atenção, já pareia, já imita</span>. Muitas crianças no TEA ainda não — e é por isso que "não aprendem". Não é a criança que falhou. Foi o material que começou no degrau errado.</p>
+    <p>O GeniousTea começa <span class="em">onde a criança realmente está</span> e sobe degrau por degrau, sobre uma base firme.</p>
   </div>
 </div></section>
 
 <section class="sec"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">O que muda em 6 meses</span><h2>É isso que você vê na criança</h2></div>
+  <div class="sec-head"><span class="eyebrow">O método</span><h2>Não é atividade solta. É um caminho em níveis.</h2><p>Cada degrau só abre quando a criança domina o anterior. Da base até ler e escrever.</p></div>
+  <div class="ladder">
+    <div class="rung"><div class="node" style="background:var(--purple)">0</div><div class="rb"><div class="rk">base</div><div class="rt">Habilidades precursoras</div><div class="rd">Atenção compartilhada, contato visual, pareamento e imitação — o que vem antes de qualquer letra.</div></div></div>
+    <div class="rung"><div class="node" style="background:var(--blue)">1</div><div class="rb"><div class="rk">pré-alfabetização</div><div class="rt">Sons e vogais</div><div class="rd">Discriminação visual e auditiva, reconhecer e nomear as vogais.</div></div></div>
+    <div class="rung"><div class="node" style="background:var(--green)">2</div><div class="rb"><div class="rk">sílabas</div><div class="rt">Formar e ler sílabas</div><div class="rd">Juntar consoante e vogal, ler sílabas simples com apoio visual.</div></div></div>
+    <div class="rung"><div class="node" style="background:var(--gold)">3</div><div class="rb"><div class="rk">palavras</div><div class="rt">Ler e montar palavras</div><div class="rd">Palavras do dia a dia e do interesse da criança, com figura de apoio.</div></div></div>
+    <div class="rung"><div class="node" style="background:var(--coral-2)">4</div><div class="rb"><div class="rk">frases</div><div class="rt">Ler e escrever frases</div><div class="rd">Pequenas frases, primeiras produções escritas no tempo da criança.</div></div></div>
+    <div class="rung"><div class="node" style="background:var(--coral)">5</div><div class="rb"><div class="rk">autonomia</div><div class="rt">Leitura e escrita com sentido</div><div class="rd">Compreensão, escrita funcional e uso da linguagem no cotidiano.</div></div></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Por que funciona</span><h2>Quatro coisas que ninguém junta num lugar só</h2></div>
+  <div class="pillars">
+    <div class="pillar" style="--pb:#EFE9FF"><div class="pic">🧱</div><h3>Habilidades precursoras</h3><p>Antes de alfabetizar, o método garante as bases: atenção, pareamento, imitação e contato visual. Sem isso, nenhuma letra gruda.</p></div>
+    <div class="pillar" style="--pb:#E2F6EF"><div class="pic">🤝</div><h3>Intervenção multidisciplinar</h3><p>Material construído com olhar de fono, psicopedagogia e terapia ocupacional. Cada atividade trabalha mais de uma frente ao mesmo tempo.</p></div>
+    <div class="pillar" style="--pb:#FFE9E3"><div class="pic">🦕</div><h3>Hiperfoco a favor</h3><p>Milhares de temas pra usar o interesse da criança — dinossauros, trens, planetas — como motor da alfabetização. O que prende a atenção, ensina.</p></div>
+    <div class="pillar" style="--pb:#DCEEFD"><div class="pic">💬</div><h3>Crianças não-verbais</h3><p>Uma trilha própria pra estruturar a linguagem escrita sem depender da fala. No ritmo delas, do jeito que elas conseguem.</p></div>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap"><div class="inner">
+  <h2>Pensado pra <span class="hl">todos os tipos de autismo</span> e suas dificuldades.</h2>
+  <p>Suporte nível 1, 2 ou 3, verbal ou não-verbal, com ou sem hiperfoco definido: o método cruza o perfil da criança e entrega o material certo pra ela. Estratégico, não genérico.</p>
+</div></div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">Como funciona</span><h2>Do cadastro à atividade impressa, em 3 passos</h2></div>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><h3>Cadastre a criança</h3><p class="sd">Idade, perfil e onde ela está em cada base. Leva 2 minutos.</p></div>
+    <div class="step"><div class="num">2</div><h3>O método monta a trilha</h3><p class="sd">Ele identifica o degrau certo — do precursor à alfabetização — e indica a atividade do nível dela.</p></div>
+    <div class="step"><div class="num">3</div><h3>Imprima e acompanhe</h3><p class="sd">Baixe o PDF em 1 clique. A criança avançou? Sobe o nível. Travou? Desce. E o app registra a evolução.</p></div>
+  </div>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">O que muda na criança</span><h2>Resultado de quem seguiu o método</h2></div>
   <div class="results">
-    <div class="res"><div class="r-ava" id="avaDavi"></div><div class="r-nm">Davi</div><div class="r-meta">7 anos · comunicação</div><p class="r-txt">Não apontava pra nada. Hoje <b>pede o que quer apontando a figura</b>.</p></div>
-    <div class="res"><div class="r-ava" id="avaHelena"></div><div class="r-nm">Helena</div><div class="r-meta">6 anos · alfabetização</div><p class="r-txt">Não reconhecia as letras. Hoje <b>lê sílabas e junta palavras</b>.</p></div>
-    <div class="res"><div class="r-ava" id="avaCaio"></div><div class="r-nm">Caio</div><div class="r-meta">9 anos · matemática</div><p class="r-txt">Contava só até 10 com ajuda. Hoje <b>resolve continhas de soma sozinho</b>.</p></div>
-    <div class="res"><div class="r-ava" id="avaManu"></div><div class="r-nm">Manu</div><div class="r-meta">5 anos · escrita</div><p class="r-txt">Mal segurava o lápis. Hoje <b>traça as letras sozinha</b>.</p></div>
+    <div class="res"><div class="r-ava" id="avaDavi"></div><div class="r-nm">Davi</div><div class="r-meta">7 anos · não-verbal</div><p class="r-txt">Não pareava figuras. Hoje <b>reconhece as vogais e aponta a letra certa</b>.</p></div>
+    <div class="res"><div class="r-ava" id="avaHelena"></div><div class="r-nm">Helena</div><div class="r-meta">6 anos · suporte 2</div><p class="r-txt">Não fixava atenção. Hoje <b>lê sílabas e junta as primeiras palavras</b>.</p></div>
+    <div class="res"><div class="r-ava" id="avaCaio"></div><div class="r-nm">Caio</div><div class="r-meta">9 anos · hiperfoco em trens</div><p class="r-txt">Recusava atividade. Com tema de trem, <b>lê palavras e monta frases</b>.</p></div>
+    <div class="res"><div class="r-ava" id="avaManu"></div><div class="r-nm">Manu</div><div class="r-meta">5 anos · suporte 1</div><p class="r-txt">Mal segurava o lápis. Hoje <b>escreve o próprio nome sozinha</b>.</p></div>
   </div>
 </div></section>
 
 <section class="quote-sec"><div class="wrap">
   <div class="qbox">
-    <blockquote>“Nunca tive uma ferramenta que me deixasse trabalhar com a <span class="hl">dignidade que essas crianças merecem</span>.”</blockquote>
+    <blockquote>“Pela primeira vez eu tenho um <span class="hl">caminho claro</span> pra alfabetizar meus alunos autistas — e não um monte de atividade solta.”</blockquote>
     <div class="qauthor"><div class="qa-ava">M</div><div><div class="qa-nm">Miriam Sales</div><div class="qa-role">Professora de educação especial há 18 anos</div></div></div>
   </div>
 </div></section>
 
 <section class="final"><div class="wrap">
   <div class="box">
-    <h2>Milhares de materiais esperando pelo seu aluno.</h2>
-    <p>Cria sua conta, cadastra a criança e imprime o primeiro material no nível certo. Leva 2 minutos.</p>
-    <div class="cta"><a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar minha conta</a></div>
-    <p class="free">Leva menos de 3 minutos</p>
+    <span class="eyebrow">Não existe outro método assim</span>
+    <h2>Comece a alfabetizar do jeito certo hoje.</h2>
+    <p>Cadastre a criança, descubra o degrau exato em que ela está e imprima a primeira atividade no nível certo.</p>
+    <div class="cta"><a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar minha conta</a><span class="free">Leva menos de 3 minutos</span></div>
   </div>
 </div></section>
 
-<footer class="foot"><div class="wrap">GeniousTea · intervenção pedagógica no TEA · materiais por fono, psicopedagoga e terapeuta ocupacional</div></footer>
+<footer class="foot"><div class="wrap">GeniousTea · método de alfabetização para o TEA · construído com fono, psicopedagogia e terapia ocupacional</div></footer>
 
 <script>
 document.querySelectorAll('.applem').forEach(b=>b.appendChild(document.getElementById('appleTpl').content.cloneNode(true)));
@@ -385,17 +338,25 @@ const KIDS={
 ['Pedro','Davi','Helena','Caio','Manu'].forEach(k=>{const el=document.getElementById('ava'+k);if(el)el.innerHTML=kidAvatar(KIDS[k]);});
 const pb=document.getElementById('pdfBtn');
 if(pb)pb.addEventListener('click',()=>{const o=pb.textContent;pb.textContent='✓ PDF gerado';setTimeout(()=>{pb.textContent=o;},1700);});
-const LADDER=['Parear objeto real com objeto igual','Parear figura com figura idêntica','Parear figura com objeto real','Apontar a figura pedida entre duas','Apontar a figura certa entre quatro'];
+const LADDER=[
+ ['Parear figuras iguais','HABILIDADES PRECURSORAS'],
+ ['Reconhecer e parear as vogais','PRÉ-ALFABETIZAÇÃO'],
+ ['Formar e ler sílabas simples','SÍLABAS'],
+ ['Ler palavras com apoio de figura','PALAVRAS'],
+ ['Montar e escrever pequenas frases','FRASES'],
+ ['Ler frase e escrever com sentido','LEITURA E ESCRITA']
+];
 let rung=1;
-const t=document.getElementById('actTitle'),n=document.getElementById('num'),d=document.getElementById('dots'),c=document.getElementById('coach'),up=document.getElementById('up'),dn=document.getElementById('down');
+const t=document.getElementById('actTitle'),ar=document.querySelector('.a-area'),n=document.getElementById('num'),d=document.getElementById('dots'),c=document.getElementById('coach'),up=document.getElementById('up'),dn=document.getElementById('down');
 function render(delta){
-  t.textContent=LADDER[rung];t.style.animation='none';void t.offsetWidth;t.style.animation='';
+  t.textContent=LADDER[rung][0];ar.textContent=LADDER[rung][1];
+  t.style.animation='none';void t.offsetWidth;t.style.animation='';
   n.textContent=(rung+1)+' / '+LADDER.length;
   d.innerHTML=LADDER.map((_,i)=>`<i class="${i<=rung?'on':''}"></i>`).join('');
   up.disabled=rung===LADDER.length-1;dn.disabled=rung===0;
-  if(delta<0){c.className='coach down';c.textContent='↓ Baixei o nível e o material trocou pra algo que ele consegue fazer agora.';}
+  if(delta<0){c.className='coach down';c.textContent='↓ Desci um degrau — a atividade voltou pra base que ele ainda precisa firmar.';}
   else if(delta>0){c.className='coach up';c.textContent='↑ Subi um degrau — material novo, no ritmo certo da criança.';}
-  else{c.className='coach steady';c.textContent='No nível certo pra o Pedro agora.';}
+  else{c.className='coach steady';c.textContent='No degrau certo pra o Pedro agora.';}
 }
 up.addEventListener('click',()=>{if(rung<LADDER.length-1){rung++;render(1);}});
 dn.addEventListener('click',()=>{if(rung>0){rung--;render(-1);}});
