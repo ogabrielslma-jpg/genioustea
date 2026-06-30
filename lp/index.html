@@ -396,6 +396,12 @@ body{background:#F5F4EC}
 .steps .step .num{background:var(--teal)!important}
 /* cabecalho creme */
 .nav{background:rgba(245,244,236,.9)}
+
+/* hero com mockup das apostilas: camada mais clara p/ aparecer */
+.hero::after{background:linear-gradient(160deg,rgba(20,60,45,.66),rgba(18,52,40,.80))!important}
+.hero::before{filter:blur(1px) saturate(1.05) brightness(1.0)!important;transform:scale(1.05)!important}
+.hero-copy h1{text-shadow:0 2px 22px rgba(0,0,0,.4)}
+.hero-copy .lede,.hero-copy .uniq{text-shadow:0 1px 12px rgba(0,0,0,.4)}
 </style>
 </head>
 <body>
