@@ -355,6 +355,13 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
 .aud li b{color:var(--ink);font-weight:700}
 .aud li .ck{flex:none;width:21px;height:21px;border-radius:7px;background:var(--teal-soft);color:var(--teal-d);display:grid;place-items:center;font-size:11px;font-weight:800;margin-top:1px}
 @media (min-width:760px){.audience{grid-template-columns:1fr 1fr}}
+
+/* foto do hero mais visivel */
+.hero::after{background:linear-gradient(160deg,rgba(14,122,99,.58),rgba(11,72,60,.70))!important}
+.hero::before{filter:blur(1.5px) saturate(1.1) brightness(1.02)!important}
+.hero-copy h1{text-shadow:0 2px 22px rgba(0,0,0,.45)}
+.hero-copy .lede,.hero-copy .uniq{text-shadow:0 1px 12px rgba(0,0,0,.4)}
+.hero-copy .stars .st{text-shadow:0 1px 8px rgba(0,0,0,.35)}
 </style>
 </head>
 <body>
