@@ -187,6 +187,20 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
   .band .inner{padding:80px 0}
 }
 @media (max-width:380px){.results{grid-template-columns:1fr}}
+
+/* compare genérico x método */
+.compare{max-width:880px;margin:34px auto 0;display:grid;grid-template-columns:1fr;gap:16px}
+.cmp{border-radius:18px;padding:24px 22px;border:1px solid var(--line)}
+.cmp.bad{background:#FBF2EE;border-color:#F2D9CF}
+.cmp.good{background:var(--card);box-shadow:var(--shadow)}
+.cmp .ct{font-family:var(--display);font-weight:800;font-size:13px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.cmp.bad .ct{color:#B65A3C}.cmp.good .ct{color:var(--teal-d)}
+.cmp ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.cmp li{display:flex;gap:11px;align-items:flex-start;font-size:15px;color:var(--ink-2)}
+.cmp li b{color:var(--ink);font-weight:700}
+.cmp .ic{flex:none;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-size:13px;font-weight:800;color:#fff}
+.cmp.bad .ic{background:#D9714E}.cmp.good .ic{background:var(--teal)}
+@media (min-width:760px){.compare{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -203,7 +217,7 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
 
 <header class="hero" id="topo"><div class="wrap"><div class="grid">
   <div class="hero-copy">
-    <div class="stars"><span class="s">★★★★★</span><span class="st"><b>Método campeão</b> na alfabetização de autistas</span></div>
+    <div class="stars"><span class="s">★★★★★</span><span class="st"><b>Método nº 1</b> na alfabetização de crianças com TEA</span></div>
     <span class="pill">O único método de alfabetização pensado para o TEA</span>
     <h1>O método que alfabetiza crianças autistas — no <span class="hl">nível</span> de cada uma.</h1>
     <p class="lede">Das <b>habilidades precursoras</b> à leitura e à escrita. Material multidisciplinar, organizado por níveis, que usa o <b>hiperfoco</b> da criança — e atende até quem <b>não fala</b>.</p>
@@ -277,6 +291,30 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
   <h2>Pensado pra <span class="hl">todos os tipos de autismo</span> e suas dificuldades.</h2>
   <p>Suporte nível 1, 2 ou 3, verbal ou não-verbal, com ou sem hiperfoco definido: o método cruza o perfil da criança e entrega o material certo pra ela.</p>
 </div></div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="sec-head"><span class="pill amber">Pare de improvisar</span><h2>Pare de imprimir PDF genérico da internet.</h2><p>Imprima o <b style="color:var(--ink)">método certo</b> pra o nível de aprendizagem de cada criança — não a primeira atividade aleatória que você achou no Google.</p></div>
+  <div class="compare">
+    <div class="cmp bad">
+      <div class="ct"><span class="ic">✕</span> PDF genérico da internet</div>
+      <ul>
+        <li><span class="ic">✕</span> Mesma folha pra qualquer criança, sem olhar o nível</li>
+        <li><span class="ic">✕</span> Pula as habilidades precursoras — e a criança trava</li>
+        <li><span class="ic">✕</span> Você adapta tudo na madrugada, sozinha</li>
+        <li><span class="ic">✕</span> Não mede se a criança evoluiu</li>
+      </ul>
+    </div>
+    <div class="cmp good">
+      <div class="ct"><span class="ic">✓</span> Método GeniousTea</div>
+      <ul>
+        <li><span class="ic">✓</span> Atividade no <b>degrau exato</b> em que a criança está</li>
+        <li><span class="ic">✓</span> Começa na base e <b>sobe nível por nível</b></li>
+        <li><span class="ic">✓</span> Já vem pronta — você só <b>imprime em 1 clique</b></li>
+        <li><span class="ic">✓</span> O app <b>registra a evolução</b> da criança</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
 
 <section class="sec alt"><div class="wrap">
   <div class="sec-head"><span class="pill">Como funciona</span><h2>Do cadastro à atividade impressa, em 3 passos</h2></div>
