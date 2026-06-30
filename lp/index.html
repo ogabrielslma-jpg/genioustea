@@ -292,6 +292,12 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
 .offer-price .pmeta b{display:block;font-family:var(--display);font-weight:700;color:var(--teal-d);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
 .offer .btn{width:100%}
 .offer-foot{text-align:center;font-size:12.5px;color:var(--ink-3);margin-top:12px}
+
+/* dois botoes na atividade */
+.act-btns{display:flex;gap:9px;flex-wrap:wrap}
+.act-btns .pdf-btn{flex:1;min-width:140px}
+.pdf-btn.ghost{background:#fff;color:var(--teal-d);border:1.5px solid var(--teal-soft);box-shadow:none}
+.pdf-btn.ghost:hover{background:var(--teal-tint);border-color:var(--teal);transform:translateY(-1px)}
 </style>
 </head>
 <body>
@@ -329,7 +335,7 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
       <div class="a-top"><span class="a-area" id="aArea">N2 · SÍLABAS</span></div>
       <div class="a-title" id="actTitle">Reconhecer e parear as vogais</div>
       <div class="a-desc">No degrau exato em que o Pedro está hoje.</div>
-      <button class="pdf-btn" id="pdfBtn">🖨️ Imprimir e ver arsenal de atividades</button>
+      <div class="act-btns"><button class="pdf-btn" id="pdfBtn">🖨️ Imprimir atividade</button><a class="pdf-btn ghost" href="#oferta">Ver arsenal de atividades</a></div>
     </div>
     <div class="leveler">
       <span class="ll">nível</span>
