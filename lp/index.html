@@ -258,6 +258,22 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
 .pricebox .pl{font-family:var(--display);font-weight:600;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#FFD79A}
 .pricebox .pd{font-size:14px;color:#EAF2EF}
 .pricebox .pd b{color:#fff;font-weight:700}
+
+/* card demo refinado + sem zoom no toque */
+.lev-btn,.pdf-btn,.btn,.nav .links a{touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none}
+.act{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow-sm)}
+.a-area{display:inline-block;background:var(--teal-soft);color:var(--teal-d);padding:4px 10px;border-radius:7px;font-size:10.5px}
+.a-desc{margin-bottom:14px}
+.pdf-btn{width:100%;justify-content:center;display:flex;align-items:center;gap:8px;font-size:14px;border-radius:11px;padding:13px 14px;box-shadow:0 6px 16px rgba(14,122,99,.26);transition:transform .14s,background .2s}
+.pdf-btn:hover{background:var(--teal-d);transform:translateY(-1px)}
+.pdf-btn:active{transform:translateY(0)}
+.leveler{margin-top:14px;padding:14px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.lev-btn{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--line);font-size:22px}
+.lev-btn:active:not(:disabled){background:var(--teal);color:#fff;border-color:var(--teal)}
+.lev-dots i{width:10px;height:10px}
+.lev-dots i.cur{transform:scale(1.35);box-shadow:0 0 0 3px var(--amber-soft)}
+.coach{background:var(--teal-soft);color:var(--teal-d);border:none}
+.coach.steady{background:var(--soft);color:var(--ink-2)}
 </style>
 </head>
 <body>
@@ -294,9 +310,10 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
       <span class="d-tag">Alfabetização</span>
     </div>
     <div class="act">
-      <div class="a-top"><span class="a-area">atividade do nível atual</span><button class="pdf-btn" id="pdfBtn">Imprimir</button></div>
+      <div class="a-top"><span class="a-area" id="aArea">N2 · SÍLABAS</span></div>
       <div class="a-title" id="actTitle">Reconhecer e parear as vogais</div>
-      <div class="a-desc">Pronta pra imprimir — no degrau exato em que o Pedro está hoje.</div>
+      <div class="a-desc">No degrau exato em que o Pedro está hoje.</div>
+      <button class="pdf-btn" id="pdfBtn">🖨️ Imprimir e ver arsenal de atividades</button>
     </div>
     <div class="leveler">
       <span class="ll">nível</span>
@@ -308,7 +325,7 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
       </div>
     </div>
     <div class="coach steady" id="coach">No degrau certo pra o Pedro agora.</div>
-    <p class="d-hint">Mexa no <b>− / +</b> e veja a atividade mudar de nível</p>
+    <p class="d-hint">Toque em <b>− / +</b> e veja a atividade mudar de nível</p>
   </div>
 </div></div></header>
 
