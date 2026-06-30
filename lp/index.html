@@ -406,12 +406,6 @@ body{background:#F5F4EC}
 /* hero: mockup sem zoom gigante */
 .hero::before{background:url("/lp/hero.jpg") center top/contain no-repeat,#143C2D!important;filter:none!important;transform:none!important;inset:0!important;opacity:.9}
 .hero::after{background:linear-gradient(160deg,rgba(20,60,45,.62),rgba(18,52,40,.82))!important}
-
-/* hero virou banner por breakpoint */
-.herobanner{display:block;line-height:0}
-.herobanner img{width:100%;height:auto;display:block}
-.demo-sec{padding:34px 0;background:var(--bg)}
-.demo-sec .demo{max-width:560px;margin:0 auto !important}
 </style>
 </head>
 <body>
@@ -425,9 +419,18 @@ body{background:#F5F4EC}
   </div>
 </div></nav>
 
-<a class="herobanner" id="topo" href="#oferta"><picture><source media="(max-width:760px)" srcset="/lp/hero-mobile.jpg"><img src="/lp/hero-pc.jpg" alt="GeniousTea — método de alfabetização para crianças com TEA"></picture></a>
+<header class="hero" id="topo"><div class="wrap"><div class="grid">
+  <div class="hero-copy">
+    <div class="stars badge"><span class="s">★★★★★</span><span class="st"><b>Método nº 1</b> na alfabetização de crianças com TEA</span></div>
+    <h1>O método que alfabetiza crianças autistas — no <span class="hl">nível</span> de cada uma.</h1>
+    <p class="lede">Das <b>habilidades precursoras</b> à leitura e à escrita. Material multidisciplinar, organizado por níveis, que usa o <b>hiperfoco</b> da criança — e atende até quem <b>não fala</b>.</p>
+    <span class="uniq">Da primeira troca de olhar até a leitura — de forma previsível, degrau por degrau.</span>
+    <div class="cta">
+      <a class="btn lg" href="#oferta">Acessar conteúdo</a>
+    </div>
+    <div class="neuro"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="#2E7D5B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M9.5 3.5A2.5 2.5 0 0 0 7 6a2.5 2.5 0 0 0-1.5 4.3A2.6 2.6 0 0 0 6 15a2.5 2.5 0 0 0 3.5 2.3"/><path d="M9.5 3.5A2 2 0 0 1 12 5.4v13.1a2 2 0 0 1-3.5 1.3"/><path d="M14.5 3.5A2.5 2.5 0 0 1 17 6a2.5 2.5 0 0 1 1.5 4.3A2.6 2.6 0 0 1 18 15a2.5 2.5 0 0 1-3.5 2.3"/><path d="M14.5 3.5A2 2 0 0 0 12 5.4"/></svg></span><span><b>+1.000 atividades</b> que estimulam a neuroplasticidade da criança com TEA</span></div>
+  </div>
 
-<section class="demo-sec"><div class="wrap">
   <div class="demo">
     <div class="d-head">
       <div class="d-ava" id="avaPedro"></div>
@@ -452,7 +455,7 @@ body{background:#F5F4EC}
     <div class="coach steady" id="coach">No degrau certo para o Pedro agora.</div>
     <p class="d-hint">Toque em <b>− / +</b> e veja a atividade mudar de nível</p>
   </div>
-</div></section>
+</div></div></header>
 
 <section class="uno"><div class="wrap"><span>O único método de alfabetização pensado para o TEA</span></div></section>
 
