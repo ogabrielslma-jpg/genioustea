@@ -250,6 +250,14 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
 .final .cta .btn{background:#fff;color:var(--teal-d)}
 .final .cta .btn:hover{background:#FFE9D6}
 .final .free{color:#9FCFC3}
+
+/* destaque de preco no CTA final */
+.pricebox{display:inline-flex;flex-direction:column;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:18px 26px;margin:6px auto 0}
+.pricebox .pv{font-family:var(--display);font-weight:800;font-size:34px;color:#fff;line-height:1}
+.pricebox .pv small{font-size:16px;font-weight:600;opacity:.85}
+.pricebox .pl{font-family:var(--display);font-weight:600;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:#FFD79A}
+.pricebox .pd{font-size:14px;color:#EAF2EF}
+.pricebox .pd b{color:#fff;font-weight:700}
 </style>
 </head>
 <body>
@@ -260,7 +268,7 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
   <a class="brand" href="#topo"><span class="applem"></span><b>Genious</b><span class="tea">Tea</span></a>
   <div class="links">
     <a class="txt" href="https://genioustea-steel.vercel.app/">Entrar</a>
-    <a class="btn sm" href="https://genioustea-steel.vercel.app/">Criar conta</a>
+    <a class="btn sm" href="https://genioustea-steel.vercel.app/">Acessar conteúdo</a>
   </div>
 </div></nav>
 
@@ -272,8 +280,8 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
     <p class="lede">Das <b>habilidades precursoras</b> à leitura e à escrita. Material multidisciplinar, organizado por níveis, que usa o <b>hiperfoco</b> da criança — e atende até quem <b>não fala</b>.</p>
     <span class="uniq">Ninguém alfabetiza autista com método. Nós alfabetizamos.</span>
     <div class="cta">
-      <a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar conta</a>
-      <span class="free">Leva menos de 3 minutos</span>
+      <a class="btn lg" href="https://genioustea-steel.vercel.app/">Acessar conteúdo</a>
+      <span class="free"><b style="color:#fff">Plano único de R$ 37,90</b> · +1.000 materiais prontos</span>
     </div>
     <div class="trust"><b>Fonoaudiologia</b><b>Psicopedagogia</b><b>Terapia ocupacional</b></div>
   </div>
@@ -395,8 +403,13 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
   <div class="box">
     <span class="pill">Não existe outro método assim</span>
     <h2>Comece a alfabetizar do jeito certo hoje.</h2>
-    <p>Cadastre a criança, descubra o degrau exato em que ela está e imprima a primeira atividade no nível certo.</p>
-    <div class="cta"><a class="btn lg" href="https://genioustea-steel.vercel.app/">Criar minha conta</a><span class="free">Leva menos de 3 minutos</span></div>
+    <p>Um plano, acesso a tudo. Sem assinatura escondida.</p>
+    <div class="pricebox">
+      <span class="pl">Plano único</span>
+      <span class="pv"><small>R$</small> 37,90</span>
+      <span class="pd"><b>+1.000 materiais</b> prontos para cada nível e situação</span>
+    </div>
+    <div class="cta"><a class="btn lg" href="https://genioustea-steel.vercel.app/">Acessar conteúdo</a><span class="free">acesso imediato · leva menos de 3 minutos</span></div>
   </div>
 </div></section>
 
