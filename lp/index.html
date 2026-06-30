@@ -404,7 +404,7 @@ footer.foot{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-3);f
         <button class="lev-btn" id="up" aria-label="Subir nível">+</button>
       </div>
     </div>
-    <div class="coach steady" id="coach">No degrau certo pra o Pedro agora.</div>
+    <div class="coach steady" id="coach">No degrau certo para o Pedro agora.</div>
     <p class="d-hint">Toque em <b>− / +</b> e veja a atividade mudar de nível</p>
   </div>
 </div></div></header>
@@ -592,7 +592,7 @@ function render(delta){
   up.disabled=rung===LADDER.length-1;dn.disabled=rung===0;
   if(delta<0){c.className='coach down';c.textContent='↓ Desci um degrau — a atividade voltou pra base que ele ainda precisa firmar.';}
   else if(delta>0){c.className='coach up';c.textContent='↑ Subi um degrau — material novo, no ritmo certo da criança.';}
-  else{c.className='coach steady';c.textContent='No degrau certo pra o Pedro agora.';}
+  else{c.className='coach steady';c.textContent='No degrau certo para o Pedro agora.';}
 }
 up.addEventListener('click',()=>{if(rung<LADDER.length-1){rung++;render(1);}});
 dn.addEventListener('click',()=>{if(rung>0){rung--;render(-1);}});
